@@ -1,0 +1,62 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+@font-face {
+    font-family: "Roboto";
+    src: url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+}
+
+* {
+    font-family: "Roboto";
+    -fx-font-size: 14px;
+}
+
+/* Ajouter une couleur de fond personnalisée */
+BorderPane {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Style des boutons */
+Button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: #fff;
+    -fx-padding: 8 16;
+    -fx-border-radius: 2px;
+}
+
+/* Style des champs de texte */
+TextField {
+    -fx-background-color: #fff;
+    -fx-border-color: #ccc;
+    -fx-padding: 8;
+    -fx-border-radius: 2px;
+}
+
+/* Style des labels */
+Label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style de la table */
+TableView {
+    -fx-background-color: #fff;
+    -fx-border-color: #ccc;
+    -fx-padding: 10;
+}
+
+/* Style des colonnes */
+TableColumn {
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* Style des lignes */
+.table-row-cell:odd {
+    -fx-background-color: #f0f0f0;
+}
