@@ -13,6 +13,9 @@ import ggaming.entity.Jeux;
 import ggaming.services.ServiceCatJeux;
 import ggaming.services.ServiceJeux;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,6 +52,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -118,6 +127,9 @@ public class JeuxController implements Initializable {
 
     @FXML
     private ImageView jeuximage;
+    
+    @FXML
+    private ImageView jeuxlg;
 
     @FXML
     private TextField tfid;
@@ -214,9 +226,60 @@ private void loadDataJeux() {
 }
      @FXML
     void ajouterJeux(ActionEvent event) {
+         String libelle = tfLibelle.getText().trim();
+         String logo_jeux=jeuxlg.getImage().toString();
+         String image_jeux=jeuximage.getImage().toString();
+        if(libelle.isEmpty()){
+            tfLibelle.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le libelle");
+            alert.showAndWait();
+            return;
+        }
 
+        LocalDateTime currentDate = LocalDateTime.now();
+        Jeux b = new Jeux(100, libelle, image_jeux, logo_jeux, currentDate, 0);
+        ServiceJeux sb = new ServiceJeux();
+        sb.initConnection();
+        sb.ajouter(b);
+        refreshTable();
+       tfid.clear();
+        tfLibelle.clear();
     }
-   
+    @FXML
+    private void addlogo(ActionEvent event) throws IOException {
+        
+        FileChooser Chooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
+        FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
+        
+        Chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
+        File file = Chooser.showOpenDialog(null);
+        BufferedImage bufferedimg = ImageIO.read(file);
+        Image image = SwingFXUtils.toFXImage(bufferedimg, null);
+        jeuxlg.setImage(image);
+      
+        
+    }
+    @FXML
+    private void addimage(ActionEvent event) throws IOException {
+        
+        FileChooser Chooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
+        FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
+        
+        Chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
+        File file = Chooser.showOpenDialog(null);
+        BufferedImage bufferedimg = ImageIO.read(file);
+        Image image = SwingFXUtils.toFXImage(bufferedimg, null);
+        jeuximage.setImage(image);
+      
+        
+    }
     @FXML
     private void suppjeux(ActionEvent event){
         try{

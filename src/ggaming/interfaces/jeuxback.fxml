@@ -175,7 +175,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <Button fx:id="imageimportBtn" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
+                                          <Button fx:id="imageimportBtn" layoutY="137.0" mnemonicParsing="false" onAction="#addimage" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
                                           <ImageView fx:id="jeuximage" fitHeight="135.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
@@ -186,7 +186,8 @@
                                     <ComboBox fx:id="listeType" layoutX="117.0" layoutY="442.0" prefWidth="150.0" promptText="Choose" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <AnchorPane layoutX="654.0" layoutY="386.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
                                        <children>
-                                          <Button fx:id="logoimportBtn" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import logo" />
+                                          <Button fx:id="logoimportBtn" layoutY="137.0" mnemonicParsing="false" onAction="#addlogo" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import logo" />
+                                          <ImageView fx:id="jeuxlg" fitHeight="135.0" fitWidth="141.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                        <styleClass>
                                           <String fx:value="white-bg" />
@@ -194,7 +195,7 @@
                                        </styleClass>
                                     </AnchorPane>
                                     <ImageView fx:id="jeuxlogo" fitHeight="135.0" fitWidth="141.0" layoutX="331.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label fx:id="errormsg" layoutX="26.0" layoutY="551.0" text="Label" textFill="#ff0900" />
+                                    <Label fx:id="errormsg" layoutY="659.0" text="Label" textFill="#ff0900" />
                                     <Label layoutX="69.0" layoutY="414.0" text="ID:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />

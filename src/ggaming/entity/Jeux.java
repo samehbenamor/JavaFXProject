@@ -122,6 +122,7 @@ public Jeux( String libelle, String ref,List<CategorieJeux> categories, LocalDat
         this.views=views;
     }
 
+    
 
  public List<CategorieJeux> getCategories() {
         return categories;
@@ -229,7 +230,7 @@ public Jeux(int id, String libelle, String imageJeux, String logoJeux, LocalDate
     this.totalNote = 0.0f;
 }
 
-private String generateRef() {
+public String generateRef() {
     // generate a unique reference here and return it
 return "09fbfgz";
 }
