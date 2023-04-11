@@ -20,6 +20,12 @@ public class Commentaire {
     public Commentaire() {
     }
 
+    public Commentaire(int id, String contenu, LocalDateTime date_modification) {
+        this.id = id;
+        this.contenu = contenu;
+        this.date_modification = date_modification;
+    }
+
     public Commentaire(int id, String contenu, LocalDateTime date_creation, LocalDateTime date_modification) {
         this.id = id;
         this.contenu = contenu;

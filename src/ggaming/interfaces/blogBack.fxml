@@ -46,7 +46,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                              
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
@@ -100,9 +100,9 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/logo.png" />
+                                    <Image url="@../../../../Some%209raya%20shit/pidev/ggaming.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -196,9 +196,9 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="blogsTable" layoutX="1.0" layoutY="62.0" prefHeight="318.0" prefWidth="1102.0">
+                                          <TableView fx:id="blogsTable" layoutX="1.0" layoutY="62.0" onMouseClicked="#GetSelected" prefHeight="318.0" prefWidth="1102.0" style="-fx-border-color: #212530;">
                                             <columns>
-                                              <TableColumn fx:id="tcid" prefWidth="63.0" text="Id" />
+                                              <TableColumn fx:id="idcol" prefWidth="63.0" text="Id" />
                                               <TableColumn fx:id="titrecol" prefWidth="235.0" text="Titre" />
                                                 <TableColumn fx:id="contenucol" prefWidth="290.0" text="Contenu" />
                                                 <TableColumn fx:id="datecreationcol" minWidth="0.0" prefWidth="141.0" text="Date Creation" />
@@ -213,19 +213,19 @@
                                                 <Font size="36.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="commentairesBtn" layoutX="864.0" layoutY="9.0" mnemonicParsing="false" onAction="#GoComments" prefHeight="41.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Commentaires" />
+                                          <Button fx:id="commentairesBtn" layoutX="864.0" layoutY="9.0" mnemonicParsing="false" onAction="#GoComments" prefHeight="41.0" prefWidth="194.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Commentaires" />
                                          
                                        </children>
                                     </AnchorPane>
-                                    <Label layoutX="150.0" layoutY="375.0" text="Titre:">
+                                    <Label layoutX="50.0" layoutY="375.0" text="Titre:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="titretxt" layoutX="193.0" layoutY="375.0" prefHeight="75.0" prefWidth="194.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="titretxt" layoutX="96.0" layoutY="375.0" prefHeight="75.0" prefWidth="194.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
                             
-                                    <Label layoutX="127.0" layoutY="460.0" text="Contenu:">
+                                    <Label layoutX="27.0" layoutY="460.0" text="Contenu:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
@@ -234,7 +234,7 @@
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
                                     
 
-                                    <AnchorPane layoutX="685.0" layoutY="425.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane layoutX="553.0" layoutY="387.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
@@ -243,9 +243,23 @@
                                           <Button fx:id="importimagebtn" layoutY="139.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="addBtn" layoutX="962.0" layoutY="611.0" mnemonicParsing="false" onAction="#AjouterBlog" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="deleteBtn" layoutX="860.0" layoutY="611.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <TextField fx:id="contenutxt" layoutX="193.0" layoutY="460.0" prefHeight="192.0" prefWidth="437.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="addBtn" layoutX="990.0" layoutY="613.0" mnemonicParsing="false" onAction="#AjouterBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+                                    <Button fx:id="deleteBtnBlog" layoutX="781.0" layoutY="613.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <TextField fx:id="contenutxt" layoutX="96.0" layoutY="460.0" prefHeight="192.0" prefWidth="437.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="editbtnBlog" layoutX="885.0" layoutY="613.0" mnemonicParsing="false" onAction="#EditerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
+                                    <TextField fx:id="idtxt" layoutX="342.0" layoutY="374.0" prefHeight="38.0" prefWidth="67.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Label layoutX="315.0" layoutY="375.0" text="ID:">
+                                       <font>
+                                          <Font name="Tahoma" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="etattxt" layoutX="342.0" layoutY="413.0" prefHeight="38.0" prefWidth="67.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Label layoutX="304.0" layoutY="416.0" text="Etat:">
+                                       <font>
+                                          <Font name="Tahoma" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="annulerbtn" layoutX="676.0" layoutY="613.0" mnemonicParsing="false" onAction="#AnnulerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

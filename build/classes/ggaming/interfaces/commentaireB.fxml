@@ -47,7 +47,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                              
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
@@ -101,9 +101,9 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/logo.png" />
+                                    <Image url="@../../../../Some%209raya%20shit/pidev/ggaming.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -197,33 +197,41 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="blogsTable" layoutX="1.0" layoutY="62.0" prefHeight="318.0" prefWidth="1102.0">
+                                          <TableView fx:id="CommentairesTable" layoutX="1.0" layoutY="62.0" onMouseClicked="#GetSelectedCommentaire" prefHeight="318.0" prefWidth="1102.0" style="-fx-border-color: #212530;">
                                             <columns>
-                                              <TableColumn fx:id="tcid" prefWidth="115.0" text="Id" />
-                                                <TableColumn fx:id="contenucol" prefWidth="607.0" text="Contenu" />
-                                                <TableColumn fx:id="datecreationcol" minWidth="0.0" prefWidth="196.0" text="Date Creation" />
-                                                <TableColumn fx:id="datemodificationcol" minWidth="0.0" prefWidth="183.0" text="Date Modification" />
+                                              <TableColumn fx:id="idcommentaire" prefWidth="115.0" text="Id" />
+                                                <TableColumn fx:id="contenucolC" prefWidth="607.0" text="Contenu" />
+                                                <TableColumn fx:id="datecreationcolC" minWidth="0.0" prefWidth="196.0" text="Date Creation" />
+                                                <TableColumn fx:id="datemodificationcolC" minWidth="0.0" prefWidth="183.0" text="Date Modification" />
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
-                                          <Button fx:id="retourbtn" layoutX="980.0" layoutY="9.0" mnemonicParsing="false" onAction="#RetourBlog" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
+                                          <Button fx:id="retourbtn" layoutX="980.0" layoutY="9.0" mnemonicParsing="false" onAction="#RetourBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
                                          
                                        </children>
                                     </AnchorPane>
                                     
                             
-                                    <Label layoutX="167.0" layoutY="446.0" text="Contenu:">
+                                    <Label layoutX="71.0" layoutY="464.0" text="Contenu:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
                                     
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
-                                    <Button fx:id="addBtnCommentaire" layoutX="962.0" layoutY="611.0" mnemonicParsing="false" onAction="#AjouterCommentaire" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="deleteBtn" layoutX="860.0" layoutY="611.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <TextField fx:id="contenuCommentairetxt" layoutX="242.0" layoutY="440.0" prefHeight="192.0" prefWidth="437.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <TextField fx:id="idBlogTxt" layoutX="242.0" layoutY="400.0" />
-                                    <Text layoutX="158.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id du blog:">
+                                    <Button fx:id="addBtnCommentaire" layoutX="962.0" layoutY="611.0" mnemonicParsing="false" onAction="#AjouterCommentaire" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+                                    <Button fx:id="deleteBtncommentaire" layoutX="756.0" layoutY="611.0" mnemonicParsing="false" onAction="#SupprimerCommentaire" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <TextField fx:id="contenuCommentairetxt" layoutX="140.0" layoutY="464.0" prefHeight="192.0" prefWidth="437.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Text layoutX="74.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Blog:">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Button fx:id="editerBtnCommentaire" layoutX="860.0" layoutY="612.0" mnemonicParsing="false" onAction="#EditerCommentaire" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
+                                    <Button fx:id="annulerbtn" layoutX="651.0" layoutY="611.0" mnemonicParsing="false" onAction="#AnnulerCommentaire" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <TextField fx:id="idBlogTxt" layoutX="141.0" layoutY="374.0" prefHeight="37.0" prefWidth="63.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="idCommenttxt" layoutX="141.0" layoutY="420.0" prefHeight="37.0" prefWidth="63.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Text layoutX="21.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Commentaire:">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

@@ -24,6 +24,15 @@ public class Blog {
         commentaires = new ArrayList<Commentaire>();
     }
 
+    public Blog(int id,String titre, String contenu, String imageblog, LocalDateTime date_modification,int etat) {
+        this.id = id;
+        this.titre = titre;
+        this.contenu = contenu;
+        this.imageblog = imageblog;
+        this.date_modification = date_modification;
+        this.etat = etat;
+    }
+
 
     public Blog(String titre, String contenu) {
         commentaires = new ArrayList<Commentaire>();

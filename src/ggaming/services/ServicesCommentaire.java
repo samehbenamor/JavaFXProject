@@ -39,4 +39,35 @@ public class ServicesCommentaire {
             System.out.println(ex.getMessage());
         }
     }
+
+    public void deleteCommentaire(int commentId) {
+        try {
+            String sql = "DELETE FROM commentaire WHERE id = ?";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setInt(1, commentId);
+            ps.executeUpdate();
+            System.out.println("commentaire with ID " + commentId + " has been deleted.");
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void updateCommentaire(Commentaire c) {
+        try {
+            String sql = "UPDATE commentaire SET contenu = ?, date_modification = ? WHERE id = ?";
+
+            PreparedStatement ps = cnx.prepareStatement(sql);
+
+            ps.setString(1, c.getContenu());
+            ps.setObject(2, c.getDate_modification());
+
+            ps.executeUpdate();
+
+            System.out.println("commentaire updated successfully");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
