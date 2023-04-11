@@ -211,7 +211,7 @@ private int selectedEquipeId;
     String description_equipe=tfDescripeq.getText();
     int nb_joueurs=Integer.parseInt(tfnbrj.getText());
     String site_web=tfwebsite.getText();
-    String logo_equipe=logoimage.getImage().toString();;
+    String logo_equipe=logoimage.getImage().toString();
     java.sql.Date date_creation = java.sql.Date.valueOf(datec.getValue());
     Equipe p = new Equipe(nom_equipe, description_equipe, logo_equipe, site_web, nb_joueurs,date_creation);
     
@@ -290,7 +290,7 @@ private int selectedEquipeId;
         }
     }
 
-    
+    /*
     private void suppequipe(MouseEvent event) {
         
          try{
@@ -317,7 +317,7 @@ private int selectedEquipeId;
         
         
     }
-
+*/
     @FXML
     private void suppequipe() {
         /*
@@ -373,6 +373,69 @@ private int selectedEquipeId;
         tfwebsite.setText("");
         tfideq.setText("");
         logoimage.setImage(null);
+        
+    }
+    
+    public boolean controleSaisie()
+      {
+          Alert alert;
+          EquipeService sp=new EquipeService();
+          if(tfnameeq.getText().isEmpty())
+        {
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez saisir le nom du produit");
+             alert.showAndWait();
+             return false;
+        }
+       
+       
+          
+          return true;
+      }
+
+    @FXML
+    private void modifierequipe() {
+        Alert alert;
+        String nom_equipe=tfnameeq.getText();
+        String description_equipe=tfDescripeq.getText();
+        int nb_joueurs=Integer.parseInt(tfnbrj.getText());
+        String site_web=tfwebsite.getText();
+        
+        String image_equipe=logoimage.getImage().toString();
+        String ancien_image=logoimage.getImage().toString();
+        if(controleSaisie())
+        {
+       
+        Equipe e;
+        if(image_equipe==null) //il n'a pas choisi une nouvelle image
+        { e=new Equipe(nom_equipe,description_equipe,site_web,ancien_image,nb_joueurs);}
+        else
+        {
+            e=new Equipe(nom_equipe,description_equipe,site_web,image_equipe,nb_joueurs);
+        }
+        
+        
+        EquipeService service=new EquipeService();
+        int id=Integer.parseInt(tfideq.getText());
+        
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Cofirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de modifier le produit ID " + id + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                
+                 if (option.get().equals(ButtonType.OK)) {
+                       service.modifierEquipe(id,e);
+                        loadDataEquipe();//mise à jour de la table
+                     
+                 }
+                 else
+                 {
+                    annulerequipe();//vidre les champs des textFields
+                 }
+        }
         
     }
     

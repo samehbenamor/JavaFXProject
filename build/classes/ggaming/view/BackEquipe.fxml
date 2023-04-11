@@ -261,7 +261,7 @@
                                        </children>
                                     </AnchorPane>
                                     <Button fx:id="btnaddeq" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="btnmodifeq" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
+                                    <Button fx:id="btnmodifeq" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifierequipe" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
                                     <Button fx:id="btndeleteeq" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppequipe" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
                                     <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerequipe" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescripeq" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />

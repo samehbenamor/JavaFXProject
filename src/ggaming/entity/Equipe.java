@@ -32,6 +32,14 @@ public class Equipe {
         this.date_creation = date_creation;
     }
 
+    public Equipe(String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs) {
+        this.nom_equipe = nom_equipe;
+        this.description_equipe = description_equipe;
+        this.logo_equipe = logo_equipe;
+        this.site_web = site_web;
+        this.nb_joueurs = nb_joueurs;
+    }
+
     public Equipe(String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs, Date date_creation) {
         this.nom_equipe = nom_equipe;
         this.description_equipe = description_equipe;

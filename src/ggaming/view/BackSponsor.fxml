@@ -5,7 +5,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,7 +18,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming.view.BackEquipeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming.view.BackSponsorController">
    <children>
       <AnchorPane fx:id="boutique_back" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -207,14 +206,13 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="tableEquipe" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="tableSponsor" layoutX="68.0" layoutY="61.0" prefHeight="302.0" prefWidth="942.0">
                                             <columns>
-                                              <TableColumn fx:id="collid" prefWidth="198.0" text="ID" />
-                                              <TableColumn fx:id="collnameeq" prefWidth="184.0" text="Nom equipe" />
-                                                <TableColumn fx:id="colldesceq" prefWidth="168.0" text="Description equipe" />
-                                                <TableColumn fx:id="collnbjeq" minWidth="0.0" prefWidth="158.0" text="nombre de joueurs" />
-                                                <TableColumn fx:id="collsiteweb" minWidth="0.0" prefWidth="128.0" text="site web" />
-                                                <TableColumn fx:id="colllogoeq" minWidth="8.0" prefWidth="123.0" text="logo equipe" />
+                                              <TableColumn fx:id="collidsp" prefWidth="198.0" text="ID" />
+                                              <TableColumn fx:id="collnamesp" prefWidth="184.0" text="Nom Sponsor" />
+                                                <TableColumn fx:id="colldescsp" prefWidth="168.0" text="Description sponsor" />
+                                                <TableColumn fx:id="collsitewebsp" minWidth="0.0" prefWidth="128.0" text="site web" />
+                                                <TableColumn fx:id="colllogoeqsp" minWidth="8.0" prefWidth="123.0" text="logo equipe" />
                                                 <TableColumn fx:id="colldatecr" minWidth="0.0" prefWidth="137.0" text="Date Création" />
                                             </columns>
                                           </TableView>
@@ -222,30 +220,24 @@
                                          
                                        </children>
                                     </AnchorPane>
-                                    <Label layoutX="51.0" layoutY="384.0" text="Nom equipe">
+                                    <Label layoutX="39.0" layoutY="383.0" text="Nom sponsor">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
                                     
                             
-                                    <Label layoutX="6.0" layoutY="428.0" text="Description equipe:">
+                                    <Label layoutX="6.0" layoutY="428.0" text="Description Sponsor:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="380.0" layoutY="428.0" text="site web">
+                                    <Label layoutX="378.0" layoutY="383.0" text="site web">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfwebsite" layoutX="485.0" layoutY="424.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Label layoutX="347.0" layoutY="383.0" text="nombre de joueurs">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="tfnbrj" layoutX="485.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="tfwebsitesp" layoutX="446.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
                                     
@@ -256,24 +248,18 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <Button fx:id="addimage" layoutY="137.0" mnemonicParsing="false" onAction="#addlogo" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
-                                          <ImageView fx:id="logoimage" fitHeight="135.0" fitWidth="141.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Button fx:id="addimagesp" layoutY="137.0" mnemonicParsing="false" onAction="#addlogosp" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
+                                          <ImageView fx:id="logoimagesp" fitHeight="135.0" fitWidth="141.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="btnaddeq" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="btnmodifeq" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifierequipe" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
-                                    <Button fx:id="btndeleteeq" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppequipe" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerequipe" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
-                                    <TextArea fx:id="tfDescripeq" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
-                                    <Label layoutX="362.0" layoutY="474.0" text="date de creation">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <DatePicker fx:id="datec" layoutX="484.0" layoutY="471.0" />
-                                    <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="btnaddsp" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onMouseClicked="#savesp" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+                                    <Button fx:id="btnmodifsp" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifiersponsor" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
+                                    <Button fx:id="btndeletesp" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppsponsor" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <Button fx:id="addsponsor_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulersponsor" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <TextArea fx:id="tfDescripsp" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
+                                    <TextField fx:id="tfnamesp" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
-                                    <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />
+                                    <TextField fx:id="tfidsp" layoutX="134.0" layoutY="512.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

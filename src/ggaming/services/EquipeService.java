@@ -31,10 +31,11 @@ public class EquipeService implements equipeinterfaces <Equipe> {
     private ResultSet rs;
  Connection cnx2;
     
-    
+    /*
     {
         cnx2=MyConnection.getInstance().getCnx();
     }
+*/
     public EquipeService() {
         MyConnection cs = MyConnection.getInstance();
         try {
@@ -173,6 +174,36 @@ public class EquipeService implements equipeinterfaces <Equipe> {
     @Override
     public boolean update(Equipe os) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     public void modifierEquipe(int id, Equipe e)
+    {
+        String requete="UPDATE Equipe SET nom_equipe=?,description_equipe=?,nb_joueurs=?,logo_equipe=?,site_web=? WHERE id=? ";
+        try {
+            Alert alert;
+             PreparedStatement pst=cnx2.prepareStatement(requete);
+             pst.setString(1,e.getNom_equipe());
+             pst.setString(2,e.getDescription_equipe());
+             pst.setInt(3,e.getNb_joueurs());
+             pst.setString(4,e.getLogo_equipe());
+             pst.setString(5,e.getSite_web());
+             
+             
+             pst.setInt(6,id);
+             
+             pst.executeUpdate();
+             pst.close();
+             System.out.println("equipe Modifié avec succès...");
+              alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("equipe modifié avec succès!");
+                    alert.showAndWait();
+        } catch (SQLException ex) {
+           System.err.println(ex.getMessage());
+        }
+       
+        
     }
     
 }
