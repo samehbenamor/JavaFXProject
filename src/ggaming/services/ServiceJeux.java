@@ -129,8 +129,22 @@ public Jeux findById(int id) {
         }
             }
 
-    
-    
+     public void updatelibelle(Jeux t) {
+  try {
+            String sql = "update jeux set libelle=? where id = ?";
+            
+            PreparedStatement stmt = cnx.prepareStatement(sql);
+            stmt.setString(1,t.getLibelle()); 
+            stmt.setInt(2, t.getId());
+         
+            stmt.executeUpdate();
+            System.out.println("Jeux modifier avec success");
+            
+            
+        } catch (SQLException ex) {
+               System.out.println(ex.getMessage());
+        }
+            }
    
     public void delete(Jeux t) {
  try {

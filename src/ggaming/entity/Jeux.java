@@ -38,14 +38,33 @@ public class Jeux {
         this.views = views;
     }
 
-
+public Jeux(String ref, String libelle, LocalDateTime dateCreation, int views, float noteMyonne) {
+    
+    this.ref = ref;
+    this.libelle = libelle;
+    this.dateCreation = dateCreation;
+    this.views = views;
+    this.noteMyonne = noteMyonne;
+}
+public Jeux(int id,String ref, String libelle, LocalDateTime dateCreation, int views, float noteMyonne) {
+    this.id = id;
+    this.ref = ref;
+    this.libelle = libelle;
+    this.dateCreation = dateCreation;
+    this.views = views;
+    this.noteMyonne = noteMyonne;
+}
 public Jeux() {
     }
-
-public Jeux(int id,String libelle) {
-        this.libelle = libelle; 
-this.id = id; 
+public Jeux(int id) {
+    this.id = id; 
     }
+
+public Jeux(int id, String libelle) {
+    this.id = id;
+    this.libelle = libelle;
+}
+
 public Jeux(String libelle) {
         this.libelle = libelle;  
     }
@@ -212,7 +231,7 @@ public Jeux(int id, String libelle, String imageJeux, String logoJeux, LocalDate
 
 private String generateRef() {
     // generate a unique reference here and return it
-return "09svez";
+return "09fbfgz";
 }
 
 }

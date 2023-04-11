@@ -132,7 +132,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="jeuxtableView" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="jeuxtable" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
                                             <columns>
                                               <TableColumn fx:id="tcref" prefWidth="198.0" text="Reference" />
                                               <TableColumn fx:id="tclibelle" prefWidth="234.0" text="Libelle" />
@@ -178,7 +178,7 @@
                                           <ImageView fx:id="jeuximage" fitHeight="135.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="jeuxaddBtn" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+                                    <Button fx:id="jeuxaddBtn" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onAction="#ajouterJeux" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
                                     <Button fx:id="jeuxupdateBtn" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
                                     <Button fx:id="jeuxdeleteBtn" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
                                     <Button fx:id="jeuxclearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />

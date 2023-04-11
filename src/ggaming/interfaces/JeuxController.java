@@ -4,9 +4,17 @@
  */
 package ggaming.interfaces;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import com.sun.jdi.connect.spi.Connection;
+import ggaming.cnx.MaConnection;
 import ggaming.entity.CategorieJeux;
+import ggaming.entity.Jeux;
 import ggaming.services.ServiceCatJeux;
+import ggaming.services.ServiceJeux;
+import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,9 +41,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * FXML Controller class
@@ -60,22 +73,23 @@ public class JeuxController implements Initializable {
     private TextField tfLibelle;
 
     @FXML
-    private TableColumn<?, ?> tcnoteM;
+    private TableColumn<Jeux, Float> tcnoteM;
 
     @FXML
     private Button jeuxbtn;
 
     @FXML
-    private TableColumn<?, ?> tcdate;
+    private TableColumn<Jeux, LocalDateTime> tcdate;
 
     @FXML
     private Button jeuxaddBtn;
 
     @FXML
-    private TableColumn<?, ?> tcviews;
-
+    private TableColumn<Jeux, Integer> tcviews;
     @FXML
-    private TableColumn<?, ?> tclibelle;
+    private TableColumn<Jeux, Integer> tcid;
+    @FXML
+    private TableColumn<Jeux, String> tclibelle;
 
     @FXML
     private Button jeuxupdateBtn;
@@ -87,19 +101,20 @@ public class JeuxController implements Initializable {
     private ComboBox<?> listeType;
 
     @FXML
-    private ComboBox<?> listeCat;
+    private ComboBox<CategorieJeux> listeCat;
 
     @FXML
     private Button jeuxdeleteBtn;
 
     @FXML
-    private TableColumn<?, ?> tcref;
+    private TableColumn<Jeux, String> tcref;
 
     @FXML
     private Button logoimportBtn;
 
     @FXML
-    private TableView<?> jeuxableView;
+    private TableView<Jeux> jeuxtable;
+  
 
     @FXML
     private ImageView jeuximage;
@@ -109,44 +124,138 @@ public class JeuxController implements Initializable {
 
     @FXML
     private Button catjeuxbtn;
-
+    @FXML
+    private Label errormsg;
+   
     @FXML
     private Button imageimportBtn;
 
     @FXML
     private Button close;
     
-/**
-     * Initializes the controller class.
-     */
+    private int selectedJeuxId;
+    int index=-1;
+    
+    private ObservableList<Jeux> Data;
+    private Connection con;
+    String query = null;
+    //Connection connection = null ;
+    private ServiceJeux servicesJeux;
+    private ServiceCatJeux servicesCatJeux;
+    PreparedStatement preparedStatement = null ;
+    ResultSet resultSet = null ;
+    Jeux jeux = null ;
+    Jeux j = new Jeux();
+    ObservableList<Jeux>  jeuxList = FXCollections.observableArrayList();
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        servicesJeux = new ServiceJeux();
+        servicesJeux.initConnection();
+        loadDataJeux();
+         jeuxtable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        if (newSelection != null) {
+            // Get the id of the selected Jeux item
+            selectedJeuxId = newSelection.getId();
+            // Populate the input fields with the selected Jeux data
+            tfLibelle.setText(newSelection.getLibelle());
+            tfid.setText(Integer.toString(newSelection.getId()));
+        }
+    });
+     // listeCat.setItems(FXCollections.observableArrayList(new ServiceCatJeux().getAllNames()));
 
-/*ServiceCatJeux cs = new ServiceCatJeux();
-        catListObservable = FXCollections.observableArrayList(cs.getAll());
-        listcat.setItems(catListObservable);
-        tablabel.setText("Liste des categorie jeux : " + catListObservable.size());*/
+
+    }
+private void refreshTable() {
+    try {
+        jeuxList.clear();
+        query = "SELECT * FROM jeux";
+       java.sql.Connection connection = MaConnection.getInstance().getCnx();
+
+
+        if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                LocalDateTime dateCreation = resultSet.getTimestamp("date_creation").toLocalDateTime();
+             jeuxList.add(new Jeux(
+     resultSet.getInt("id"),
+        resultSet.getString("ref"),
+        resultSet.getString("libelle"),
+        dateCreation,
+       resultSet.getInt("views"),
+                     
+        resultSet.getFloat("note_myonne")
+    ));
+            }
+            jeuxtable.setItems(jeuxList);
+        } else {
+            System.out.println("Database connection is null");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(JeuxController.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }
-        
+
+private void loadDataJeux() {
+    try {
+        refreshTable();
+        tcref.setCellValueFactory(new PropertyValueFactory<>("ref"));
+        tclibelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+        tcdate.setCellValueFactory(new PropertyValueFactory<>("dateCreation"));
+        tcviews.setCellValueFactory(new PropertyValueFactory<>("views"));
+        tcnoteM.setCellValueFactory(new PropertyValueFactory<>("noteMyonne"));
+        tcid.setCellValueFactory(new PropertyValueFactory<>("id"));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+     @FXML
+    void ajouterJeux(ActionEvent event) {
+
+    }
+   
     @FXML
-    private void handler(ActionEvent event) {
+    private void suppjeux(ActionEvent event){
+        try{
+
+            String idstring = tfid.getText();
+
+            int id = Integer.parseInt(idstring);
+
+            Jeux b = new Jeux(id);
         
-        if(event.getSource()== jeuxbtn)
-     {
-         jeuxback.toFront();
-     }else  if(event.getSource()== catjeuxbtn)
-     {
-       // pnCatJeux.toFront();
-        
-     }
-         
+            ServiceJeux sb = new ServiceJeux();
+            sb.initConnection();
+            sb.delete(b);
+            refreshTable();
+            tfid.clear();
+        tfLibelle.clear();
+        }catch(Exception e){
+        }
     }
+    @FXML
+    private void Editerjeux(ActionEvent event){
+        try{
+
+            String idstring = tfid.getText();
+            String libstring = tfLibelle.getText();
+          
+
+            int id = Integer.parseInt(idstring);
+
+            Jeux b = new Jeux(id,libstring);
         
-    
+            ServiceJeux sb = new ServiceJeux();
+            sb.initConnection();
+            sb.updatelibelle(b);
+            refreshTable();
+            tfid.clear();
+        tfLibelle.clear();
+        }catch(Exception e){
+        }
     }
     
-    
-
-
-
-
+}

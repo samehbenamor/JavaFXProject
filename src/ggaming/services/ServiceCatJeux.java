@@ -72,29 +72,21 @@ public class ServiceCatJeux {
             }
 
 public CategorieJeux findById(int id) {
-
-   CategorieJeux b=null ;
-        Statement stmt;
-        
-        try {
-            String sql = "select * from categorie_jeux where id = "+id;
-            
-             stmt = cnx.createStatement();
-            
-               ResultSet rs =  stmt.executeQuery(sql);
-                
-                if(rs.next()){
-
-                    b = new CategorieJeux(rs.getInt(1), rs.getString(2));
-                }
-                return b;
-                    
-            
-        } catch (SQLException ex) {
-               System.out.println(ex.getMessage());
+    CategorieJeux categorieJeux = null;
+    Statement stmt;
+    try {
+        String sql = "SELECT * FROM categorie_jeux WHERE id = " + id;
+        stmt = cnx.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            categorieJeux = new CategorieJeux(rs.getInt(1), rs.getString(2));
         }
-        return b;
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
     }
+    return categorieJeux;
+}
+
 
 
   
@@ -136,6 +128,29 @@ public CategorieJeux findById(int id) {
 
 
     }
+public List<CategorieJeux> getAllNames() {
+    List<CategorieJeux> all = new ArrayList<>();
+    Statement stmt;
+    try {
+        String sql = "select * from categorie_jeux";
+
+        stmt = cnx.createStatement();
+
+        ResultSet rs =  stmt.executeQuery(sql);
+
+        while(rs.next()){
+            CategorieJeux b = new CategorieJeux(rs.getInt(1), rs.getString(2) );
+
+            all.add(b);
+        }
+        return all;
+
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return all;
+}
+
 
     
 }

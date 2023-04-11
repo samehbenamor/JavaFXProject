@@ -22,14 +22,15 @@ public class CGgaming2 {
      */
     public static void main(String[] args) {
     
-       Jeux b = new Jeux(3, "test2", "09ncizbiq.png", "09ngcizbiq.jpg", LocalDateTime.now(), 5);
+       Jeux b = new Jeux(4, "testing", "09ncizbiq.png", "09ngcizbiq.jpg", LocalDateTime.now(), 5);
         CategorieJeux cat= new CategorieJeux(20,"test2");
         ServiceJeux bs = new ServiceJeux();
         ServiceCatJeux bc = new ServiceCatJeux();
         bs.initConnection(); 
         bc.initConnection();
+        // bs.ajouter(b);
 //aff all method
-     List<Jeux> allJeux = bs.getAll();
+    /* List<Jeux> allJeux = bs.getAll();
     for (Jeux jeu : allJeux) {
     System.out.println("Reference: " + jeu.getRef());
     System.out.println("Libelle: " + jeu.getLibelle());
@@ -42,7 +43,7 @@ public class CGgaming2 {
     System.out.println("Note totale: " + jeu.getTotalNote());
     System.out.println();
        }
-
+*/
 // call the initConnection() method
 //bc.ajouter(cat);
 //List<CategorieJeux> allCatJeux = bc.getAll();
