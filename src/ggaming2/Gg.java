@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package ggaming2;
+//Knowing that I have worked on the controller and DAO to create a working tableView that shows my Joueurs from the database, do I need to edit anything in the start function ? Knowing that the only
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -11,41 +12,46 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import java.io.IOException;
+import ggaming.services.JoueurController;
 
 /**
  *
  * @author DELL
  */
 public class Gg extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
 
-    /**
-     * @param args the command line arguments
-     */
+    @Override
+    public void start(Stage primaryStage){
+
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("boutiqueBack.fxml"));
+        //StackPane root = new StackPane();
+        //root.getChildren().add(loader);
+        //VBox root = loader.load();
+        Parent root;
+        try {
+            
+            root = new FXMLLoader(getClass().getResource("register.fxml")).load();
+            //root =FXMLLoader.load(getClass().getResource("boutiqueBack_1.fxml"));
+            Scene scene = new Scene(root);
+
+            primaryStage.setTitle("Enregistrez votre compte !");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        }
+        /**
+         * @param args the command line arguments
+         */
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

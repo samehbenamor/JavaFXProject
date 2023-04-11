@@ -1,0 +1,102 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ggaming.services;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.sql.DataSource;
+import ggaming.entity.Joueur;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import ggaming.cnx.MaConnection;
+
+/**
+ *
+ * @author DELL
+ */
+public class JoueurDAO {
+    private final Connection cnx;
+
+    public JoueurDAO() {
+        this.cnx = MaConnection.getInstance().getCnx();
+    }
+
+     public List<Joueur> getAllJoueurs() {
+        List<Joueur> joueurs = new ArrayList<>();
+        try {
+            PreparedStatement ps = cnx.prepareStatement("SELECT * FROM joueur ORDER BY id DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Joueur joueur = new Joueur();
+                joueur.setId(rs.getInt("id"));
+                joueur.setEmail(rs.getString("email"));
+                joueur.setPassword(rs.getString("password"));
+                joueur.setVerified(rs.getBoolean("is_verified"));
+                joueur.setNom(rs.getString("nom"));
+                joueur.setPrenom(rs.getString("prenom"));
+                joueur.setDatenai(rs.getDate("datenai"));
+                joueur.setProfile(rs.getString("pprofile"));
+                
+                joueur.setBanned(rs.getBoolean("is_banned"));
+                joueur.setIgn(rs.getString("ign"));
+                joueur.setWins(rs.getInt("wins"));
+                joueur.setLoses(rs.getInt("loses"));
+                //joueur.setCreatedAt(rs.getDate("created_at"));
+                //System.out.println(joueur);
+                joueurs.add(joueur);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return joueurs;
+    }
+     public void insert(Joueur joueur) throws SQLException {
+        PreparedStatement preparedStatement = cnx.prepareStatement("INSERT INTO joueur (email, roles, password, is_verified, nom, prenom, datenai, pprofile, is_banned, ign, wins, loses) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        preparedStatement.setString(1, joueur.getEmail());
+        preparedStatement.setString(2, Arrays.toString(joueur.getRoles()));
+        preparedStatement.setString(3, joueur.getPassword());
+        preparedStatement.setBoolean(4, joueur.isVerified());
+        preparedStatement.setString(5, joueur.getNom());
+        preparedStatement.setString(6, joueur.getPrenom());
+        preparedStatement.setDate(7, new java.sql.Date(joueur.getDatenai().getTime()));
+        preparedStatement.setString(8, joueur.getProfile());
+        preparedStatement.setBoolean(9, joueur.isBanned());
+        preparedStatement.setString(10, joueur.getIgn());
+        preparedStatement.setInt(11, joueur.getWins());
+        preparedStatement.setInt(12, joueur.getLoses());
+        //preparedStatement.setTimestamp(13, new Timestamp(joueur.getCreatedAt().getTime()));
+        preparedStatement.executeUpdate();
+    }
+     public void insertTest(Joueur joueur) {
+    try {
+        String query = "INSERT INTO joueur (email, roles, password, is_verified, nom, prenom, datenai, ign, is_banned, pprofile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = cnx.prepareStatement(query);
+        stmt.setString(1, joueur.getEmail());
+        stmt.setString(2, Arrays.toString(joueur.getRoles()));
+        stmt.setString(3, joueur.getPassword());
+        stmt.setBoolean(4, joueur.isVerified());
+        stmt.setString(5, joueur.getNom());
+        stmt.setString(6, joueur.getPrenom());
+        stmt.setDate(7, new java.sql.Date(joueur.getDatenai().getTime()));
+        stmt.setString(8, joueur.getIgn());
+        stmt.setBoolean(9, joueur.isBanned());
+        stmt.setString(10, joueur.getProfile());
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Inserting joueur failed, no rows affected.");
+        }
+        System.out.println("Joueur successfully inserted.");
+    } catch (SQLException ex) {
+        System.err.println("Error inserting joueur: " + ex.getMessage());
+    }
+}
+
+}
+
