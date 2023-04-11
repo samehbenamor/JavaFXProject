@@ -44,6 +44,10 @@ public class Equipe {
     public Equipe() {
     }
 
+    public Equipe(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public String toString() {
         return "Equipe{" + "id=" + id + ", nom_equipe=" + nom_equipe + ", description_equipe=" + description_equipe + ", logo_equipe=" + logo_equipe + ", site_web=" + site_web + ", nb_joueurs=" + nb_joueurs + ", date_creation=" + date_creation + '}';

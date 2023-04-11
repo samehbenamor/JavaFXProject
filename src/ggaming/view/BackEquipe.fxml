@@ -207,7 +207,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="addProduit_tableView" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="tableEquipe" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
                                             <columns>
                                               <TableColumn fx:id="collid" prefWidth="198.0" text="ID" />
                                               <TableColumn fx:id="collnameeq" prefWidth="184.0" text="Nom equipe" />
@@ -227,7 +227,6 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
                             
                                     <Label layoutX="6.0" layoutY="428.0" text="Description equipe:">
@@ -263,8 +262,8 @@
                                     </AnchorPane>
                                     <Button fx:id="btnaddeq" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onMouseClicked="#save" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
                                     <Button fx:id="btnmodifeq" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
-                                    <Button fx:id="btndeleteeq" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <Button fx:id="btndeleteeq" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppequipe" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerequipe" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescripeq" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
                                     <Label layoutX="362.0" layoutY="474.0" text="date de creation">
                                        <font>
@@ -272,6 +271,9 @@
                                        </font>
                                     </Label>
                                     <DatePicker fx:id="datec" layoutX="484.0" layoutY="471.0" />
+                                    <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Label layoutX="74.0" layoutY="516.0" text="ID" />
+                                    <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

@@ -5,20 +5,33 @@
  */
 package ggaming.view;
 
+import ggaming.cnx.MyConnection;
 import ggaming.entity.Equipe;
 import ggaming.services.EquipeService;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -26,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -77,21 +91,21 @@ public class BackEquipeController implements Initializable {
     @FXML
     private AnchorPane addEmployee_form;
     @FXML
-    private TableView<?> addProduit_tableView;
+    private TableView<Equipe> tableEquipe;
     @FXML
-    private TableColumn<?, ?> collid;
+    private TableColumn<Equipe, Integer> collid;
     @FXML
-    private TableColumn<?, ?> collnameeq;
+    private TableColumn<Equipe, String> collnameeq;
     @FXML
-    private TableColumn<?, ?> colldesceq;
+    private TableColumn<Equipe, String> colldesceq;
     @FXML
-    private TableColumn<?, ?> collnbjeq;
+    private TableColumn<Equipe, Integer> collnbjeq;
     @FXML
-    private TableColumn<?, ?> collsiteweb;
+    private TableColumn<Equipe, String> collsiteweb;
     @FXML
-    private TableColumn<?, ?> colllogoeq;
+    private TableColumn<Equipe, String> colllogoeq;
     @FXML
-    private TableColumn<?, ?> colldatecr;
+    private TableColumn<Equipe, Date> colldatecr;
     @FXML
     private TextField addEmployee_search;
     @FXML
@@ -146,13 +160,48 @@ public class BackEquipeController implements Initializable {
     private TableColumn<?, ?> salary_col_position;
     @FXML
     private TableColumn<?, ?> salary_col_salary;
+    
+    
+    
+    private ObservableList<Equipe> equipeData;
+    private Connection con;
+    String query = null;
+    //Connection connection = null ;
+    private EquipeService serviceEquipe;
+    PreparedStatement preparedStatement = null ;
+    ResultSet resultSet = null ;
+    Equipe elog = null ;
+    ObservableList<Equipe>  equipeList = FXCollections.observableArrayList();
+private int selectedEquipeId;
+    int index=-1;
+    @FXML
+    private TextField tfideq;
 
     /**
      * Initializes the controller class.
      */
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+         serviceEquipe = new EquipeService();
+        serviceEquipe.initConnection();
+        loadDataEquipe();
+        tableEquipe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        if (newSelection != null) {
+            // Get the id of the selected Jeux item
+            selectedEquipeId = newSelection.getId();
+            // Populate the input fields with the selected Jeux data
+            tfnameeq.setText(newSelection.getNom_equipe());
+            tfDescripeq.setText(newSelection.getDescription_equipe());
+            tfnbrj.setText(Integer.toString(newSelection.getNb_joueurs()));
+            tfwebsite.setText(newSelection.getSite_web());
+            
+            
+            tfideq.setText(Integer.toString(newSelection.getId()));
+        }
+    });
     }    
 
     @FXML
@@ -190,5 +239,142 @@ public class BackEquipeController implements Initializable {
         
         
     }
+    
+    private void loadDataEquipe() {
+        try {
+            refreshTable();
+            collid.setCellValueFactory(new PropertyValueFactory<>("id"));
+            collnameeq.setCellValueFactory(new PropertyValueFactory<>("nom_equipe"));
+            colldesceq.setCellValueFactory(new PropertyValueFactory<>("description_equipe"));
+            collnbjeq.setCellValueFactory(new PropertyValueFactory<>("nb_joueurs"));
+            collsiteweb.setCellValueFactory(new PropertyValueFactory<>("site_web"));
+            colllogoeq.setCellValueFactory(new PropertyValueFactory<>("logo_equipe"));
+            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creation;"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void refreshTable(){
+        try{
+            equipeList.clear();
+            query = "SELECT * FROM Equipe";
+            Connection connection = MyConnection.getInstance().getCnx();
+            if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()){
+                Date dateCreation = resultSet.getDate("date_creation");
+               
+                    equipeList.add(new Equipe(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom_equipe"),
+                        resultSet.getString("description_equipe"),
+                        resultSet.getString("logo_equipe"),
+                        resultSet.getString("site_web"),
+                           
+                        
+                             resultSet.getInt("nb_joueurs"),
+                        dateCreation
+                        
+                       
+                    ));
+                    tableEquipe.setItems(equipeList);
+                }
+            } else {
+                System.out.println("Database connection is null");
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
+    
+    private void suppequipe(MouseEvent event) {
+        
+         try{
+
+            String idstring = tfideq.getText();
+
+            int id = Integer.parseInt(idstring);
+
+            Equipe eq = new Equipe(id);
+        
+            EquipeService sb = new EquipeService();
+            sb.initConnection();
+            sb.deletee(eq);
+            refreshTable();
+            tfideq.clear();
+        tfnameeq.clear();
+        tfDescripeq.clear();
+        tfnbrj.clear();
+         tfwebsite.clear();
+         
+        }catch(Exception e){
+        }
+
+        
+        
+    }
+
+    @FXML
+    private void suppequipe() {
+        /*
+         try{
+
+            String idstring = tfideq.getText();
+
+            int id = Integer.parseInt(idstring);
+
+            Equipe eq = new Equipe(id);
+        
+            EquipeService sb = new EquipeService();
+            sb.initConnection();
+            sb.deletee(eq);
+            refreshTable();
+            tfideq.clear();
+        tfnameeq.clear();
+        tfDescripeq.clear();
+        tfnbrj.clear();
+         tfwebsite.clear();
+         
+        }catch(Exception e){
+        }
+*/
+        
+         Alert alert;
+        EquipeService service=new EquipeService();
+        int id=Integer.parseInt(tfideq.getText());
+        
+         alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cofirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de supprimer le produit ID " + id + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                
+                 if (option.get().equals(ButtonType.OK)) 
+                 {
+                      service.supprimerequipe(id); //procéder à la suppression
+                      annulerequipe();
+                      loadDataEquipe(); //mise à jour de la table view
+                 }
+                 else
+                 {
+                     annulerequipe(); //vider le contenu des textFields
+                 }
+    }
+
+    @FXML
+    private void annulerequipe() {
+         tfnameeq.setText("");
+        tfDescripeq.setText("");
+        tfnbrj.setText("");
+        tfwebsite.setText("");
+        tfideq.setText("");
+        logoimage.setImage(null);
+        
+    }
+    
     
 }
