@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BlogFrontController">
+    <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
+      <children>
+         <Button layoutX="68.0" layoutY="137.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <VBox fx:id="mycontainerBlog" layoutX="276.0" prefHeight="695.0" prefWidth="811.0" style="-fx-background-color: #FAFDF6;" />
+      </children></AnchorPane>
+</StackPane>

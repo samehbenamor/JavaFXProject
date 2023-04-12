@@ -232,17 +232,6 @@
                                     </Label>
                                     
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
-                                    
-
-                                    <AnchorPane layoutX="553.0" layoutY="387.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <children>
-                                          <Button fx:id="importimagebtn" layoutY="139.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
-                                       </children>
-                                    </AnchorPane>
                                     <Button fx:id="addBtn" layoutX="990.0" layoutY="613.0" mnemonicParsing="false" onAction="#AjouterBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
                                     <Button fx:id="deleteBtnBlog" layoutX="781.0" layoutY="613.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
                                     <TextField fx:id="contenutxt" layoutX="96.0" layoutY="460.0" prefHeight="192.0" prefWidth="437.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
@@ -260,6 +249,14 @@
                                        </font>
                                     </Label>
                                     <Button fx:id="annulerbtn" layoutX="676.0" layoutY="613.0" mnemonicParsing="false" onAction="#AnnulerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <ImageView fx:id="imageviewBlog" fitHeight="150.0" fitWidth="200.0" layoutX="570.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
+                                       <styleClass>
+                                          <String fx:value="shadow" />
+                                          <String fx:value="white-bg" />
+                                       </styleClass>
+                                    </ImageView>
+                                    <Button fx:id="importimagebtn" layoutX="570.0" layoutY="519.0" mnemonicParsing="false" onAction="#addimageblog" prefHeight="25.0" prefWidth="199.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
+                                    <TextField fx:id="urlpathimage" layoutX="588.0" layoutY="548.0" prefHeight="24.0" prefWidth="172.0" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

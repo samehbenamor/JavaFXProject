@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/services/ServicesCommentaire.java</file>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/edu/ggaming/Controller/BlogBackController.java</file>
-            <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/interfaces/commentaireB.fxml</file>
+            <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/edu/ggaming/Controller/BlogFrontController.java</file>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/entity/Commentaire.java</file>
+            <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/tests/MainClass.java</file>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/entity/Blog.java</file>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/services/ServicesBlog.java</file>
+            <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/interfaces/blogfront.fxml</file>
             <file>file:/C:/Users/oness/OneDrive/Desktop/GestionBlog/src/ggaming/interfaces/blogBack.fxml</file>
         </group>
     </open-files>

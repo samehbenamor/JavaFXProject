@@ -9,8 +9,12 @@ import ggaming.entity.Blog;
 import ggaming.entity.Commentaire;
 import ggaming.services.ServicesBlog;
 import ggaming.services.ServicesCommentaire;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +29,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +42,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -79,6 +88,10 @@ public class BlogBackController implements Initializable {
     private TextField idBlogTxt;
     @FXML
     private TextField idCommenttxt;
+    @FXML
+    private ImageView imageviewBlog;
+    @FXML
+    private TextField urlpathimage;
 
 
     @FXML
@@ -112,7 +125,7 @@ public class BlogBackController implements Initializable {
         servicesBlog = new ServicesBlog();
         servicesBlog.initConnection();
         loadDataBlog();
-        loadDataCommentaire();
+        //loadDataCommentaire();
         isCommentView = false; 
     }
 
@@ -149,6 +162,8 @@ public class BlogBackController implements Initializable {
         contenutxt.setText("");
         idtxt.setText("");
         etattxt.setText("");
+        imageviewBlog.setImage(null);
+        urlpathimage.setText("");
     }
 
     public void clearComment(){
@@ -164,6 +179,34 @@ public class BlogBackController implements Initializable {
     public void AnnulerCommentaire(ActionEvent event){
         clearComment();
     }
+    
+    public void addimageblog(ActionEvent event) throws IOException {
+        FileChooser chooser = new FileChooser();
+
+        FileChooser.ExtensionFilter exxFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter exxFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.png");
+        chooser.getExtensionFilters().addAll(exxFilterJPG, exxFilterPNG);
+        chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File file = chooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                BufferedImage bufferedimg = ImageIO.read(file);
+                Image image = SwingFXUtils.toFXImage(bufferedimg, null);
+                imageviewBlog.setImage(image);
+                String imageUrl = file.toURI().toString();
+                urlpathimage.setText(imageUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (imageviewBlog.getImage() != null) {
+            String imageUrl = imageviewBlog.getImage().impl_getUrl();
+            urlpathimage.setText(imageUrl);
+        }
+    }
+
+
+
+
 
 
 
@@ -176,12 +219,15 @@ public class BlogBackController implements Initializable {
 
 
 
+
+
     @FXML
-    public void AjouterBlog(ActionEvent event){
+    public void AjouterBlog(ActionEvent event) throws IOException{
         String titre = titretxt.getText().trim();
         String contenu = contenutxt.getText().trim();
         String idstring = idtxt.getText().trim();
         String etatstring = etattxt.getText().trim();
+        String imageBlog=urlpathimage.getText().trim();
 
         if(titre.isEmpty()){
             titretxt.setStyle("-fx-border-color: red");
@@ -203,6 +249,16 @@ public class BlogBackController implements Initializable {
             return;
         }
 
+        if(imageBlog.isEmpty()){
+            contenutxt.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez ajouter image");
+            alert.showAndWait();
+            return;
+        }
+
         int etat;
         try {
             etat = Integer.parseInt(etatstring);
@@ -217,7 +273,7 @@ public class BlogBackController implements Initializable {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Blog b = new Blog(titre,contenu,currentDate,currentDate,"gg", etat);
+        Blog b = new Blog(titre,contenu,currentDate,currentDate,imageBlog, etat);
         ServicesBlog sb = new ServicesBlog();
         sb.initConnection();
         sb.ajouter(b);
@@ -382,6 +438,17 @@ public class BlogBackController implements Initializable {
         contenutxt.setText(contenucol.getCellData(index).toString());
         idtxt.setText(idcol.getCellData(index).toString());
         etattxt.setText(etatcol.getCellData(index).toString());
+        urlpathimage.setText(imagecol.getCellData(index).toString());
+
+        String imageUrl = imagecol.getCellData(index).toString();
+        if (!imageUrl.isEmpty()) {
+            try {
+                Image image = new Image(imageUrl);
+                imageviewBlog.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -449,6 +516,7 @@ public class BlogBackController implements Initializable {
             String etatstring = etattxt.getText().trim();
             String titre = titretxt.getText().trim();
             String contenu = contenutxt.getText().trim();
+            String imageBlog=urlpathimage.getText().trim();
 
             if(titre.isEmpty()){
                 titretxt.setStyle("-fx-border-color: red");
@@ -497,7 +565,7 @@ public class BlogBackController implements Initializable {
             }
 
             LocalDateTime currentDate = LocalDateTime.now();
-            Blog b = new Blog(id,titre,contenu,"gg",currentDate,etat);
+            Blog b = new Blog(id,titre,contenu,imageBlog,currentDate,etat);
 
             ServicesBlog sb = new ServicesBlog();
             sb.initConnection();
