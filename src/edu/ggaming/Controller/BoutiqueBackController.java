@@ -656,3 +656,4 @@ public class BoutiqueBackController  implements Initializable{
 ///a voir$
 
 //la modification ne fonctionne pas correctement
+//ajouter la date de création au niveau de produit et catégorie
