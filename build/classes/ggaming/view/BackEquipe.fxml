@@ -5,7 +5,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -92,7 +91,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="Sponsor_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#gotosponsors" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="sponsors" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
@@ -215,7 +214,7 @@
                                                 <TableColumn fx:id="collnbjeq" minWidth="0.0" prefWidth="158.0" text="nombre de joueurs" />
                                                 <TableColumn fx:id="collsiteweb" minWidth="0.0" prefWidth="128.0" text="site web" />
                                                 <TableColumn fx:id="colllogoeq" minWidth="8.0" prefWidth="123.0" text="logo equipe" />
-                                                <TableColumn fx:id="colldatecr" minWidth="0.0" prefWidth="137.0" text="Date Création" />
+                                                <TableColumn fx:id="colldatecreq" minWidth="0.0" prefWidth="137.0" text="Date Création" />
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
@@ -265,12 +264,6 @@
                                     <Button fx:id="btndeleteeq" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppequipe" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
                                     <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerequipe" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescripeq" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
-                                    <Label layoutX="362.0" layoutY="474.0" text="date de creation">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <DatePicker fx:id="datec" layoutX="484.0" layoutY="471.0" />
                                     <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
                                     <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />

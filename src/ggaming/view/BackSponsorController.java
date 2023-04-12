@@ -5,32 +5,52 @@
  */
 package ggaming.view;
 
+import ggaming.cnx.MyConnection;
 import ggaming.entity.Equipe;
 import ggaming.entity.Sponsor;
 import ggaming.services.EquipeService;
 import ggaming.services.SponsorService;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -151,6 +171,7 @@ public class BackSponsorController implements Initializable {
     ResultSet resultSet = null ;
     Sponsor sponsor = null ;
     ObservableList<Sponsor> sponsorList = FXCollections.observableArrayList();
+     private boolean sponsorView = false;
 private int selectedSponsorId;
     int index=-1;
     /**
@@ -161,7 +182,7 @@ private int selectedSponsorId;
         // TODO
          serviceSponsor = new SponsorService();
          serviceSponsor.initConnection();
-        //loadDataSponsor();
+        loadDataSponsor();
         tableSponsor.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         if (newSelection != null) {
             // Get the id of the selected Jeux item
@@ -179,49 +200,174 @@ private int selectedSponsorId;
     }    
 
     @FXML
-    private void addlogosp(ActionEvent event) {
+    private void addlogosp(ActionEvent event) throws IOException {
+        
+          FileChooser Chooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
+        FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
+        
+        Chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
+        File file = Chooser.showOpenDialog(null);
+        BufferedImage bufferedimg = ImageIO.read(file);
+        Image image = SwingFXUtils.toFXImage(bufferedimg, null);
+        logoimagesp.setImage(image);
     }
-    /*
+    
 private void loadDataSponsor() {
         try {
-            refreshTable();
-            collid.setCellValueFactory(new PropertyValueFactory<>("id"));
-            collnameeq.setCellValueFactory(new PropertyValueFactory<>("nom_equipe"));
-            colldesceq.setCellValueFactory(new PropertyValueFactory<>("description_equipe"));
-            collnbjeq.setCellValueFactory(new PropertyValueFactory<>("nb_joueurs"));
-            collsiteweb.setCellValueFactory(new PropertyValueFactory<>("site_web"));
-            colllogoeq.setCellValueFactory(new PropertyValueFactory<>("logo_equipe"));
-            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creation;"));
+            refreshTableS();
+            collidsp.setCellValueFactory(new PropertyValueFactory<>("id"));
+            collnamesp.setCellValueFactory(new PropertyValueFactory<>("nom_sponsor"));
+            colldescsp.setCellValueFactory(new PropertyValueFactory<>("description_sponsor"));
+            collsitewebsp.setCellValueFactory(new PropertyValueFactory<>("site_webs"));
+            colllogoeqsp.setCellValueFactory(new PropertyValueFactory<>("logo_sponsor"));
+            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creationn"));
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-*/
+
+ private void refreshTableS(){
+        try{
+            sponsorList.clear();
+            query = "SELECT * FROM Sponsor";
+            Connection connection = MyConnection.getInstance().getCnx();
+            if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()){
+                 LocalDateTime dateCreationn = resultSet.getTimestamp("date_creationn").toLocalDateTime();
+               
+                    sponsorList.add(new Sponsor(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom_sponsor"),
+                        resultSet.getString("description_sponsor"),
+                        resultSet.getString("logo_sponsor"),
+                        resultSet.getString("site_webs"),
+                           dateCreationn                                                                                             
+                    ));
+                    tableSponsor.setItems(sponsorList);
+                }
+            } else {
+                System.out.println("Database connection is null");
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+
+
     @FXML
     private void savesp(MouseEvent event) { 
+       String nom_sponsor= tfnamesp.getText();
+         String description_sponsor=tfDescripsp.getText();
+         String logo_sponsor=logoimagesp.getImage().toString();
+         String site_webs=tfwebsitesp.getText();
+         
+        if(nom_sponsor.isEmpty()){
+            tfnamesp.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le nom du sponsor");
+            alert.showAndWait();
+            return;
+        }
+
+        LocalDateTime currentDate = LocalDateTime.now();
+        Sponsor a = new Sponsor(nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate);
+        SponsorService ss = new SponsorService();
+        ss.initConnection();
+        ss.ajouterSponsor(a);
+        
+        refreshTableS();
         /*
-         String nom_sponsor= tfnameeq.getText();
-    String description_sponsor=tfDescripeq.getText();
-    String site_web=tfwebsite.getText();
-    String logo_equipe=logoimage.getImage().toString();
-    java.sql.Date date_creation = java.sql.Date.valueOf(datec.getValue());
-    Equipe p = new Equipe(nom_equipe, description_equipe, logo_equipe, site_web, nb_joueurs,date_creation);
-    
-    EquipeService es = new EquipeService();
-    es.insert(p);
-        */
+       tfid.clear();
+        tfLibelle.clear();
+*/
     }
 
     @FXML
     private void modifiersponsor(ActionEvent event) {
+          try{
+
+            String idstring = tfidsp.getText();
+            String nom_sponsor = tfnamesp.getText();
+            String description_sponsor = tfDescripsp.getText();
+            String site_webs = tfwebsitesp.getText();
+          
+
+            int id = Integer.parseInt(idstring);
+
+            Sponsor a = new Sponsor(id,nom_sponsor,description_sponsor,site_webs);
+        
+            SponsorService ss = new SponsorService();
+            ss.initConnection();
+            ss.modifiersponsor(a);
+            
+            refreshTableS();
+            /*
+            tfid.clear();
+        tfLibelle.clear()
+            */
+        }catch(Exception e){
+        }
+    
     }
 
     @FXML
-    private void suppsponsor(ActionEvent event) {
+    private void suppsponsor() {
+        
+          Alert alert;
+        SponsorService service=new SponsorService();
+        int id=Integer.parseInt(tfidsp.getText());
+        
+         alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Cofirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de supprimer le produit ID " + id + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                
+                 if (option.get().equals(ButtonType.OK)) 
+                 {
+                      service.supprimersponsor(id); //procéder à la suppression
+                     annulersponsor();
+                      loadDataSponsor(); //mise à jour de la table view
+                 }
+                 else
+                 {
+                     annulersponsor(); //vider le contenu des textFields
+                 }
     }
 
     @FXML
-    private void annulersponsor(ActionEvent event) {
+    private void annulersponsor() {
+        
+          tfnamesp.setText("");
+        tfDescripsp.setText("");
+        
+        tfwebsitesp.setText("");
+        tfidsp.setText("");
+        logoimagesp.setImage(null);
+    }
+
+    @FXML
+    private void gotoequipes(ActionEvent event) throws IOException {
+        sponsorView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/view/BackEquipe.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+       
+    }
+        
+        
     }
     
-}
+

@@ -27,6 +27,13 @@ public class Sponsor {
         this.date_creationn = date_creationn;
     }
 
+    public Sponsor(int id, String nom_sponsor, String description_sponsor, String site_webs) {
+        this.id = id;
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.site_webs = site_webs;
+    }
+
     public Sponsor(String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn) {
         this.nom_sponsor = nom_sponsor;
         this.description_sponsor = description_sponsor;

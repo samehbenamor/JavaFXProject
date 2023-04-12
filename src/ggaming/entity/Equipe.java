@@ -20,9 +20,9 @@ public class Equipe {
       private int id;
     private String nom_equipe ,description_equipe, logo_equipe, site_web;
     private int nb_joueurs;
-    private Date date_creation;
+    private LocalDateTime date_creation;
 
-    public Equipe(int id, String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs, Date date_creation) {
+    public Equipe(int id, String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs, LocalDateTime date_creation) {
         this.id = id;
         this.nom_equipe = nom_equipe;
         this.description_equipe = description_equipe;
@@ -30,6 +30,14 @@ public class Equipe {
         this.site_web = site_web;
         this.nb_joueurs = nb_joueurs;
         this.date_creation = date_creation;
+    }
+
+    public Equipe(int id, String nom_equipe, String description_equipe, String site_web, int nb_joueurs) {
+        this.id = id;
+        this.nom_equipe = nom_equipe;
+        this.description_equipe = description_equipe;
+        this.site_web = site_web;
+        this.nb_joueurs = nb_joueurs;
     }
 
     public Equipe(String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs) {
@@ -40,7 +48,7 @@ public class Equipe {
         this.nb_joueurs = nb_joueurs;
     }
 
-    public Equipe(String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs, Date date_creation) {
+    public Equipe(String nom_equipe, String description_equipe, String logo_equipe, String site_web, int nb_joueurs, LocalDateTime date_creation) {
         this.nom_equipe = nom_equipe;
         this.description_equipe = description_equipe;
         this.logo_equipe = logo_equipe;
@@ -109,11 +117,11 @@ public class Equipe {
         this.nb_joueurs = nb_joueurs;
     }
 
-    public Date getDate_creation() {
+    public LocalDateTime getDate_creation() {
         return date_creation;
     }
 
-    public void setDate_creation(Date date_creation) {
+    public void setDate_creation(LocalDateTime date_creation) {
         this.date_creation = date_creation;
     }
     

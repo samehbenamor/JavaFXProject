@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -76,14 +77,14 @@ public class EquipeService implements equipeinterfaces <Equipe> {
              String requete2="INSERT INTO Equipe"
                 + "(nom_equipe , description_equipe, nb_joueurs, logo_equipe, site_web ,date_creation )"
                 + "VALUES (?,?,?,?,?,?)";
-         
+         Timestamp timestamps = Timestamp.valueOf(e.getDate_creation());
              PreparedStatement pst=cnx2.prepareStatement(requete2);
              pst.setString(1, e.getNom_equipe());
              pst.setString(2, e.getDescription_equipe());
              pst.setInt(3, e.getNb_joueurs());
              pst.setString(4, e.getLogo_equipe());
              pst.setString(5, e.getSite_web());
-             pst.setDate(6, e.getDate_creation());
+             pst.setTimestamp(6, timestamps);
           
              pst.executeUpdate();
              System.out.println("equipe Ajouté avec succès...");
@@ -153,7 +154,7 @@ public class EquipeService implements equipeinterfaces <Equipe> {
                ResultSet rs =  stmt.executeQuery(sql);
                 
                 while(rs.next()){
-                   Equipe b = new Equipe(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6),rs.getDate(7));               
+                   Equipe b = new Equipe(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6),rs.getTimestamp(7).toLocalDateTime());               
                     
                     all.add(b);                   
                 }
@@ -176,12 +177,16 @@ public class EquipeService implements equipeinterfaces <Equipe> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     public void modifierEquipe(int id, Equipe e)
+     public void modifierEquipe( Equipe e)
     {
-        String requete="UPDATE Equipe SET nom_equipe=?,description_equipe=?,nb_joueurs=?,logo_equipe=?,site_web=? WHERE id=? ";
         try {
-            Alert alert;
-             PreparedStatement pst=cnx2.prepareStatement(requete);
+        String sql="UPDATE Equipe SET nom_equipe=?,description_equipe=?,nb_joueurs=?,logo_equipe=?,site_web=? WHERE id=? ";
+        
+            
+            
+        
+           
+             PreparedStatement pst=cnx2.prepareStatement(sql);
              pst.setString(1,e.getNom_equipe());
              pst.setString(2,e.getDescription_equipe());
              pst.setInt(3,e.getNb_joueurs());
@@ -189,18 +194,12 @@ public class EquipeService implements equipeinterfaces <Equipe> {
              pst.setString(5,e.getSite_web());
              
              
-             pst.setInt(6,id);
-             
              pst.executeUpdate();
-             pst.close();
-             System.out.println("equipe Modifié avec succès...");
-              alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("equipe modifié avec succès!");
-                    alert.showAndWait();
+            System.out.println("equipe modifiée avec success");
+            
+            
         } catch (SQLException ex) {
-           System.err.println(ex.getMessage());
+               System.out.println(ex.getMessage());
         }
        
         

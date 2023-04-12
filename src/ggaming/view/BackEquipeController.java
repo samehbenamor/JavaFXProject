@@ -7,6 +7,7 @@ package ggaming.view;
 
 import ggaming.cnx.MyConnection;
 import ggaming.entity.Equipe;
+import ggaming.entity.Sponsor;
 import ggaming.services.EquipeService;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,7 +29,11 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -45,6 +51,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 /**
@@ -75,8 +82,6 @@ public class BackEquipeController implements Initializable {
     @FXML
     private Button Blogs_btn;
     @FXML
-    private Button Statistiques_btn;
-    @FXML
     private Button logout;
     @FXML
     private AnchorPane home_form;
@@ -104,7 +109,6 @@ public class BackEquipeController implements Initializable {
     private TableColumn<Equipe, String> collsiteweb;
     @FXML
     private TableColumn<Equipe, String> colllogoeq;
-    @FXML
     private TableColumn<Equipe, Date> colldatecr;
     @FXML
     private TextField addEmployee_search;
@@ -130,8 +134,6 @@ public class BackEquipeController implements Initializable {
     private Button addEmployee_clearBtn;
     @FXML
     private TextArea tfDescripeq;
-    @FXML
-    private DatePicker datec;
     @FXML
     private AnchorPane salary_form;
     @FXML
@@ -173,9 +175,14 @@ public class BackEquipeController implements Initializable {
     Equipe elog = null ;
     ObservableList<Equipe>  equipeList = FXCollections.observableArrayList();
 private int selectedEquipeId;
+ private boolean issponsorView = false;
     int index=-1;
     @FXML
     private TextField tfideq;
+    @FXML
+    private TableColumn<Equipe, LocalDateTime> colldatecreq;
+    @FXML
+    private Button Sponsor_btn;
 
     /**
      * Initializes the controller class.
@@ -188,6 +195,7 @@ private int selectedEquipeId;
          serviceEquipe = new EquipeService();
         serviceEquipe.initConnection();
         loadDataEquipe();
+      
         tableEquipe.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         if (newSelection != null) {
             // Get the id of the selected Jeux item
@@ -212,11 +220,63 @@ private int selectedEquipeId;
     int nb_joueurs=Integer.parseInt(tfnbrj.getText());
     String site_web=tfwebsite.getText();
     String logo_equipe=logoimage.getImage().toString();
-    java.sql.Date date_creation = java.sql.Date.valueOf(datec.getValue());
-    Equipe p = new Equipe(nom_equipe, description_equipe, logo_equipe, site_web, nb_joueurs,date_creation);
+    
+      if(nom_equipe.isEmpty()){
+            tfnameeq.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le nom de l equipe");
+            alert.showAndWait();
+            return;
+        }
+       if(description_equipe.isEmpty()){
+            tfDescripeq.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir la description de l equipe ");
+            alert.showAndWait();
+            return;
+        }
+       
+        
+         
+         if(logo_equipe==null){
+            tfwebsite.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le site web de l equipe ");
+            alert.showAndWait();
+            return;
+        }
+         
+          if(site_web.isEmpty()){
+            tfwebsite.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le site web de l equipe ");
+            alert.showAndWait();
+            return;
+        }
+           if (!site_web.matches("^(https?|ftp)://.*$")) {
+        tfwebsite.setStyle("-fx-border-color: red");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("L'adresse du site web n'est pas valide");
+        alert.showAndWait();
+        return;
+    }
+     LocalDateTime currentDatee = LocalDateTime.now();
+    Equipe p = new Equipe(nom_equipe, description_equipe, logo_equipe, site_web, nb_joueurs,currentDatee);
     
     EquipeService es = new EquipeService();
-    es.insert(p);
+    es.ajouterEquipe(p);
+    refreshTableE();
+    annulerequipe();
     }
 
     @FXML
@@ -242,20 +302,37 @@ private int selectedEquipeId;
     
     private void loadDataEquipe() {
         try {
-            refreshTable();
+            refreshTableE();
             collid.setCellValueFactory(new PropertyValueFactory<>("id"));
             collnameeq.setCellValueFactory(new PropertyValueFactory<>("nom_equipe"));
             colldesceq.setCellValueFactory(new PropertyValueFactory<>("description_equipe"));
             collnbjeq.setCellValueFactory(new PropertyValueFactory<>("nb_joueurs"));
             collsiteweb.setCellValueFactory(new PropertyValueFactory<>("site_web"));
             colllogoeq.setCellValueFactory(new PropertyValueFactory<>("logo_equipe"));
-            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creation;"));
+            colldatecreq.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    /*
+    private void loadDataSponsor() {
+        try {
+            refreshTableS();
+            collidsp.setCellValueFactory(new PropertyValueFactory<>("id"));
+            collnamesp.setCellValueFactory(new PropertyValueFactory<>("nom_sponsor"));
+            colldescsp.setCellValueFactory(new PropertyValueFactory<>("description_sponsor"));
+            collsitewebsp.setCellValueFactory(new PropertyValueFactory<>("site_webs"));
+            colllogoeqsp.setCellValueFactory(new PropertyValueFactory<>("logo_sponsor"));
+            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creationn"));
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    */
     
-    private void refreshTable(){
+    
+    private void refreshTableE(){
         try{
             equipeList.clear();
             query = "SELECT * FROM Equipe";
@@ -265,16 +342,15 @@ private int selectedEquipeId;
             resultSet = preparedStatement.executeQuery();
 
                 while (resultSet.next()){
-                Date dateCreation = resultSet.getDate("date_creation");
+                    
+                 LocalDateTime dateCreation = resultSet.getTimestamp("date_creation").toLocalDateTime();
                
                     equipeList.add(new Equipe(
                         resultSet.getInt("id"),
                         resultSet.getString("nom_equipe"),
                         resultSet.getString("description_equipe"),
                         resultSet.getString("logo_equipe"),
-                        resultSet.getString("site_web"),
-                           
-                        
+                        resultSet.getString("site_web"),                                              
                              resultSet.getInt("nb_joueurs"),
                         dateCreation
                         
@@ -290,6 +366,37 @@ private int selectedEquipeId;
         }
     }
 
+    /*
+    private void refreshTableS(){
+        try{
+            sponsorList.clear();
+            query = "SELECT * FROM Sponsor";
+            Connection connection = MyConnection.getInstance().getCnx();
+            if (connection != null) {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()){
+                 LocalDateTime dateCreationn = resultSet.getTimestamp("date_creationn").toLocalDateTime();
+               
+                    sponsorList.add(new Sponsor(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom_sponsor"),
+                        resultSet.getString("description_sponsor"),
+                        resultSet.getString("logo_sponsor"),
+                        resultSet.getString("site_webs"),
+                           dateCreationn                                                                                             
+                    ));
+                    tableSponsor.setItems(sponsorList);
+                }
+            } else {
+                System.out.println("Database connection is null");
+            }
+        }catch(SQLException ex){
+            Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE,null,ex);
+        }
+    }
+    */
     /*
     private void suppequipe(MouseEvent event) {
         
@@ -376,68 +483,49 @@ private int selectedEquipeId;
         
     }
     
-    public boolean controleSaisie()
-      {
-          Alert alert;
-          EquipeService sp=new EquipeService();
-          if(tfnameeq.getText().isEmpty())
-        {
-             alert = new Alert(Alert.AlertType.ERROR);
-             alert.setTitle("Erreur");
-             alert.setHeaderText(null);
-             alert.setContentText("Veuillez saisir le nom du produit");
-             alert.showAndWait();
-             return false;
-        }
-       
-       
-          
-          return true;
-      }
-
+    
     @FXML
     private void modifierequipe() {
-        Alert alert;
-        String nom_equipe=tfnameeq.getText();
-        String description_equipe=tfDescripeq.getText();
-        int nb_joueurs=Integer.parseInt(tfnbrj.getText());
-        String site_web=tfwebsite.getText();
+         try{
+      String idstringg = tfideq.getText();
+            String nom_equipe = tfnameeq.getText();
+            String description_equipe = tfDescripeq.getText();
+            String site_web = tfwebsite.getText();
+          int nb_joueurs=Integer.parseInt(tfnbrj.getText());
+
+            int id = Integer.parseInt(idstringg);
+
+            Equipe p = new Equipe(id,nom_equipe,description_equipe,site_web,nb_joueurs);
         
-        String image_equipe=logoimage.getImage().toString();
-        String ancien_image=logoimage.getImage().toString();
-        if(controleSaisie())
-        {
+            EquipeService es = new EquipeService();
+            es.initConnection();
+            es.modifierEquipe(p);
+            
+            refreshTableE();
+            /*
+            tfid.clear();
+        tfLibelle.clear()
+            */
+        }catch(Exception e){
+        }
+        
+    }
+
+    @FXML
+    private void gotosponsors(ActionEvent event) 
+        throws IOException {
+        issponsorView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/view/BackSponsor.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
        
-        Equipe e;
-        if(image_equipe==null) //il n'a pas choisi une nouvelle image
-        { e=new Equipe(nom_equipe,description_equipe,site_web,ancien_image,nb_joueurs);}
-        else
-        {
-            e=new Equipe(nom_equipe,description_equipe,site_web,image_equipe,nb_joueurs);
-        }
-        
-        
-        EquipeService service=new EquipeService();
-        int id=Integer.parseInt(tfideq.getText());
-        
-                alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Cofirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Etes vous sûr de modifier le produit ID " + id + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-                
-                 if (option.get().equals(ButtonType.OK)) {
-                       service.modifierEquipe(id,e);
-                        loadDataEquipe();//mise à jour de la table
-                     
-                 }
-                 else
-                 {
-                    annulerequipe();//vidre les champs des textFields
-                 }
-        }
+    }
         
     }
     
     
-}
+
