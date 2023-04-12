@@ -321,4 +321,14 @@ private void loadDataJeux() {
         }
     }
     
+    @FXML
+    void affjeux(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void affcat(ActionEvent event) {
+
+    }
+    
 }

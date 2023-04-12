@@ -164,7 +164,32 @@ public Jeux findById(int id) {
 
 
     }
-
+public List<Jeux> afficherJeux()
+    {
+        List<Jeux> myList=new ArrayList<>();
+        
+         try {
+             String requete3="SELECT * FROM jeux";
+             Statement st=cnx.createStatement();
+             ResultSet rs=st.executeQuery(requete3);
+             
+             while(rs.next())
+             {
+                 Jeux p=new Jeux();
+                 p.setId(rs.getInt(1));
+                 p.setLibelle(rs.getString("libelle"));
+                 p.setImageJeux(rs.getString("image_jeux"));
+                 p.setLogoJeux(rs.getString("logo_jeux"));
+                 p.setViews(rs.getInt("views"));
+                 myList.add(p);
+                 
+             }
+         } catch (SQLException ex) {
+             System.err.println(ex.getMessage());
+         }
+         
+         return myList;
+    }
 
     
     
