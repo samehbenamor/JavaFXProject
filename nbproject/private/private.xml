@@ -4,14 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/ggaming/src/ggaming/view/BackEquipe.fxml</file>
-            <file>file:/D:/ggaming/src/ggaming/view/backequipe.css</file>
-            <file>file:/D:/ggaming/nbproject/build-impl.xml</file>
-            <file>file:/D:/ggaming/src/ggaming/interfaces/equipeinterfaces.java</file>
+            <file>file:/D:/ggaming/src/ggaming/services/SponsorService.java</file>
             <file>file:/D:/ggaming/src/ggaming/cnx/MyConnection.java</file>
-            <file>file:/D:/ggaming/src/ggaming/view/FXMLDocument.fxml</file>
             <file>file:/D:/ggaming/src/ggaming/view/Ggaming.java</file>
-            <file>file:/D:/ggaming/src/ggaming/view/BackEquipeController.java</file>
             <file>file:/D:/ggaming/src/ggaming/entity/Equipe.java</file>
+            <file>file:/D:/ggaming/src/ggaming/view/BackEquipeController.java</file>
+            <file>file:/D:/ggaming/src/ggaming/entity/Sponsor.java</file>
+            <file>file:/D:/ggaming/src/ggaming/view/BackSponsorController.java</file>
             <file>file:/D:/ggaming/src/ggaming/services/EquipeService.java</file>
         </group>
     </open-files>

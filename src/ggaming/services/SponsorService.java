@@ -41,15 +41,16 @@ public class SponsorService implements sponsorinterfaces <Sponsor>{
          try {
              Alert alert;
              String requete2="INSERT INTO Sponsor"
-                + "(nom_sponsor , description_sponsor, logo_sponsor, site_webs, date_creationn  )"
+                + "(nom_sponsor ,id_equipe_id, description_sponsor, logo_sponsor, site_webs, date_creationn  )"
                 + "VALUES (?,?,?,?,?)";
          Timestamp timestampp = Timestamp.valueOf(s.getDate_creationn());
              PreparedStatement pst=cnx2.prepareStatement(requete2);
              pst.setString(1, s.getNom_sponsor());
-             pst.setString(2, s.getDescription_sponsor());
-             pst.setString(3, s.getLogo_sponsor());
-             pst.setString(4, s.getSite_webs());
-             pst.setTimestamp(5, timestampp);
+            pst.setInt(2,s.getEquipe().getId());
+             pst.setString(3, s.getDescription_sponsor());
+             pst.setString(4, s.getLogo_sponsor());
+             pst.setString(5, s.getSite_webs());
+             pst.setTimestamp(6, timestampp);
              
           
              pst.executeUpdate();
@@ -156,7 +157,7 @@ public class SponsorService implements sponsorinterfaces <Sponsor>{
             }
     
     
-    
+   
     
     
     

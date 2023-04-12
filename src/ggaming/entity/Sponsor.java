@@ -15,8 +15,10 @@ import java.time.LocalDateTime;
 public class Sponsor {
     private int id;
     private String nom_sponsor ,description_sponsor, logo_sponsor, site_webs;
-    
+    private int id_equipe;
     private LocalDateTime date_creationn;
+    private Equipe equipe;
+
 
     public Sponsor(int id, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn) {
         this.id = id;
@@ -25,6 +27,27 @@ public class Sponsor {
         this.logo_sponsor = logo_sponsor;
         this.site_webs = site_webs;
         this.date_creationn = date_creationn;
+    }
+
+   
+
+    public Sponsor(String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn, Equipe equipe) {
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.logo_sponsor = logo_sponsor;
+        this.site_webs = site_webs;
+        this.date_creationn = date_creationn;
+        this.equipe = equipe;
+    }
+
+    public Sponsor(int id, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn, Equipe equipe) {
+        this.id = id;
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.logo_sponsor = logo_sponsor;
+        this.site_webs = site_webs;
+        this.date_creationn = date_creationn;
+        this.equipe = equipe;
     }
 
     public Sponsor(int id, String nom_sponsor, String description_sponsor, String site_webs) {
@@ -49,6 +72,7 @@ public class Sponsor {
         this.site_webs = site_webs;
     }
 
+    
     public Sponsor() {
     }
 
@@ -99,6 +123,16 @@ public class Sponsor {
     public void setDate_creationn(LocalDateTime date_creationn) {
         this.date_creationn = date_creationn;
     }
+
+    public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+
+   
     
     
     

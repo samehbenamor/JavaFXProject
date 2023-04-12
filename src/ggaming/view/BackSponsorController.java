@@ -38,6 +38,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -174,6 +175,8 @@ public class BackSponsorController implements Initializable {
      private boolean sponsorView = false;
 private int selectedSponsorId;
     int index=-1;
+    @FXML
+    private ComboBox<Equipe> comboboxsp;
     /**
      * Initializes the controller class.
      */
@@ -280,7 +283,7 @@ private void loadDataSponsor() {
         LocalDateTime currentDate = LocalDateTime.now();
         Sponsor a = new Sponsor(nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate);
         SponsorService ss = new SponsorService();
-        ss.initConnection();
+         
         ss.ajouterSponsor(a);
         
         refreshTableS();

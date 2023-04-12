@@ -495,7 +495,7 @@ private int selectedEquipeId;
 
             int id = Integer.parseInt(idstringg);
 
-            Equipe p = new Equipe(id,nom_equipe,description_equipe,site_web,nb_joueurs);
+            Equipe p = new Equipe(id,nom_equipe);
         
             EquipeService es = new EquipeService();
             es.initConnection();

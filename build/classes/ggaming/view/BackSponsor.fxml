@@ -49,13 +49,18 @@
                      <children>
                         <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/logo.png" />
+                                 </image>
+                              </ImageView>
                              
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma" size="17.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Mousssa" textFill="WHITE">
+                              <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Dhiaeddine" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
@@ -110,9 +115,9 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="116.0" fitWidth="202.0" layoutX="5.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../img/logo.png" />
+                                    <Image url="@../../image/logo.png" />
                                  </image>
                               </ImageView>
                            </children>
