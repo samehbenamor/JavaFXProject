@@ -104,6 +104,15 @@ and open the template in the editor.
     -fx-font-family:"Tahoma";
     -fx-border-radius:4px;
 }
+.error
+{
+    -fx-border-color: #FF0000;
+-fx-border-width: 2px;
+-fx-border-radius: 5px;
+-fx-border-style: solid;
+-fx-border-insets: -1px;
+-fx-effect: dropshadow(gaussian, rgba(255,0,0,0.5), 10, 0, 0, 1);
+}
 .textfield:focused{
     -fx-border-width:1.8px;
     -fx-background-color:#fff;
@@ -181,4 +190,10 @@ and open the template in the editor.
     -fx-border-color:linear-gradient(to bottom right, #272b3f, #256b51);
     -fx-border-radius:4px;
     -fx-padding:0px 0px 0px 8px;
+}
+
+.button-with-icon {
+    -fx-graphic: url("../img/ajouter.jpg");
+    -fx-graphic-size: 16px 16px; /* taille de l'icône */
+    -fx-graphic-text-gap: 8px; /* espace entre l'icône et le texte */
 }

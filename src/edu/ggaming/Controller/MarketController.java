@@ -17,6 +17,7 @@ import edu.ggaming.main.MyListener;
 import edu.ggaming.entities.Fruit;
 import edu.ggaming.entities.Produit;
 import edu.ggaming.services.ServiceProduit;
+import java.io.File;
 
 import java.io.IOException;
 import java.net.URL;
@@ -151,7 +152,8 @@ public class MarketController implements Initializable {
     {
         fruitNameLable.setText(produit.getNom());
         fruitPriceLabel.setText(Main.CURRENCY + produit.getPrix());
-        image = new Image(getClass().getResourceAsStream("../img/souris3.jpg"));
+        File file = new File("C:\\xamppppp\\htdocs\\GGaming\\GGaming\\public\\uploads\\"+produit.getImage());
+        image = new Image(file.toURI().toString());
         fruitImg.setImage(image);
         description.setText(produit.getDescription());
         chosenFruitCard.setStyle("-fx-background-color: #FFFFFF" +  ";\n" +

@@ -169,7 +169,25 @@ public boolean isNumeric(String text) {
          
          return myList;
     }
-    
+    public Produit rechercherProduitByName(String nom_produit) throws SQLException
+    {
+         String req = "SELECT * FROM produit WHERE nom=?";
+        Produit produit = null;
+    try (PreparedStatement ps = cnx2.prepareStatement(req)) {
+        ps.setString(1, nom_produit);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                produit = new Produit();
+                produit.setId(rs.getInt("id"));
+                produit.setNom(rs.getString("nom"));
+              
+            }
+        }
+    } catch (SQLException ex) {
+        throw new SQLException("Erreur lors de la récupération de la catégorie de produit par nom : " + ex.getMessage(), ex);
+    }
+    return produit;
+    }
      public ObservableList<Produit> getall() {
         ObservableList<Produit> produits = FXCollections.observableArrayList();
         ServiceCategorieProduit scp=new ServiceCategorieProduit();

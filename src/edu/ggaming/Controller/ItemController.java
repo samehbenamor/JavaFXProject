@@ -10,6 +10,7 @@ import edu.ggaming.main.Main;
 import edu.ggaming.main.MyListener;
 import edu.ggaming.entities.Fruit;
 import edu.ggaming.entities.Produit;
+import java.io.File;
 import javafx.scene.control.TextArea;
 
 public class ItemController {
@@ -38,7 +39,8 @@ public class ItemController {
         nameLabel.setText(produit.getNom());
       
         priceLable.setText(Main.CURRENCY + produit.getPrix());
-           Image     image = new Image(getClass().getResourceAsStream("../img/souris3.jpg"));
+             File file = new File("C:\\xamppppp\\htdocs\\GGaming\\GGaming\\public\\uploads\\"+produit.getImage());
+        Image image = new Image(file.toURI().toString());
 
         img.setImage(image);
     }

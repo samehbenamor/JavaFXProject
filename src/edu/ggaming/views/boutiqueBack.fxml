@@ -300,7 +300,7 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="categorieProduit_tableView" layoutX="204.0" layoutY="63.0" onMouseClicked="#produitSelected" prefHeight="301.0" prefWidth="711.0">
+                                          <TableView fx:id="categorieProduit_tableView" layoutX="204.0" layoutY="63.0" onMouseClicked="#categorie_produitSelected" prefHeight="301.0" prefWidth="711.0">
                                             <columns>
                                               <TableColumn fx:id="tcid_categorie" prefWidth="198.0" text="Reference" />
                                               <TableColumn fx:id="tcref_categorie" prefWidth="184.0" text="Nom" />
@@ -320,15 +320,15 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfNom_categorie" layoutX="467.0" layoutY="455.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    
+                                     <TextField fx:id="tfid_categorie" layoutX="467.0" layoutY="455.0" prefHeight="25.0" prefWidth="172.0" visible="false" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                             
                                     
                                     
                                    
                                     <Button fx:id="Categorie_produit_addBtn" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onAction="#addCategorieProduit" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="Categorie_produit_updateBtn" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifierProduit" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
-                                    <Button fx:id="Categorie_produit_deleteBtn" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <Button fx:id="Categorie_produit_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerProduit" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <Button fx:id="Categorie_produit_updateBtn" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#modifierCategorieProduit" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
+                                    <Button fx:id="Categorie_produit_deleteBtn" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#supprimerCategorieProduit" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <Button fx:id="Categorie_produit_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerCategorieProduit" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     
                                  </children>
                                  <styleClass>

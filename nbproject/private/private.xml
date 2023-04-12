@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/getData.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/utils/MyConnection.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/main/Main.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/BoutiqueBackController.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/ItemController.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/views/ajouterProduit.fxml</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/Produit.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/getData.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/MarketController.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/utils/MyConnection.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/services/ServiceCategorieProduit.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/services/ServiceProduit.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/views/boutiqueBack.fxml</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/main/Main.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/views/AjouterProduitController.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/BoutiqueBackController.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/CategorieProduit.java</file>
         </group>
     </open-files>
 </project-private>

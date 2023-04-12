@@ -141,14 +141,34 @@ public class BoutiqueBackController  implements Initializable{
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
         String image=getData.path;
-        if(controleSaisie())
+       
+        if(controleSaisie(image))
         {
-        int quantite=Integer.parseInt(tfQuantite.getText());
-        Produit p=new Produit(nom,description,image,prix,quantite,categorie_produit);
-        
-        sp.ajouterProduit2(p);
-        show_produit(); //pour mettre à jour l'affichage de la table view
-        annulerProduit(); //pour vide les champs du formulaire
+            Produit p2=null;
+             try {
+                 p2=sp.rechercherProduitByName(nom);
+             } catch (SQLException ex) {
+                 Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            if(p2==null)
+            {
+                 int quantite=Integer.parseInt(tfQuantite.getText());
+                    Produit p=new Produit(nom,description,image,prix,quantite,categorie_produit);
+
+                    sp.ajouterProduit2(p);
+                    show_produit(); //pour mettre à jour l'affichage de la table view
+                    annulerProduit(); //pour vide les champs du formulaire
+                     getData.path=null;
+            }
+            else
+            {
+                alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Désole, Produit déja existant...");
+             alert.showAndWait();
+            }
+       
         }
         
         
@@ -221,7 +241,7 @@ public class BoutiqueBackController  implements Initializable{
 
         //getData.path = employeeD.getImage();
 
-       // String uri = "file:" + employeeD.getImage();
+        // String uri = "file:" + employeeD.getImage();
 
         //image = new Image(uri, 101, 127, false, true);
         //addEmployee_image.setImage(image);
@@ -232,6 +252,8 @@ public class BoutiqueBackController  implements Initializable{
         CategorieProduit categorie = categorieProduit_tableView.getSelectionModel().getSelectedItem();
         int num = categorieProduit_tableView.getSelectionModel().getSelectedIndex();
        
+         System.out.println("Bonjourr\n");
+               
                 
         if ((num - 1) < -1) {
             return;
@@ -301,7 +323,7 @@ public class BoutiqueBackController  implements Initializable{
         
         String image_produit=getData.path;
         String ancien_image=tfImage.getText();
-        if(controleSaisie())
+        if(controleSaisie(image_produit))
         {
         int quantite=Integer.parseInt(tfQuantite.getText());
         Produit p;
@@ -337,8 +359,18 @@ public class BoutiqueBackController  implements Initializable{
          Alert alert;
         String nom=tfNom_categorie.getText();
        
-       CategorieProduit categorie=new CategorieProduit(nom);
-        
+        CategorieProduit categorie=new CategorieProduit(nom);
+        if(nom.isEmpty())
+        {
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Vous devez donner le nom de la catégorie");
+             alert.showAndWait();
+        }
+        else
+        {
+            
         ServiceCategorieProduit service=new ServiceCategorieProduit();
         int id=Integer.parseInt(tfid_categorie.getText());
         
@@ -357,7 +389,7 @@ public class BoutiqueBackController  implements Initializable{
                  {
                      annulerCategorieProduit();//vidre les champs des textFields
                  }
-        
+        }
     }
      
       @FXML
@@ -368,6 +400,7 @@ public class BoutiqueBackController  implements Initializable{
         tfQuantite.setText("");
         tfPrix.setText("");
         tfid.setText("");
+        tfImage.setText("");
         produit_image.setImage(null);
     }
      
@@ -453,75 +486,111 @@ public class BoutiqueBackController  implements Initializable{
         return null; //retourner null si on a pas d'image importé
     }
       
-      public boolean controleSaisie()
+      public boolean controleSaisie(String image2)
       {
           Alert alert;
           ServiceProduit sp=new ServiceProduit();
+          if(!tfNom.getText().isEmpty())
+          {
+               tfNom.getStyleClass().remove("error");
+          }
+           if(!tfDescription.getText().isEmpty())
+          {
+               tfDescription.getStyleClass().remove("error");
+          }
+            if(!tfPrix.getText().isEmpty()&&sp.isNumeric(tfPrix.getText()))
+          {
+               tfPrix.getStyleClass().remove("error");
+          }
+             if(!tfQuantite.getText().isEmpty()&&sp.isNumeric(tfQuantite.getText()))
+          {
+               tfQuantite.getStyleClass().remove("error");
+          }
+            if(categorie_produit.getSelectionModel().getSelectedItem()!=null)
+            {
+                categorie_produit.getStyleClass().remove("error");
+            }
+             
           if(tfNom.getText().isEmpty())
         {
+             tfNom.getStyleClass().add("error"); //rendre le texfield de couleur rouge
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Veuillez saisir le nom du produit");
              alert.showAndWait();
+            
              return false;
         }
         else if(tfDescription.getText().isEmpty())
         {
+             tfDescription.getStyleClass().add("error");
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Veuillez saisir la description  du produit");
              alert.showAndWait();
+            
               return false;
         }
          else if (categorie_produit.getSelectionModel().getSelectedItem()==null)
          {
-              alert = new Alert(Alert.AlertType.ERROR);
+             categorie_produit.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Veuillez choisir la categorie  du produit");
              alert.showAndWait();
+            
               return false;
+              
          }
             else if(tfPrix.getText().isEmpty())
         {
+             tfPrix.getStyleClass().add("error");
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Veuillez saisir le prix  du produit");
              alert.showAndWait();
+             
               return false;
         }
         else if(!sp.isNumeric(tfPrix.getText()))
         {
+             tfPrix.getStyleClass().add("error");
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Le prix doit être une valeur numerique positive");
              alert.showAndWait();
+             
               return false;
         }
           else if(tfQuantite.getText().isEmpty())
         {
+             tfQuantite.getStyleClass().add("error");
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("Veuillez saisir la quantite  du produit");
              alert.showAndWait();
+             
               return false;
         }
           else if(!sp.isNumeric(tfQuantite.getText()))
         {
+             tfQuantite.getStyleClass().add("error");
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
              alert.setHeaderText(null);
              alert.setContentText("La quantite doit être une valeur numerique positive");
              alert.showAndWait();
+            
               return false;
         }
         
-        else if(image==null)
+        else if(image==null||image2==null)
         {
              alert = new Alert(Alert.AlertType.ERROR);
              alert.setTitle("Erreur");
@@ -543,12 +612,47 @@ public class BoutiqueBackController  implements Initializable{
         ServiceCategorieProduit scp=new ServiceCategorieProduit();
         String nom=tfNom_categorie.getText();
         CategorieProduit categorie= new CategorieProduit(nom);
-        
-        scp.ajouterCategorieProduit(categorie);
-        show_categorie_produit();
-        annulerCategorieProduit();
+        if(nom.isEmpty())
+        {
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Vous devez donner le nom de la catégorie");
+             alert.showAndWait();
+        }
+        else
+        {
+            CategorieProduit categ=new CategorieProduit();
+               try {
+                   categ=scp.rechercherCategorieByName(nom);
+               } catch (SQLException ex) {
+                   Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+            if(categ==null)
+            {
+                scp.ajouterCategorieProduit(categorie);
+                show_categorie_produit();
+                annulerCategorieProduit();
+            }
+            else
+            {
+                alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Désole, Categorie déja existante...");
+             alert.showAndWait();
+            }
+            
+       
+        }
       //  show(); //pour mettre à jour l'affichage de la table view
        // annulerProduit(); //pour vide les champs du formulaire
         
       }
 }
+
+
+
+///a voir$
+
+//la modification ne fonctionne pas correctement
