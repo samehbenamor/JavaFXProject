@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="57.0" prefWidth="585.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.GUI.MatchItemController">
+   <children>
+      <BorderPane layoutX="-2.0" prefHeight="61.0" prefWidth="585.0" />
+      <HBox fx:id="bxMatch" alignment="CENTER" prefHeight="50.0" prefWidth="585.0">
+         <children>
+            <Label fx:id="equipeDom" text="Equipe 1" />
+            <VBox alignment="CENTER" prefHeight="100.0" prefWidth="287.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="533.0">
+                     <children>
+                        <Label fx:id="tour" text="Finale" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="585.0">
+                     <children>
+                        <Label fx:id="scoreDom" text="3" />
+                        <Label text=" :  " />
+                        <Label fx:id="scoreExt" text="0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label fx:id="equipeExt" text="Equipe 2" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
