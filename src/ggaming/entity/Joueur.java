@@ -17,7 +17,7 @@ public class Joueur {
     private String ign;
     private int wins;
     private int loses;
-   
+    private RoleJava roleJava;
 
     public Joueur() {}
 
@@ -42,6 +42,20 @@ public class Joueur {
         this.nom = nom;
         this.prenom = prenom;
         this.ign = ign;
+    }
+
+    public Joueur(int id, String email, boolean is_verified, String nom, String prenom, Date datenai, String pprofile, boolean is_banned, String ign, int wins, int loses) {
+        this.id = id;
+        this.email = email;
+        this.is_verified = is_verified;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.datenai = datenai;
+        this.pprofile = pprofile;
+        this.is_banned = is_banned;
+        this.ign = ign;
+        this.wins = wins;
+        this.loses = loses;
     }
 
     public Joueur(String email, String password, boolean is_verified, String nom, String prenom, boolean is_banned, String ign) {
@@ -70,6 +84,13 @@ public class Joueur {
         this.wins = wins;
         this.loses = loses;
         
+    }
+    public RoleJava getRoleJava() {
+        return roleJava;
+    }
+
+    public void setRoleJava(RoleJava roleJava) {
+        this.roleJava = roleJava;
     }
 
     public int getId() {

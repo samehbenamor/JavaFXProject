@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.UserProfile">
+   
+   <center>
+      <AnchorPane fx:id="login" prefHeight="400.0" prefWidth="335.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="92.0" layoutX="121.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/lock.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="profilenom" layoutX="198.0" layoutY="386.0" prefHeight="30.0" prefWidth="158.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="logout" layoutX="130.0" layoutY="501.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Deconnecter" />
+            <Label fx:id="wrongLogIn" layoutX="153.0" layoutY="127.0" textFill="RED" />
+            <ImageView fx:id="loginLogo" fitHeight="63.0" fitWidth="326.0" layoutX="18.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
+               </image></ImageView>
+            <Label fx:id="profileprenom" layoutX="198.0" layoutY="431.0" prefHeight="30.0" prefWidth="150.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profileemail" layoutX="375.0" layoutY="187.0" prefHeight="30.0" prefWidth="324.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profileign" layoutX="376.0" layoutY="371.0" prefHeight="30.0" prefWidth="322.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profilewins" layoutX="370.0" layoutY="431.0" prefHeight="30.0" prefWidth="166.0" textFill="#0eff00">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profileloses" layoutX="546.0" layoutY="431.0" prefHeight="30.0" prefWidth="151.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="profileimg" fitHeight="211.0" fitWidth="287.0" layoutX="70.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="modifier" layoutX="563.0" layoutY="501.0" mnemonicParsing="false" onAction="#GotoModifier" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Modifier" />
+            <Label fx:id="profilenom1" layoutX="70.0" layoutY="386.0" prefHeight="30.0" prefWidth="50.0" text="Nom" textFill="#ff7324">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profilenom11" layoutX="70.0" layoutY="431.0" prefHeight="30.0" prefWidth="78.0" text="Prenom" textFill="#ff7324">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profilenom111" layoutX="375.0" layoutY="145.0" prefHeight="30.0" prefWidth="78.0" text="Email" textFill="#ff7324">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profilenom1111" layoutX="375.0" layoutY="235.0" prefHeight="30.0" prefWidth="178.0" text="Date de naissance" textFill="#ff7324">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profilenom11111" layoutX="375.0" layoutY="325.0" prefHeight="30.0" prefWidth="178.0" text="IGN" textFill="#ff7324">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="profiledate" layoutX="374.0" layoutY="285.0" prefHeight="30.0" prefWidth="324.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="gotoback" layoutX="596.0" layoutY="22.0" mnemonicParsing="false" onAction="#GotoModifier" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Dashboard" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

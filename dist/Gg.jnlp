@@ -8,9 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Gg.jar" size="3129053" download="eager" />
+    <jar href="Gg.jar" size="3151562" download="eager" />
+    <jar href="lib\guava-31.1-jre.jar" size="2959479" download="eager" />
     <jar href="lib\jBCrypt-0.4.1.jar" size="17570" download="eager" />
     <jar href="lib\jakarta.activation-1.2.1.jar" size="65690" download="eager" />
+    <jar href="lib\javax.servlet-api-4.0.0.jar" size="102537" download="eager" />
     <jar href="lib\mailapi-1.6.7.jar" size="369322" download="eager" />
     <jar href="lib\mysql-connector-j-8.0.32.jar" size="2480823" download="eager" />
     <jar href="lib\smtp-1.6.7.jar" size="64293" download="eager" />

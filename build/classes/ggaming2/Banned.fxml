@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.Banned">
+   
+   <center>
+      <AnchorPane fx:id="login" prefHeight="400.0" prefWidth="335.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="40.0" layoutY="114.0" prefHeight="222.0" prefWidth="738.0" text="Votre compte a été banni." textFill="RED">
+               <font>
+                  <Font name="System Bold" size="58.0" />
+               </font>
+            </Label>
+            <Button fx:id="gobackban" layoutX="288.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleBan" prefHeight="34.0" prefWidth="224.0" style="-fx-background-color: #ffc900;" text="Retourner à la page d'accueil" />
+            <Label fx:id="wrongLogIn" layoutX="253.0" layoutY="319.0" prefHeight="18.0" prefWidth="295.0" textFill="RED" />
+            <ImageView fx:id="loginLogo" fitHeight="166.0" fitWidth="455.0" layoutX="182.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
+               </image></ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

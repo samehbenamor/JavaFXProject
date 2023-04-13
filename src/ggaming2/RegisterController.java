@@ -13,6 +13,8 @@ package ggaming2;
 import javafx.fxml.FXML;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -258,9 +260,13 @@ public class RegisterController {
             joueur.setDatenai(date3);
             joueur.setRoles(new String[]{"ROLE_USER"});
             joueurDAO.insertTest(joueur);
-            sendVerificationEmail(joueur.getEmail(), "test");
             try {
-                Parent page1 = FXMLLoader.load(getClass().getResource("login.fxml"));
+                sendVerificationEmail(joueur.getEmail());
+            } catch (MessagingException e) {
+                System.out.println("Error sending verification email: " + e.getMessage());
+            }
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("EmailHasBeenSent.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
@@ -290,8 +296,8 @@ public class RegisterController {
         registerAlert.showAndWait();*/
     }
 
-    public static void sendVerificationEmail(String recipientEmail, String verificationLink) throws MessagingException {
-
+    public static void sendVerificationEmail(String recipientEmail) throws MessagingException {
+        System.out.println("Test email");
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -315,20 +321,27 @@ public class RegisterController {
         }
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
         message.setSubject("Confirmation email");
-
+        
         // set content and add link to verify
-        String content = "Dear user,<br><br>Please click the link below to confirm your registration:<br><br>"
-                + "<a href='http://yourwebsite.com/confirm_registration?user_id=123456'>Confirm registration</a><br><br>"
-                + "Thank you,<br>Your website team";
-        message.setContent(content, "text/html");
-        
-        // send message
-        Transport.send(message);
+        try {
+            JoueurDAO joueurDAO = new JoueurDAO();
+            int joueurId = joueurDAO.getJoueurIdByEmail(recipientEmail);
+            String joueurIdStr = String.valueOf(joueurId);
+            System.out.println(joueurId);
+            String content = "Cher utilisateur,<br><br>Veuillez cliquer sur le lien ci-dessous pour confirmer votre inscription:<br><br>"
+                    + "<a href=http://127.0.0.1:8000/verify/java/" + joueurIdStr + ">Confirmer l'inscription</a><br><br>"
+                    + "Merci de votre attention,<br>Ggaming.";
+            System.out.println(content);
+            message.setContent(content, "text/html");
 
-        System.out.println("Confirmation email sent successfully.");
-        
-
+            // send message
+            Transport.send(message);
+            // TODO fix roles
+            System.out.println("Confirmation email sent successfully.");
+        } catch (SQLException e) {
+            // handle the exception
+            e.printStackTrace();
+        }
         //System.out.println("Error sending confirmation email: " + e.getMessage());
-
     }
 }

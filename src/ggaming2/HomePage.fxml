@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.HomePage">
+   
+   <center>
+      <AnchorPane fx:id="login" prefHeight="600.0" prefWidth="400" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="511.0" fitWidth="434.0" layoutX="12.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/DELL/Downloads/Phoenix_-_Full_body.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="471.0" fitWidth="336.0" layoutX="474.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+               
+            </ImageView>
+            <Button fx:id="gologin" layoutX="316.0" layoutY="290.0" mnemonicParsing="false" onAction="#gotoLogin" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #78abb3;" text="Connecter vous" />
+            <ImageView fx:id="loginLogo" fitHeight="166.0" fitWidth="455.0" layoutX="216.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
+               </image></ImageView>
+            <Button fx:id="goregister" layoutX="316.0" layoutY="358.0" mnemonicParsing="false" onAction="#gotoRegister" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: FF7324;" text="S'incrire" />
+            <ImageView fitHeight="539.0" fitWidth="418.0" layoutX="444.0" layoutY="21.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/DELL/Downloads/V_AGENTS_587x900_Jett.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

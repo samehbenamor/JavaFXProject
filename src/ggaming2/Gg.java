@@ -35,7 +35,7 @@ public class Gg extends Application {
         Parent root;
         try {
             
-            root = new FXMLLoader(getClass().getResource("register.fxml")).load();
+            root = new FXMLLoader(getClass().getResource("HomePage.fxml")).load();
             //root =FXMLLoader.load(getClass().getResource("boutiqueBack_1.fxml"));
             Scene scene = new Scene(root);
 

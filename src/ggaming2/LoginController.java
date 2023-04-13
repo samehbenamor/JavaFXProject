@@ -6,8 +6,10 @@ package ggaming2;
  * and open the template in the editor.
  */
 import javafx.fxml.FXML;
-
+import org.mindrot.jbcrypt.BCrypt;
 import ggaming.cnx.MaConnection;
+import ggaming.entity.Joueur;
+import ggaming.services.JoueurDAO;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.*;
@@ -17,8 +19,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import ggaming2.SessionManager;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javax.servlet.http.HttpServletRequest;
+import ggaming2.UserProfile;
+import ggaming2.Global;
+import javax.servlet.http.HttpSession;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /**
  *
@@ -26,7 +39,8 @@ import javafx.scene.image.ImageView;
  */
 public class LoginController {
     // Inject your FXML controls here
-
+    public String sessionId;
+    
     private final Connection cnx;
 
     public LoginController() {
@@ -43,6 +57,7 @@ public class LoginController {
 
     @FXML
     private Label wrongLogIn;
+
     // Wanted to programmatically load an image.
     /*@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,22 +74,69 @@ public class LoginController {
 
         // Check the email and password against your database
         if (checkCredentials(emailLogin, pass)) {
+            JoueurDAO joueurDAO = new JoueurDAO();
+            
+            Joueur joueur = joueurDAO.getJoueurByEmail(emailLogin);
+            if (joueur.isBanned()) {
+                try {
+                //UserProfile controller = new UserProfile();
+                //controller.setSessionId(sessionId);
+                
+                Parent page1 = FXMLLoader.load(getClass().getResource("Banned.fxml"));
+                Scene scene = new Scene(page1);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));;
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                //loader.setController(controller);
+                //controller.setSessionId(sessionId);
+                
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            } else {
+            sessionId = SessionManager.createSession(joueur);
+            
+            Global.sessionId = sessionId;
+            System.out.println("Session ID in the login: " + Global.sessionId);
+            
             // If the credentials are valid, display a success message
-            wrongLogIn.setText("Login successful");
+            
+            try {
+                //UserProfile controller = new UserProfile();
+                //controller.setSessionId(sessionId);
+                
+                Parent page1 = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
+                Scene scene = new Scene(page1);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));;
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                //loader.setController(controller);
+                //controller.setSessionId(sessionId);
+                
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            }
         } else {
             // If the credentials are invalid, display an error message
-            wrongLogIn.setText("Invalid email or password");
+            wrongLogIn.setText("Email ou mot de passe invalide");
         }
     }
 
     // Check the user's credentials against your database
     private boolean checkCredentials(String emailLogin, String pass) {
         try {
-            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?");
+            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM joueur WHERE email = ?");
             statement.setString(1, emailLogin);
-            statement.setString(2, pass);
             ResultSet resultSet = statement.executeQuery();
-            return resultSet.next(); // true if a row is returned, false otherwise
+            if (resultSet.next()) {
+                String hashedPass = resultSet.getString("password");
+                return BCrypt.checkpw(pass, hashedPass);
+            } else {
+                return false; // email not found
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

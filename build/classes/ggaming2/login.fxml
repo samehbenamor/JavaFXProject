@@ -15,28 +15,23 @@
    <center>
       <AnchorPane fx:id="login" prefHeight="400.0" prefWidth="335.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="60.0" fitWidth="92.0" layoutX="121.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/lock.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="248.0" layoutY="210.0" text="Username" textFill="#ffc900">
+            <Label layoutX="213.0" layoutY="210.0" prefHeight="30.0" prefWidth="130.0" text="Email" textFill="#ffc900">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="249.0" layoutY="266.0" text="Password" textFill="#ffc900">
+            <Label layoutX="210.0" layoutY="264.0" text="Mot de passe" textFill="#ffc900">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="email" layoutX="401.0" layoutY="213.0" prefWidth="150.0" promptText="Email" />
-            <PasswordField fx:id="password" layoutX="401.0" layoutY="269.0" prefWidth="150.0" promptText="Mot de passe" />
-            <Button fx:id="button" layoutX="317.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Connecter vous" />
-            <Label fx:id="wrongLogIn" layoutX="153.0" layoutY="127.0" textFill="RED" />
-            <ImageView fx:id="loginLogo" fitHeight="166.0" fitWidth="455.0" layoutX="180.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="email" layoutX="401.0" layoutY="213.0" prefHeight="26.0" prefWidth="193.0" promptText="Email" />
+            <PasswordField fx:id="password" layoutX="401.0" layoutY="266.0" prefHeight="26.0" prefWidth="194.0" promptText="Mot de passe" />
+            <Button fx:id="button" layoutX="313.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Connecter vous" />
+            <Label fx:id="wrongLogIn" layoutX="253.0" layoutY="319.0" prefHeight="18.0" prefWidth="295.0" textFill="RED" />
+            <ImageView fx:id="loginLogo" fitHeight="166.0" fitWidth="455.0" layoutX="174.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
+                  <Image url="file:/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
                </image></ImageView>
          </children>
       </AnchorPane>
