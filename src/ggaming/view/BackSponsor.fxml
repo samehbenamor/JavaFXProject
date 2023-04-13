@@ -212,14 +212,15 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="tableSponsor" layoutX="68.0" layoutY="61.0" prefHeight="302.0" prefWidth="942.0">
+                                          <TableView fx:id="tableSponsor" layoutX="68.0" layoutY="61.0" prefHeight="302.0" prefWidth="1133.0">
                                             <columns>
-                                              <TableColumn fx:id="collidsp" prefWidth="198.0" text="ID" />
-                                              <TableColumn fx:id="collnamesp" prefWidth="184.0" text="Nom Sponsor" />
+                                              <TableColumn fx:id="collidsp" prefWidth="92.80001831054688" text="ID" />
+                                              <TableColumn fx:id="collnamesp" prefWidth="289.59999084472656" text="Nom Sponsor" />
                                                 <TableColumn fx:id="colldescsp" prefWidth="168.0" text="Description sponsor" />
                                                 <TableColumn fx:id="collsitewebsp" minWidth="0.0" prefWidth="128.0" text="site web" />
                                                 <TableColumn fx:id="colllogoeqsp" minWidth="8.0" prefWidth="123.0" text="logo equipe" />
-                                                <TableColumn fx:id="colldatecr" minWidth="0.0" prefWidth="137.0" text="Date Création" />
+                                                <TableColumn fx:id="colldatecrsp" minWidth="0.0" prefWidth="137.0" text="Date Création" />
+                                                <TableColumn fx:id="colleqsp" prefWidth="184.0" text="equipe sponsorieé" />
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
@@ -267,7 +268,7 @@
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
                                     <TextField fx:id="tfidsp" layoutX="134.0" layoutY="512.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="364.0" layoutY="443.0" text="nom equipe sp" />
-                                    <ComboBox fx:id="comboboxsp" layoutX="457.0" layoutY="439.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="comboboxsp" layoutX="467.0" layoutY="439.0" prefWidth="150.0" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

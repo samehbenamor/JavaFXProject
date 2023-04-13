@@ -81,7 +81,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button fx:id="Equipess_btn" layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -96,7 +96,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Sponsor_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#gotosponsors" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="sponsors" textFill="#c32626">
+                              <Button fx:id="Sponsor_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#gotosp" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="sponsors" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>

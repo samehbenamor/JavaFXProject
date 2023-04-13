@@ -203,7 +203,7 @@ public class EquipeService implements equipeinterfaces <Equipe> {
        
         
     }
-     
+     /*
       public Equipe rechercherEquipeParNom(String nom_equipe) throws SQLException {
     String req = "SELECT * FROM Equipe WHERE nom_equipe=?";
     Equipe equipe = null;
@@ -227,6 +227,26 @@ public class EquipeService implements equipeinterfaces <Equipe> {
         throw new SQLException("Erreur lors de la récupération  par nom : " + ex.getMessage(), ex);
     }
     return equipe;
+    }
+      */
+      
+       public Equipe findEquipeByNom(String nom) {
+        try {
+            String sql = "select * from Equipe where nom_equipe = ?";
+            PreparedStatement ste = cnx2.prepareStatement(sql);
+            ste.setString(1,nom);
+            ResultSet s = ste.executeQuery();
+
+                while (s.next()) {
+                Equipe r = new Equipe(
+                s.getInt("id"),
+                s.getString("nom_equipe"));
+                return r;
+                }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return new Equipe(); //what should i put this
     }
     
 }

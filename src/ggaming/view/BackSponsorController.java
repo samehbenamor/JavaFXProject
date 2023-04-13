@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ggaming.view;
 
 import ggaming.cnx.MyConnection;
@@ -20,10 +21,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -58,6 +61,7 @@ import javax.imageio.ImageIO;
  *
  * @author dhia
  */
+
 public class BackSponsorController implements Initializable {
 
     @FXML
@@ -106,7 +110,6 @@ public class BackSponsorController implements Initializable {
     private TableColumn<Sponsor, String> collsitewebsp;
     @FXML
     private TableColumn<Sponsor, String> colllogoeqsp;
-    @FXML
     private TableColumn<Sponsor, LocalDateTime> colldatecr;
     @FXML
     private TextField addEmployee_search;
@@ -175,17 +178,42 @@ public class BackSponsorController implements Initializable {
      private boolean sponsorView = false;
 private int selectedSponsorId;
     int index=-1;
+    SponsorService sss;
     @FXML
-    private ComboBox<Equipe> comboboxsp;
+    private ComboBox<String> comboboxsp;
+    @FXML
+    private TableColumn<Sponsor, LocalDateTime> colldatecrsp;
+    @FXML
+    private TableColumn<Sponsor, String> colleqsp;
     /**
      * Initializes the controller class.
      */
+
+
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        sss= new SponsorService();
+        List<Sponsor> sponsorList = sss.displayAll();
+        ObservableList<Sponsor> data = FXCollections.observableArrayList(sponsorList);
          serviceSponsor = new SponsorService();
          serviceSponsor.initConnection();
         loadDataSponsor();
+         colleqsp.setCellValueFactory(cellData -> {
+                Equipe equipe = cellData.getValue().getEquipe();
+                String nom = "";
+                if (equipe != null) {
+                    nom = String.valueOf(equipe.getNom_equipe());
+                }
+                return new SimpleStringProperty(nom);
+            });
+          ObservableList<String> optEqpExt = FXCollections.observableArrayList(sss.getEquipe());
+             comboboxsp.setItems(optEqpExt);
+              tableSponsor.setItems(data);
         tableSponsor.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         if (newSelection != null) {
             // Get the id of the selected Jeux item
@@ -199,6 +227,8 @@ private int selectedSponsorId;
             
            tfidsp.setText(Integer.toString(newSelection.getId()));
         }
+        
+        
     });
     }    
 
@@ -225,8 +255,9 @@ private void loadDataSponsor() {
             colldescsp.setCellValueFactory(new PropertyValueFactory<>("description_sponsor"));
             collsitewebsp.setCellValueFactory(new PropertyValueFactory<>("site_webs"));
             colllogoeqsp.setCellValueFactory(new PropertyValueFactory<>("logo_sponsor"));
-            colldatecr.setCellValueFactory(new PropertyValueFactory<>("date_creationn"));
-            
+            colldatecrsp.setCellValueFactory(new PropertyValueFactory<>("date_creationn"));
+           colleqsp.setCellValueFactory(new PropertyValueFactory<>("id_equipe_id"));
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,12 +277,15 @@ private void loadDataSponsor() {
                
                     sponsorList.add(new Sponsor(
                         resultSet.getInt("id"),
+                            
                         resultSet.getString("nom_sponsor"),
                         resultSet.getString("description_sponsor"),
                         resultSet.getString("logo_sponsor"),
                         resultSet.getString("site_webs"),
-                           dateCreationn                                                                                             
+                           dateCreationn             
+                            
                     ));
+                    
                     tableSponsor.setItems(sponsorList);
                 }
             } else {
@@ -264,12 +298,43 @@ private void loadDataSponsor() {
 
 
     @FXML
-    private void savesp(MouseEvent event) { 
-       String nom_sponsor= tfnamesp.getText();
+    private void savesp(MouseEvent event) throws SQLException { 
+        String nom_sponsor= tfnamesp.getText();
          String description_sponsor=tfDescripsp.getText();
          String logo_sponsor=logoimagesp.getImage().toString();
          String site_webs=tfwebsitesp.getText();
-         
+          String equipeExt = comboboxsp.getValue();
+         /*
+         EquipeService ese = new EquipeService();
+         Equipe equipe = new Equipe();
+          String nom_equipe= (String) comboboxsp.getSelectionModel().getSelectedItem();
+          try {
+          equipe= ese.rechercherEquipeParNom(nom_equipe);
+         } catch (SQLException ex) {
+             Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+*/
+           if (tfnamesp.getText().isEmpty() || tfDescripsp.getText().isEmpty() ||tfwebsitesp.getText().isEmpty()||
+            comboboxsp.getValue().isEmpty() ||logoimagesp.getImage()==null ){
+           Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("");
+        alert.setHeaderText("");
+      
+		alert.setContentText("Remplir tous les champs");
+                alert.showAndWait();
+                 return;
+      }
+           
+           if (!site_webs.matches("^(https?|ftp)://.*$")) {
+        tfwebsitesp.setStyle("-fx-border-color: red");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("L'adresse du site web n'est pas valide");
+        alert.showAndWait();
+        return;
+    }
+          /*
         if(nom_sponsor.isEmpty()){
             tfnamesp.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -279,18 +344,16 @@ private void loadDataSponsor() {
             alert.showAndWait();
             return;
         }
-
+           */
+  Equipe equipe = sss.findEquipeByNom(comboboxsp.getValue());
         LocalDateTime currentDate = LocalDateTime.now();
-        Sponsor a = new Sponsor(nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate);
+        Sponsor a = new Sponsor ( equipe ,nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate );
         SponsorService ss = new SponsorService();
          
-        ss.ajouterSponsor(a);
+        sss.ajouterSponsor(a);
         
         refreshTableS();
-        /*
-       tfid.clear();
-        tfLibelle.clear();
-*/
+
     }
 
     @FXML
@@ -354,6 +417,7 @@ private void loadDataSponsor() {
         
         tfwebsitesp.setText("");
         tfidsp.setText("");
+        comboboxsp.setValue("");
         logoimagesp.setImage(null);
     }
 

@@ -14,10 +14,38 @@ import java.time.LocalDateTime;
  */
 public class Sponsor {
     private int id;
-    private String nom_sponsor ,description_sponsor, logo_sponsor, site_webs;
-    private int id_equipe;
-    private LocalDateTime date_creationn;
     private Equipe equipe;
+    private String nom_sponsor ,description_sponsor, logo_sponsor, site_webs;
+   
+    private LocalDateTime date_creationn;
+
+    public Sponsor(int id, Equipe equipe, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn) {
+        this.id = id;
+        this.equipe = equipe;
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.logo_sponsor = logo_sponsor;
+        this.site_webs = site_webs;
+        this.date_creationn = date_creationn;
+    }
+
+    public Sponsor(Equipe equipe, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn) {
+        this.equipe = equipe;
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.logo_sponsor = logo_sponsor;
+        this.site_webs = site_webs;
+        this.date_creationn = date_creationn;
+    }
+
+    public Sponsor(Equipe equipe, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs) {
+        this.equipe = equipe;
+        this.nom_sponsor = nom_sponsor;
+        this.description_sponsor = description_sponsor;
+        this.logo_sponsor = logo_sponsor;
+        this.site_webs = site_webs;
+    }
+    
 
 
     public Sponsor(int id, String nom_sponsor, String description_sponsor, String logo_sponsor, String site_webs, LocalDateTime date_creationn) {
@@ -27,6 +55,11 @@ public class Sponsor {
         this.logo_sponsor = logo_sponsor;
         this.site_webs = site_webs;
         this.date_creationn = date_creationn;
+    }
+
+    @Override
+    public String toString() {
+        return "Sponsor{" + "id=" + id + ", nom_sponsor=" + nom_sponsor + ", description_sponsor=" + description_sponsor + ", logo_sponsor=" + logo_sponsor + ", site_webs=" + site_webs  + ", date_creationn=" + date_creationn + ", equipe=" + equipe + '}';
     }
 
    
