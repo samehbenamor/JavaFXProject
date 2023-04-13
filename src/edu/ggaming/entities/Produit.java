@@ -5,6 +5,8 @@
  */
 package edu.ggaming.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author balla
@@ -17,6 +19,7 @@ public class Produit {
     private String prix;
     private int quantite;
     private CategorieProduit categorie;
+    private String date_creation;
 
     public Produit()
     {
@@ -45,6 +48,15 @@ public class Produit {
         this.prix = prix;
         this.quantite = quantite;
         this.categorie=categorie;
+    }
+     public Produit(String nom, String description, String image, String prix, int quantite,CategorieProduit categorie, String date_creation) {
+        this.nom = nom;
+        this.description = description;
+        this.image = image;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.categorie=categorie;
+        this.date_creation=date_creation;
     }
 
     public CategorieProduit getCategorie() {
@@ -108,5 +120,12 @@ public class Produit {
         this.quantite = quantite;
     }
    
+     public String getDate_creation() {
+        return date_creation;
+    }
+
+    public void setDate_creation(String date_creation) {
+        this.date_creation = date_creation;
+    }
     
 }

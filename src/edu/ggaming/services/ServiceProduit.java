@@ -9,6 +9,7 @@ import edu.ggaming.entities.CategorieProduit;
 import edu.ggaming.entities.Produit;
 import edu.ggaming.utils.MyConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,8 +74,8 @@ public boolean isNumeric(String text) {
          try {
              Alert alert;
              String requete2="INSERT INTO produit"
-                + "(nom,description,prix,image,quantite,categorie_produit_id)"
-                + "VALUES (?,?,?,?,?,?)";
+                + "(nom,description,prix,image,quantite,categorie_produit_id,date_produit)"
+                + "VALUES (?,?,?,?,?,?,?)";
          
              PreparedStatement pst=cnx2.prepareStatement(requete2);
              pst.setString(1, p.getNom());
@@ -82,7 +83,8 @@ public boolean isNumeric(String text) {
              pst.setString(3, p.getPrix());
              pst.setString(4, p.getImage());
              pst.setInt(5, p.getQuantite());
-             pst.setInt(6,p.getCategorie().getId());
+             pst.setInt(6,p.getCategorie().getId());     
+             pst.setString(7,p.getDate_creation());
           
              pst.executeUpdate();
              System.out.println("Produit Ajouté avec succès...");
@@ -188,11 +190,11 @@ public boolean isNumeric(String text) {
     }
     return produit;
     }
-     public ObservableList<Produit> getall() {
+    public ObservableList<Produit> getall() {
         ObservableList<Produit> produits = FXCollections.observableArrayList();
         ServiceCategorieProduit scp=new ServiceCategorieProduit();
         try {
-            String req = "SELECT * FROM produit"; //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
+            String req = "SELECT * FROM produit ORDER BY date_produit DESC"; //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
             Statement st = cnx2.createStatement();
             ResultSet rs = st.executeQuery(req);
 

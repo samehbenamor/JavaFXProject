@@ -167,12 +167,12 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
                                  <children>
-                                    <Label prefHeight="29.0" prefWidth="190.0" text="Free delivery" textFill="#878787">
+                                    <Label prefHeight="29.0" prefWidth="190.0" text="Livraison Gratuite" textFill="#878787">
                                        <font>
                                           <Font name="Cambria Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="190.0" text="over $20 order" textFill="#878787">
+                                    <Label prefHeight="16.0" prefWidth="190.0" text="over DT100 order" textFill="#878787">
                                        <font>
                                           <Font name="Cambria" size="15.0" />
                                        </font>
@@ -191,12 +191,12 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
                                  <children>
-                                    <Label prefHeight="29.0" prefWidth="190.0" text="Shopping online" textFill="#878787">
+                                    <Label prefHeight="29.0" prefWidth="190.0" text="Achat en ligne" textFill="#878787">
                                        <font>
                                           <Font name="Cambria Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label prefHeight="20.0" prefWidth="207.0" text="get your shopping in same day" textFill="#878787">
+                                    <Label prefHeight="20.0" prefWidth="207.0" text="Obtenez vos achats le jour même" textFill="#878787">
                                        <font>
                                           <Font name="Cambria" size="15.0" />
                                        </font>

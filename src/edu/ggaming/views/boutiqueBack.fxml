@@ -62,7 +62,7 @@
                                  </font>
                               </Label>
                               <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                              <Button fx:id="home_btn" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
+                              <Button fx:id="home_btn" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
                                  <graphic>
                                   
                                  </graphic>
@@ -225,7 +225,7 @@
                                                 <TableColumn fx:id="tccreation" minWidth="0.0" prefWidth="137.0" text="Catégorie" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
+                                          <TextField fx:id="produit_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
                                          
                                        </children>
                                     </AnchorPane>
@@ -262,7 +262,7 @@
                                     <TextField fx:id="tfPrix" layoutX="423.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
-                                     <TextField fx:id="tfImage" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
+                                    <TextField fx:id="tfImage" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
 
                                     <AnchorPane layoutX="857.0" layoutY="401.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
@@ -320,7 +320,7 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfNom_categorie" layoutX="467.0" layoutY="455.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                     <TextField fx:id="tfid_categorie" layoutX="467.0" layoutY="455.0" prefHeight="25.0" prefWidth="172.0" visible="false" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                     <TextField fx:id="tfid_categorie" layoutX="467.0" layoutY="455.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
                             
                                     
                                     

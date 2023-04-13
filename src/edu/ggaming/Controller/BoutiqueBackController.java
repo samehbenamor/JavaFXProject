@@ -18,7 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -79,6 +81,9 @@ public class BoutiqueBackController  implements Initializable{
     private TextField tfNom_categorie;
      @FXML
     private TextField tfid_categorie;
+     
+       @FXML
+    private TextField produit_search;
 
     @FXML
     private TableView<Produit> addProduit_tableView;
@@ -124,6 +129,10 @@ public class BoutiqueBackController  implements Initializable{
     @FXML
     private Button addProduit_addBtn;
  private Image image;
+ 
+ 
+ 
+ 
       @FXML
      public void addProduitAdd() {
         
@@ -153,7 +162,15 @@ public class BoutiqueBackController  implements Initializable{
             if(p2==null)
             {
                  int quantite=Integer.parseInt(tfQuantite.getText());
-                    Produit p=new Produit(nom,description,image,prix,quantite,categorie_produit);
+                  Date now = new Date();
+        
+                    // Création d'un objet SimpleDateFormat avec le format souhaité
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+                    // Conversion de la date en une chaîne de caractères
+                    String dateString = dateFormat.format(now);
+                    System.out.println(dateString);
+                 Produit p=new Produit(nom,description,image,prix,quantite,categorie_produit,dateString);
 
                     sp.ajouterProduit2(p);
                     show_produit(); //pour mettre à jour l'affichage de la table view
@@ -322,8 +339,11 @@ public class BoutiqueBackController  implements Initializable{
         String prix=tfPrix.getText();
         
         String image_produit=getData.path;
-        String ancien_image=tfImage.getText();
-        if(controleSaisie(image_produit))
+        String ancien_image=null;
+        ancien_image=tfImage.getText();
+         System.out.println(ancien_image);
+                
+        if(controleSaisieModification())
         {
         int quantite=Integer.parseInt(tfQuantite.getText());
         Produit p;
@@ -338,15 +358,15 @@ public class BoutiqueBackController  implements Initializable{
         int id=Integer.parseInt(tfid.getText());
         
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Cofirmation Message");
-                alert.setHeaderText(null);
+                  alert.setTitle("Cofirmation Message");
+                  alert.setHeaderText(null);
                 alert.setContentText("Etes vous sûr de modifier le produit ID " + id + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 
                  if (option.get().equals(ButtonType.OK)) {
                        service.modifierProduit(id,p);
                         show_produit();//mise à jour de la table
-                     
+                          annulerProduit();   
                  }
                  else
                  {
@@ -603,6 +623,113 @@ public class BoutiqueBackController  implements Initializable{
           return true;
       }
          
+        public boolean controleSaisieModification()
+      {
+          Alert alert;
+          ServiceProduit sp=new ServiceProduit();
+          if(!tfNom.getText().isEmpty())
+          {
+               tfNom.getStyleClass().remove("error");
+          }
+           if(!tfDescription.getText().isEmpty())
+          {
+               tfDescription.getStyleClass().remove("error");
+          }
+            if(!tfPrix.getText().isEmpty()&&sp.isNumeric(tfPrix.getText()))
+          {
+               tfPrix.getStyleClass().remove("error");
+          }
+             if(!tfQuantite.getText().isEmpty()&&sp.isNumeric(tfQuantite.getText()))
+          {
+               tfQuantite.getStyleClass().remove("error");
+          }
+            if(categorie_produit.getSelectionModel().getSelectedItem()!=null)
+            {
+                categorie_produit.getStyleClass().remove("error");
+            }
+             
+          if(tfNom.getText().isEmpty())
+        {
+             tfNom.getStyleClass().add("error"); //rendre le texfield de couleur rouge
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez saisir le nom du produit");
+             alert.showAndWait();
+            
+             return false;
+        }
+        else if(tfDescription.getText().isEmpty())
+        {
+             tfDescription.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez saisir la description  du produit");
+             alert.showAndWait();
+            
+              return false;
+        }
+         else if (categorie_produit.getSelectionModel().getSelectedItem()==null)
+         {
+             categorie_produit.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez choisir la categorie  du produit");
+             alert.showAndWait();
+            
+              return false;
+              
+         }
+            else if(tfPrix.getText().isEmpty())
+        {
+             tfPrix.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez saisir le prix  du produit");
+             alert.showAndWait();
+             
+              return false;
+        }
+        else if(!sp.isNumeric(tfPrix.getText()))
+        {
+             tfPrix.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Le prix doit être une valeur numerique positive");
+             alert.showAndWait();
+             
+              return false;
+        }
+          else if(tfQuantite.getText().isEmpty())
+        {
+             tfQuantite.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("Veuillez saisir la quantite  du produit");
+             alert.showAndWait();
+             
+              return false;
+        }
+          else if(!sp.isNumeric(tfQuantite.getText()))
+        {
+             tfQuantite.getStyleClass().add("error");
+             alert = new Alert(Alert.AlertType.ERROR);
+             alert.setTitle("Erreur");
+             alert.setHeaderText(null);
+             alert.setContentText("La quantite doit être une valeur numerique positive");
+             alert.showAndWait();
+            
+              return false;
+        }
+          
+           return true;
+      }
+         
       /////partie categorie
        @FXML
       void addCategorieProduit()
@@ -649,11 +776,31 @@ public class BoutiqueBackController  implements Initializable{
        // annulerProduit(); //pour vide les champs du formulaire
         
       }
+          @FXML
+          public void afficherBoutique()
+          {
+              
+              Parent parent;
+         try {
+             parent = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(parent);
+                Stage stage = new Stage();
+                //stage.getIcons().add(new Image("/images/logo.png"));
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+               
+          }
+          
+          
 }
 
 
 
 ///a voir$
 
-//la modification ne fonctionne pas correctement
+//la modification ne fonctionne pas correctement -----> oKAY
 //ajouter la date de création au niveau de produit et catégorie
