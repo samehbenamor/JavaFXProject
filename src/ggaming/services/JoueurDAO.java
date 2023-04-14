@@ -116,48 +116,51 @@ public class JoueurDAO {
         }
         return joueurId;
     }
+
     public Joueur getJoueurByEmail(String email) {
-    Joueur joueur = null;
-    try {
-        PreparedStatement statement = cnx.prepareStatement("SELECT * FROM joueur WHERE email = ?");
-        statement.setString(1, email);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String nom = resultSet.getString("nom");
-            String emailuser = resultSet.getString("email");
-            String prenom = resultSet.getString("prenom");
-            //String password = resultSet.getString("password");
-            String ign = resultSet.getString("ign");
-            String pprofile = resultSet.getString("pprofile");
-            Date datenais = resultSet.getDate("datenai");
-            int wins = resultSet.getInt("wins");
-            int loses  = resultSet.getInt("loses");
-            Boolean is_verified  = resultSet.getBoolean("is_verified");
-            Boolean is_banned  = resultSet.getBoolean("is_banned");
-            //String role = resultSet.getString("role");
-            //int roleJava = 
-            joueur = new Joueur(id, emailuser, is_verified, nom, prenom, datenais, pprofile, is_banned, ign, wins, loses);
+        Joueur joueur = null;
+        try {
+            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM joueur WHERE email = ?");
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nom = resultSet.getString("nom");
+                String emailuser = resultSet.getString("email");
+                String prenom = resultSet.getString("prenom");
+                int rolez = resultSet.getInt("roleJava_joueur_id");
+                //String password = resultSet.getString("password");
+                String ign = resultSet.getString("ign");
+                String pprofile = resultSet.getString("pprofile");
+                Date datenais = resultSet.getDate("datenai");
+                int wins = resultSet.getInt("wins");
+                int loses = resultSet.getInt("loses");
+                Boolean is_verified = resultSet.getBoolean("is_verified");
+                Boolean is_banned = resultSet.getBoolean("is_banned");
+                //String role = resultSet.getString("role");
+                //int roleJava = 
+                joueur = new Joueur(id, emailuser, is_verified, nom, prenom, datenais, pprofile, is_banned, ign, wins, loses, rolez);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return joueur;
     }
-    return joueur;
-}
+
     public void updateJoueur(Joueur updatedJoueur) throws SQLException {
-    String sql = "UPDATE joueur SET nom=?, prenom=?, email=?, datenai=?, pprofile=?, ign=? WHERE id=?";
-    try (
-         PreparedStatement statement = cnx.prepareStatement(sql)) {
-        statement.setString(1, updatedJoueur.getNom());
-        statement.setString(2, updatedJoueur.getPrenom());
-        statement.setString(3, updatedJoueur.getEmail());
-       
-        statement.setDate(4, new java.sql.Date(updatedJoueur.getDatenai().getTime()));
-        statement.setString(5, updatedJoueur.getProfile());
-        statement.setString(6, updatedJoueur.getIgn());
-        statement.setInt(7, updatedJoueur.getId());
-        statement.executeUpdate();
+        String sql = "UPDATE joueur SET nom=?, prenom=?, email=?, datenai=?, pprofile=?, ign=? WHERE id=?";
+        try (
+                PreparedStatement statement = cnx.prepareStatement(sql)) {
+            statement.setString(1, updatedJoueur.getNom());
+            statement.setString(2, updatedJoueur.getPrenom());
+            statement.setString(3, updatedJoueur.getEmail());
+
+            statement.setDate(4, new java.sql.Date(updatedJoueur.getDatenai().getTime()));
+            statement.setString(5, updatedJoueur.getProfile());
+            statement.setString(6, updatedJoueur.getIgn());
+            statement.setInt(7, updatedJoueur.getId());
+            statement.executeUpdate();
+        }
     }
-}
 
 }

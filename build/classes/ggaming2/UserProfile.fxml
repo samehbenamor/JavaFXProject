@@ -55,7 +55,7 @@
                </font>
             </Label>
             <ImageView fx:id="profileimg" fitHeight="211.0" fitWidth="287.0" layoutX="70.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="modifier" layoutX="563.0" onAction="#GotoModifier" layoutY="501.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Modifier" />
+            <Button fx:id="modifier" layoutX="563.0" layoutY="501.0" mnemonicParsing="false" onAction="#GotoModifier" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Modifier" />
             <Label fx:id="profilenom1" layoutX="70.0" layoutY="386.0" prefHeight="30.0" prefWidth="50.0" text="Nom" textFill="#ff7324">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -86,6 +86,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button fx:id="gotoback" layoutX="565.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleback" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Dashboard" />
          </children>
       </AnchorPane>
    </center>

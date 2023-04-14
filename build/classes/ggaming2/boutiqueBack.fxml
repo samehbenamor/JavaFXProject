@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -53,11 +54,6 @@
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma" size="17.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Mousssa" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
                               <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
@@ -216,6 +212,7 @@
                                             </columns>
                                           </TableView>
                                           <TextField layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
+                                          <Button fx:id="exporttoimg" layoutX="1006.0" onAction="#exportimg" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Export" />
                                          
                                              </children>
                                     </AnchorPane>
@@ -251,20 +248,9 @@
                                     <TextField fx:id="prenomtext" layoutX="383.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     
                                           <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
-                                    
-      
-                                          <AnchorPane layoutX="857.0" layoutY="401.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <children>
-                                          <Button fx:id="addEmployee_importBtn" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
-                                       </children>
-                                    </AnchorPane>
                                     <Button fx:id="ajouttext" layoutX="256.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleAddUserButtonAction" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
                                     <Button layoutX="421.0" layoutY="612.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
-                                    <Button fx:id="annulertext" layoutX="591.0" layoutY="559.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
+                                    <Button fx:id="annulertext" layoutX="591.0" layoutY="559.0" mnemonicParsing="false" onAction="#clear" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextField fx:id="emailtext" layoutX="109.0" layoutY="425.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <TextField fx:id="winstext" layoutX="674.0" layoutY="379.0" prefHeight="26.0" prefWidth="148.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="611.0" layoutY="428.0" text="Defaites:">
@@ -284,7 +270,6 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="mdptext" layoutX="382.0" layoutY="498.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <ImageView fitHeight="135.0" fitWidth="141.0" layoutX="981.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
                                     <ComboBox fx:id="rolescombo" layoutX="666.0" layoutY="498.0" prefWidth="150.0" />
                                     <Label layoutX="725.0" layoutY="473.0" text="Role:">
@@ -292,6 +277,9 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
+                                    <PasswordField fx:id="mdptext" layoutX="383.0" layoutY="507.0" prefHeight="26.0" prefWidth="180.0" />
+                                    <Button fx:id="browseimg" layoutX="969.0" layoutY="580.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Browse" />
+                                    <ImageView fx:id="viewimg" fitHeight="182.0" fitWidth="270.0" layoutX="881.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

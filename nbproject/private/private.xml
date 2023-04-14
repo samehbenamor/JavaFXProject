@@ -5,18 +5,10 @@
         <group>
             <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming/entity/Joueur.java</file>
             <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/Gg.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/HomePage.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/ModifyProfile.fxml</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/Banned.java</file>
             <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/UserProfile.fxml</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/login.fxml</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/LoginController.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/ModifyProfile.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/register.fxml</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/Banned.fxml</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/RegisterController.java</file>
             <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming/services/JoueurDAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/UserProfile.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming/services/JoueurController.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/Gg/src/ggaming2/boutiqueBack.fxml</file>
         </group>
     </open-files>
 </project-private>

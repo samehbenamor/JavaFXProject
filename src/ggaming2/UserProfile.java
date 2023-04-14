@@ -53,6 +53,9 @@ public class UserProfile {
     @FXML
     private Button logout;
 
+    @FXML
+    private Button gotoback;
+
     /*private String sessionId;
 
     public void setSessionId(String sessionId) {
@@ -66,6 +69,13 @@ public class UserProfile {
         System.out.println("Session ID: " + sessionId);
 
         Joueur joueur = SessionManager.getSession(sessionId);
+        if (joueur.getRoleJava_joueur_id() == 2) {
+            // Show the dashboard button
+            gotoback.setVisible(true);
+        } else {
+            // Hide the dashboard button
+            gotoback.setVisible(false);
+        }
         String imageFilename = joueur.getProfile();
 
 // Construct a File object pointing to the location of the image file
@@ -88,10 +98,19 @@ public class UserProfile {
         String stringDate = dateFormat.format(date);
         profiledate.setText(stringDate);
     }
-    
+
     @FXML
     public void GotoModifier(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("ModifyProfile.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void handleback(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("boutiqueBack.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);

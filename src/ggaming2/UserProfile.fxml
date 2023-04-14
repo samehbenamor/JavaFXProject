@@ -86,7 +86,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="gotoback" layoutX="596.0" layoutY="22.0" mnemonicParsing="false" onAction="#GotoModifier" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Dashboard" />
+            <Button fx:id="gotoback" layoutX="565.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleback" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Dashboard" />
          </children>
       </AnchorPane>
    </center>
