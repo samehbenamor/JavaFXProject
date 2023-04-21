@@ -96,7 +96,7 @@ public CategorieJeux findById(int id) {
             
             PreparedStatement stmt = cnx.prepareStatement(sql);
             stmt.setString(1,t.getNomCat());
-            stmt.setInt(4, t.getId());
+            stmt.setInt(2, t.getId());
          
             stmt.executeUpdate();
             System.out.println("Categorie Jeux modifier avec success");
@@ -144,7 +144,7 @@ public List<CategorieJeux> getAllNames() {
             all.add(b);
         }
         return all;
-
+//throws
     } catch (SQLException ex) {
         System.out.println(ex.getMessage());
     }

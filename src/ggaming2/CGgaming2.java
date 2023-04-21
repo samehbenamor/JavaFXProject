@@ -8,8 +8,12 @@ import ggaming.entity.CategorieJeux;
 import ggaming.entity.Jeux;
 import ggaming.services.ServiceCatJeux;
 import ggaming.services.ServiceJeux;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  *
@@ -20,9 +24,9 @@ public class CGgaming2 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
     
-       Jeux b = new Jeux(4, "testing", "09ncizbiq.png", "09ngcizbiq.jpg", LocalDateTime.now(), 5);
+      /* Jeux b = new Jeux(4, "testing", "09ncizbiq.png", "09ngcizbiq.jpg", LocalDateTime.now(), 5);
         CategorieJeux cat= new CategorieJeux(20,"test2");
         ServiceJeux bs = new ServiceJeux();
         ServiceCatJeux bc = new ServiceCatJeux();
@@ -30,7 +34,7 @@ public class CGgaming2 {
         bc.initConnection();
         // bs.ajouter(b);
 //aff all method
-    /* List<Jeux> allJeux = bs.getAll();
+    List<Jeux> allJeux = bs.getAll();
     for (Jeux jeu : allJeux) {
     System.out.println("Reference: " + jeu.getRef());
     System.out.println("Libelle: " + jeu.getLibelle());
@@ -82,6 +86,15 @@ aff all method
     Jeux jeuxTodelete = bs.findById(2);
     bs.delete(jeuxTodelete);
 */
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+               .url("https://api.pandascore.co/videogames")
+                .addHeader("Authorization", "Bearer " +"9z3Lv3WyZIFClOSMHcxN78sxIbbJp_lpev23INCVr4cFn7-Nir8")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.body().string());
+        }
     }
     
 }

@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,9 +55,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 /**
@@ -65,6 +70,10 @@ import javax.imageio.ImageIO;
  * @author dell
  */
 public class JeuxController implements Initializable {
+    @FXML
+    private TextField rech;
+    @FXML
+    private Button btnrech;
     
   @FXML
     private Button minimize;
@@ -137,6 +146,8 @@ public class JeuxController implements Initializable {
     @FXML
     private Button catjeuxbtn;
     @FXML
+    private Button newjeux;
+    @FXML
     private Label errormsg;
    
     @FXML
@@ -147,7 +158,7 @@ public class JeuxController implements Initializable {
     
     private int selectedJeuxId;
     int index=-1;
-    
+    private boolean catView = false;
     private ObservableList<Jeux> Data;
     private Connection con;
     String query = null;
@@ -211,6 +222,22 @@ private void refreshTable() {
     }
 }
 
+@FXML
+public void rechercherJeux(ActionEvent event) {
+  if (event.getSource() == btnrech) {
+        String name = rech.getText();
+        List<Jeux> result = servicesJeux.rechercherJeuxParNom(name);
+
+        // Add the result to the table
+        ObservableList<Jeux> observableList = FXCollections.observableArrayList(result);
+        jeuxtable.setItems(observableList);
+    }
+}
+ @FXML
+    private void emptyfields(ActionEvent event){
+       tfid.clear();
+        tfLibelle.clear();
+    }
 private void loadDataJeux() {
     try {
         refreshTable();
@@ -227,9 +254,12 @@ private void loadDataJeux() {
      @FXML
     void ajouterJeux(ActionEvent event) {
          String libelle = tfLibelle.getText().trim();
+         String stringid = tfid.getText().trim();
          String logo_jeux=jeuxlg.getImage().toString();
          String image_jeux=jeuximage.getImage().toString();
+         int id = parseInt(stringid);
         if(libelle.isEmpty()){
+            
             tfLibelle.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -240,7 +270,7 @@ private void loadDataJeux() {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Jeux b = new Jeux(100, libelle, image_jeux, logo_jeux, currentDate, 0);
+        Jeux b = new Jeux(id, libelle, image_jeux, logo_jeux, currentDate, 0);
         ServiceJeux sb = new ServiceJeux();
         sb.initConnection();
         sb.ajouter(b);
@@ -301,6 +331,7 @@ private void loadDataJeux() {
     }
     @FXML
     private void Editerjeux(ActionEvent event){
+        
         try{
 
             String idstring = tfid.getText();
@@ -325,10 +356,29 @@ private void loadDataJeux() {
     void affjeux(ActionEvent event) {
 
     }
+    @FXML
+    void checknew(ActionEvent event) throws IOException {
+         catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/GameA.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+    }
     
     @FXML
-    void affcat(ActionEvent event) {
+    void affcat(ActionEvent event) throws IOException {
+        catView = true;
 
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/Backcat.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+       
     }
     
 }

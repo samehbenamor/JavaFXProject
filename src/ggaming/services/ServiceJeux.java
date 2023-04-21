@@ -68,7 +68,18 @@ public class ServiceJeux {
                ResultSet rs =  stmt.executeQuery(sql);
                 
                 while(rs.next()){
-                   Jeux b = new Jeux(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getTimestamp(6).toLocalDateTime(), rs.getFloat(7), rs.getInt(8), rs.getFloat(9), rs.getFloat(10), rs.getInt(11) );
+                   Jeux b = new Jeux(
+                           rs.getInt(1),
+                           rs.getString(2),
+                           rs.getString(3),
+                           rs.getString(4), 
+                           rs.getString(5), 
+                           rs.getTimestamp(6).toLocalDateTime(),
+                           rs.getFloat(7),
+                           rs.getInt(8), 
+                           rs.getFloat(9), 
+                           rs.getFloat(10), 
+                           rs.getInt(11) );
                 
                     
                     
@@ -178,8 +189,8 @@ public List<Jeux> afficherJeux()
                  Jeux p=new Jeux();
                  p.setId(rs.getInt(1));
                  p.setLibelle(rs.getString("libelle"));
-                 p.setImageJeux(rs.getString("image_jeux"));
-                 p.setLogoJeux(rs.getString("logo_jeux"));
+                 //p.setImageJeux(rs.getString("image_jeux"));
+                 //p.setLogoJeux(rs.getString("logo_jeux"));
                  p.setViews(rs.getInt("views"));
                  myList.add(p);
                  
@@ -192,5 +203,30 @@ public List<Jeux> afficherJeux()
     }
 
     
-    
+   public List<Jeux> rechercherJeuxParNom(String name) {
+        ArrayList<Jeux> result = new ArrayList<>();
+        try {
+           String sql = "SELECT * FROM jeux WHERE LOWER(libelle) LIKE CONCAT('%', LOWER(?), '%') limit 1;";
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ste.setString(1, name); // set the value of the first parameter to the name you want to match
+            ResultSet s = ste.executeQuery();
+
+           while (s.next()) {
+                LocalDateTime dateCreation = s.getTimestamp("date_creation").toLocalDateTime();
+                Jeux r = new Jeux(
+                        
+                        s.getInt("id"),
+                        s.getString("ref"),
+                        s.getString("libelle"),
+                        dateCreation,
+                        s.getInt("views"),
+                        s.getFloat("note_myonne"));
+                result.add(r);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
 }

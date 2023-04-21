@@ -24,6 +24,10 @@ public  CategorieJeux(String NomCat) {
         
     }
 
+    public CategorieJeux(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 public String getNomCat() {
         return NomCat;
     }
@@ -39,7 +43,6 @@ public void setId(int id) {
     }
 @Override
 public String toString() {
-	// TODO Auto-generated method stub
-	return super.toString();
+	return NomCat;
 }
 }

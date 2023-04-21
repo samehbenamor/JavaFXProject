@@ -35,9 +35,9 @@ public class FrontJeuxController implements Initializable {
 
     @FXML
     private ScrollPane scroll;
-private List<Jeux> jeuxs=new ArrayList<>();
+
     private Image image;
-    private MyListener myListener;
+    private List<Jeux> jeuxes;
     ServiceJeux sp=new ServiceJeux();
     /**
      * Initializes the controller class.
@@ -45,27 +45,28 @@ private List<Jeux> jeuxs=new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-      
-        
-        jeuxs=sp.afficherJeux();
-        System.out.println(jeuxs);int column = 0;
+      /*
+        jeuxes = new ArrayList<>();
+        jeuxes.addAll(sp.afficherJeux());  
+        int column = 0;
         int row = 1;
-        try {
-            for (int i = 0; i < jeuxs.size(); i++) {
+            for (int i = 0; i < jeuxes.size(); i++) {
+            try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/ggaming/interfaces/item.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("itemj.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ItemjeuxController itemController = fxmlLoader.getController();
-                itemController.setData(jeuxs.get(i),myListener);
-
+                itemController.setData(jeuxes.get(i));
                 if (column == 3) {
                     column = 0;
                     row++;
                 }
 
                 grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
+                GridPane.setMargin(anchorPane, new Insets(10));
+
+               //set grid width
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 grid.setMaxWidth(Region.USE_PREF_SIZE);
@@ -75,10 +76,10 @@ private List<Jeux> jeuxs=new ArrayList<>();
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
 
-                GridPane.setMargin(anchorPane, new Insets(10));
+            } 
+            catch (IOException ex) {
+                System.out.print(ex);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            } */
     }
 }

@@ -26,7 +26,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming.interfaces.JeuxController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming.interfaces.BackcatController">
    <children>
       <AnchorPane fx:id="jeuxback" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -89,7 +89,7 @@
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="jeuxbtn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" onAction="#affjeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="jeuxbtn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" onAction="#affjeuxpage" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -124,86 +124,43 @@
                      <children>
                         <AnchorPane fx:id="jeuxform" layoutX="35.0" layoutY="-87.0" prefHeight="695.0" prefWidth="1104.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
-                              <AnchorPane layoutY="5.0" prefHeight="682.0" prefWidth="1127.0" stylesheets="@dashboardDesign.css">
+                              <AnchorPane layoutY="7.0" prefHeight="681.0" prefWidth="1103.0" stylesheets="@dashboardDesign.css">
                                  <children>
-                                    <AnchorPane layoutX="1.0" layoutY="-1.0" prefHeight="373.0" prefWidth="1120.0" stylesheets="@dashboardDesign.css">
+                                    <AnchorPane layoutX="1.0" layoutY="-6.0" prefHeight="378.0" prefWidth="1103.0" stylesheets="@dashboardDesign.css">
                                        <styleClass>
                                           <String fx:value="white-bg" />
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="jeuxtable" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="cattable" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
                                             <columns>
-                                              <TableColumn fx:id="tcref" prefWidth="198.0" text="Reference" />
-                                              <TableColumn fx:id="tclibelle" prefWidth="234.0" text="Libelle" />
-                                                <TableColumn fx:id="tcdate" prefWidth="240.0" text="Date ajout" />
-                                                <TableColumn fx:id="tcviews" minWidth="0.0" prefWidth="199.0" text="Views" />
-                                                <TableColumn fx:id="tcnoteM" minWidth="0.0" prefWidth="225.0" text="Note Moyenne" />
-                                                <TableColumn fx:id="tcid" minWidth="0.0" prefWidth="225.0" text="id" />
+                                              <TableColumn fx:id="tcidcat" prefWidth="234.0" text="ID" />
+                                                <TableColumn fx:id="tcnomcat" minWidth="0.0" prefWidth="862.0" text="Nom Categorie" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="rech" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="recherche" styleClass="search" stylesheets="@dashboardDesign.css" />
-                                          <Button fx:id="btnrech" layoutX="291.0" layoutY="17.0" mnemonicParsing="false" onAction="#rechercherJeux" stylesheets="@dashboardDesign.css" text="Recherche" />
-                                          <Button fx:id="newjeux" layoutX="922.0" layoutY="9.0" mnemonicParsing="false" onAction="#checknew" prefHeight="41.0" prefWidth="169.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Check Newest Games" />
+                                          <TextField layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
                                          
-                                                               </children>
-                                    </AnchorPane>
-                                    <Label layoutX="72.0" layoutY="384.0" text="Libelle:">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="tfLibelle" layoutX="117.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    
-                                                    
-                                    <Label layoutX="68.0" layoutY="445.0" text="Type:">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label layoutX="40.0" layoutY="504.0" text="Catégorie:">
-                                       <font>
-                                          <Font name="Tahoma" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <ComboBox fx:id="listeCat" layoutX="117.0" layoutY="500.0" prefWidth="150.0" promptText="Choose" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    
-                                                            <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
-                                    
-                        
-                                                            <AnchorPane layoutX="415.0" layoutY="386.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                       <children>
-                                          <Button fx:id="imageimportBtn" layoutY="137.0" mnemonicParsing="false" onAction="#addimage" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
-                                          <ImageView fx:id="jeuximage" fitHeight="135.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="jeuxaddBtn" layoutX="701.0" layoutY="559.0" mnemonicParsing="false" onAction="#ajouterJeux" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
-                                    <Button fx:id="jeuxupdateBtn" layoutX="586.0" layoutY="559.0" mnemonicParsing="false" onAction="#Editerjeux" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
-                                    <Button fx:id="jeuxdeleteBtn" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#suppjeux" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-                                    <Button fx:id="jeuxclearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#emptyfields" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
-                                    <ComboBox fx:id="listeType" layoutX="117.0" layoutY="442.0" prefWidth="150.0" promptText="Choose" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <AnchorPane layoutX="654.0" layoutY="386.0" prefHeight="163.0" prefWidth="141.0" stylesheets="@dashboardDesign.css">
-                                       <children>
-                                          <Button fx:id="logoimportBtn" layoutY="137.0" mnemonicParsing="false" onAction="#addlogo" prefHeight="25.0" prefWidth="141.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import logo" />
-                                          <ImageView fx:id="jeuxlg" fitHeight="135.0" fitWidth="141.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-                                       </children>
-                                       <styleClass>
-                                          <String fx:value="white-bg" />
-                                          <String fx:value="shadow" />
-                                       </styleClass>
-                                    </AnchorPane>
-                                    <ImageView fx:id="jeuxlogo" fitHeight="135.0" fitWidth="141.0" layoutX="331.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label layoutX="144.0" layoutY="405.0" text="Nom Categorie :">
+                                       <font>
+                                          <Font name="Tahoma" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="tfnomcat" layoutX="282.0" layoutY="401.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    
+                                    <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
+                                    <Button fx:id="cataddBtn" layoutX="696.0" layoutY="488.0" mnemonicParsing="false" onAction="#addcat" prefHeight="41.0" prefWidth="94.0" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+                                    <Button fx:id="catupdateBtn" layoutX="570.0" layoutY="488.0" mnemonicParsing="false" onAction="#modifcat" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Modifier" />
+                                    <Button fx:id="catdeleteBtn" layoutX="435.0" layoutY="488.0" mnemonicParsing="false" onAction="#suppcat" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+                                    <Button fx:id="catclearBtn" layoutX="308.0" layoutY="488.0" mnemonicParsing="false" onAction="#empty" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <Label fx:id="errormsg" layoutY="659.0" text="Label" textFill="#ff0900" />
-                                    <Label layoutX="69.0" layoutY="414.0" text="ID:">
+                                    <Label layoutX="509.0" layoutY="404.0" text="ID:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfid" layoutX="117.0" layoutY="413.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="tfidcat" layoutX="553.0" layoutY="401.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

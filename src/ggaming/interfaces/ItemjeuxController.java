@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
    
     
@@ -31,6 +32,9 @@ public class ItemjeuxController implements Initializable {
 
     @FXML
     private Label nameLabel;
+        @FXML
+    private VBox vjeux;
+
 
 private Jeux jeux;
     private MyListener myListener;
@@ -40,23 +44,20 @@ private Jeux jeux;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+          vjeux.setStyle("-fx-background-color: #F5F5DC;");
     }    
   
     @FXML
     void click(ActionEvent event) {
-                myListener.onClickListener(jeux);
+                //myListener.onClickListener(jeux);
     }
     
-    public void setData(Jeux jeux, MyListener myListener) {
-        this.jeux = jeux;
-        this.myListener = myListener;
+   public void setData(Jeux jeux)
+    {
+        this.jeux=jeux;
         nameLabel.setText(jeux.getLibelle());
-    
-           Image     imagej = new Image(getClass().getResourceAsStream("../img/souris3.jpg"));
-
-        img.setImage(imagej);
-        Image     logoj = new Image(getClass().getResourceAsStream("../img/souris3.jpg"));
-
-        logo.setImage(logoj);
+        
+        //Image image = new Image(getClass().getResourceAsStream("ggaminglogo.png"));
+       //imgTournoi.setImage(image);
     }
 }
