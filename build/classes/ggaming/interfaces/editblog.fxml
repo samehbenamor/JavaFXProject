@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.EditBlogController">
     <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-
-    </AnchorPane>
+      <children>
+         <Label layoutX="85.0" layoutY="44.0" text="Titre :">
+            <font>
+               <Font size="48.0" />
+            </font>
+         </Label>
+         <TextField fx:id="titretxt" layoutX="126.0" layoutY="127.0" prefHeight="103.0" prefWidth="829.0" />
+         <TextArea fx:id="contenutxt" layoutX="167.0" layoutY="340.0" prefHeight="267.0" prefWidth="829.0" />
+         <Label layoutX="126.0" layoutY="250.0" text="Contenu :">
+            <font>
+               <Font size="48.0" />
+            </font>
+         </Label>
+         <Button fx:id="addBtn" layoutX="1079.0" layoutY="620.0" mnemonicParsing="false" onAction="#AjouterBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
+         <Button fx:id="RetourBtn" layoutX="1079.0" layoutY="620.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
+         <Button fx:id="editbtn" layoutX="1190.0" layoutY="620.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Edit" />
+         <ImageView fx:id="imageviewBlog" fitHeight="150.0" fitWidth="200.0" layoutX="1073.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
+         <Button fx:id="ajouterimgbtn" layoutX="1079.0" layoutY="218.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Ajouter Image" />
+         <TextField fx:id="urlpathimage" layoutX="1099.0" layoutY="260.0" />
+      </children></AnchorPane>
 </StackPane>
-

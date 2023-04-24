@@ -38,6 +38,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -45,9 +48,25 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import java.util.Properties;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -97,6 +116,9 @@ public class BlogBackController implements Initializable {
     @FXML
     private TableColumn<Commentaire, Integer> idcommentaire;
     @FXML
+    private TableColumn<Commentaire, Integer> NombreSignaler;
+
+    @FXML
     private TableColumn<Commentaire, String> contenucolC;
     @FXML
     private TableColumn<Commentaire, LocalDateTime> datecreationcolC;
@@ -126,7 +148,7 @@ public class BlogBackController implements Initializable {
         servicesBlog.initConnection();
         loadDataBlog();
         //loadDataCommentaire();
-        isCommentView = false; 
+        isCommentView = false;
     }
 
     @FXML
@@ -310,7 +332,7 @@ public class BlogBackController implements Initializable {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Commentaire c = new Commentaire(contenu,currentDate,currentDate);
+        Commentaire c = new Commentaire(contenu,currentDate,currentDate,0);
 
         ServicesCommentaire sc = new ServicesCommentaire();
         sc.initConnection();
@@ -374,7 +396,8 @@ public class BlogBackController implements Initializable {
                         resultSet.getInt("id"),
                         resultSet.getString("contenu"),
                         dateCreation,
-                        dateModification
+                        dateModification,
+                        resultSet.getInt("reportCount")
                     ));
                     if (CommentairesTable != null) {
                         CommentairesTable.setItems(commentaireList);
@@ -413,6 +436,91 @@ public class BlogBackController implements Initializable {
             contenucolC.setCellValueFactory(new PropertyValueFactory<>("contenu"));
             datecreationcolC.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
             datemodificationcolC.setCellValueFactory(new PropertyValueFactory<>("date_modification"));
+            NombreSignaler.setCellValueFactory(new PropertyValueFactory<>("reportCount"));
+            NombreSignaler.setCellFactory(column -> new TableCell<Commentaire, Integer>() {
+                private final Button reportButton = new Button("Supprimer");
+
+                {
+                    reportButton.setOnAction(event -> {
+                        int reportCount = getItem();
+                        reportCount++;
+                        setItem(reportCount);
+                        if (reportCount >= 5) {
+                            Commentaire commentaire = getTableView().getItems().get(getIndex());
+                            try{
+                                sendEmailToUser(commentaire);
+                                ServicesCommentaire sc = new ServicesCommentaire();
+                                sc.initConnection();
+                                sc.deleteCommentaire(commentaire.getId());
+                                refreshTableC();
+
+                                reportButton.setVisible(false);
+                                setTextFill(Color.RED);
+                            } catch (MessagingException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                protected void updateItem(Integer reportCount, boolean empty) {
+                    super.updateItem(reportCount, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(reportButton);
+                        setText(reportCount.toString());
+                        // Reset the font color to black
+                        setTextFill(Color.BLACK);
+                    }
+                }
+
+                private void sendEmailToUser(Commentaire commentaire) throws MessagingException {
+                    String host = "smtp.gmail.com";
+                    String port = "587";
+                    String userName = "ons.khiari@esprit.tn";
+                    String password = "201JFT4252";
+
+                    Properties properties = new Properties();
+                    properties.put("mail.smtp.auth", "true");
+                    properties.put("mail.smtp.starttls.enable", "true");
+                    properties.put("mail.smtp.host", host);
+                    properties.put("mail.smtp.port", port);
+
+                    // Create a Session object
+                    Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(userName, password);
+                        }
+                    });
+
+                    try{
+                        // Create a Message object
+                        Message message = new MimeMessage(session);
+                        message.setFrom(new InternetAddress(userName));
+                        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("onesskh@gmail.com"));
+                        message.setSubject("Avertissement concernant les commentaires inappropriés");
+                        message.setText("Je vous écris aujourd'hui au sujet des commentaires que vous avez publiés sur nos blogs. Comme vous le savez, nous apprécions notre communauté et nous nous efforçons de maintenir un environnement positif et respectueux pour tous. Malheureusement, les commentaires que vous avez laissés ont été inappropriés et irrespectueux, ce qui n'est pas conforme aux normes de notre communauté.\n" +
+                        "\n" +
+                        "Je voulais vous contacter personnellement pour vous faire savoir que si ce comportement persiste, nous n'aurons d'autre choix que de désactiver votre compte. Nous prenons l'intégrité de notre communauté très au sérieux et nous ne tolérerons aucun comportement contraire à nos valeurs.\n" +
+                        "\n" +
+                        "Je comprends que vous n'ayez peut-être pas été conscient de l'impact de vos commentaires, mais nous vous serions reconnaissants si vous pouviez prendre un moment pour réfléchir à l'impact que vos paroles ont sur les autres. Nous voulons que notre communauté soit un endroit où chacun se sent en sécurité et valorisé.\n" +
+                        "\n" +
+                        "Si vous avez des questions ou des préoccupations concernant cet avertissement, n'hésitez pas à me contacter. J'espère que nous pourrons travailler ensemble pour créer un environnement positif et respectueux pour tous les membres de notre communauté.\n" +
+                        "\n" +
+                        "Cordialement,");
+
+                        // Send the message
+                        Transport.send(message);
+                        System.out.println("email sent");
+                    }catch(MessagingException e){
+                        e.printStackTrace();
+                    }
+                }
+
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -500,7 +608,7 @@ public class BlogBackController implements Initializable {
 
         int id = Integer.parseInt(idstring);
         LocalDateTime currentDate = LocalDateTime.now();
-        Commentaire c = new Commentaire(id,contenu,currentDate);
+        Commentaire c = new Commentaire(id,contenu,currentDate,0);
 
         ServicesCommentaire sc = new ServicesCommentaire();
         sc.initConnection();
@@ -562,6 +670,34 @@ public class BlogBackController implements Initializable {
                 alert.setContentText("Veuillez remplir l'id");
                 alert.showAndWait();
                 return;
+            }
+
+            if (etat == 2){
+                Notifications notificationBuilder = Notifications.create()
+                    .title("Blog est publier !")
+                    .text("Blog publier avec sucee !!")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(3))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .onAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event){
+                        System.out.println("Clicked");
+                    }
+                });
+                notificationBuilder.showConfirm();
+            }else if (etat == 1 ){
+                Notifications notificationBuilder = Notifications.create()
+                    .title("Blog est refuser !")
+                    .text("Blog n'est pas accepter !!")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(3))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .onAction(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent event){
+                        System.out.println("Clicked");
+                    }
+                });
+                notificationBuilder.showError();
             }
 
             LocalDateTime currentDate = LocalDateTime.now();

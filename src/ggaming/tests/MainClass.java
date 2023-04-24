@@ -32,7 +32,7 @@ public class MainClass extends Application {
     public void start(Stage primaryStage){
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/blogfront.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/blogBack.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

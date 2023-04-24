@@ -200,9 +200,10 @@
                                           <TableView fx:id="CommentairesTable" layoutX="1.0" layoutY="62.0" onMouseClicked="#GetSelectedCommentaire" prefHeight="318.0" prefWidth="1102.0" style="-fx-border-color: #212530;">
                                             <columns>
                                               <TableColumn fx:id="idcommentaire" prefWidth="115.0" text="Id" />
-                                                <TableColumn fx:id="contenucolC" prefWidth="607.0" text="Contenu" />
-                                                <TableColumn fx:id="datecreationcolC" minWidth="0.0" prefWidth="196.0" text="Date Creation" />
-                                                <TableColumn fx:id="datemodificationcolC" minWidth="0.0" prefWidth="183.0" text="Date Modification" />
+                                                <TableColumn fx:id="NombreSignaler" prefWidth="115.0" text="Nombre Signaler" />
+                                                <TableColumn fx:id="contenucolC" prefWidth="470.0" text="Contenu" />
+                                                <TableColumn fx:id="datecreationcolC" minWidth="0.0" prefWidth="198.0" text="Date Creation" />
+                                                <TableColumn fx:id="datemodificationcolC" minWidth="0.0" prefWidth="203.0" text="Date Modification" />
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />

@@ -48,8 +48,8 @@ public class BlogController implements Initializable {
     private Blog blog;
 
     public void setBlog(Blog blog) {
-this.blog = blog;
-this.id = blog.getId();
+        this.blog = blog;
+        this.id = blog.getId();
          if (blog != null) {
         titleLabel.setText(blog.getTitre());
         imageView.setImage(new Image(blog.getImageblog()));
@@ -95,8 +95,12 @@ this.id = blog.getId();
     }
 
     @FXML
-    public void EditerBlog(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/editblog.fxml"));
+    public void EditerBlogfront(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/editblog.fxml"));
+        Parent root = loader.load();
+        EditBlogController editBlogController = loader.getController();
+        editBlogController.setBlog(blog);
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -106,6 +110,26 @@ this.id = blog.getId();
 
         stage.show();
     }
+
+
+    @FXML
+    public void Accedercommentaires(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/commentaires.fxml"));
+        Parent root = loader.load();
+
+        CommentaireController controller = loader.getController();
+        controller.setBlogId(id);
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        stage.show();
+    }
+
 
     @FXML
     public void SupprimerBlog(ActionEvent event) throws IOException {

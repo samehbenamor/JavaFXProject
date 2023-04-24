@@ -12,7 +12,7 @@
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BlogController">
     <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
       <children>
-         <VBox fx:id="containerPane" layoutX="117.0" layoutY="85.0" prefHeight="571.0" prefWidth="1096.0" style="-fx-background-color: #E0DFD5;">
+         <VBox fx:id="containerPane" layoutX="117.0" layoutY="85.0" prefHeight="505.0" prefWidth="1090.0" style="-fx-background-color: #E0DFD5;">
             <children>
                <Label fx:id="titleLabel" prefHeight="70.0" prefWidth="849.0" text="Label">
                   <font>
@@ -35,7 +35,8 @@
             </children>
          </VBox>
          <Button fx:id="retourbtn" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#retourbtn" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
-         <Button fx:id="editbtnBlog" layoutX="1207.0" layoutY="13.0" mnemonicParsing="false" onAction="#EditerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
+         <Button fx:id="editbtnBlog" layoutX="1207.0" layoutY="13.0" mnemonicParsing="false" onAction="#EditerBlogfront" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
          <Button fx:id="deleteBtnBlog" layoutX="1102.0" layoutY="13.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+         <Button fx:id="addBtn" layoutX="970.0" layoutY="620.0" mnemonicParsing="false" onAction="#Accedercommentaires" prefHeight="41.0" prefWidth="226.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Acceder aux commentaires" />
       </children></AnchorPane>
 </StackPane>

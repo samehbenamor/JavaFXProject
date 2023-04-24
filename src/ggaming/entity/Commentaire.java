@@ -16,27 +16,56 @@ public class Commentaire {
     private String contenu;
     private LocalDateTime date_creation,date_modification;
     private Blog blog;
+    private int reportCount;
 
     public Commentaire() {
     }
 
-    public Commentaire(int id, String contenu, LocalDateTime date_modification) {
+    public Commentaire(int id, String contenu, LocalDateTime date_modification, int reportCount) {
         this.id = id;
         this.contenu = contenu;
         this.date_modification = date_modification;
+        this.reportCount=reportCount;
     }
 
-    public Commentaire(int id, String contenu, LocalDateTime date_creation, LocalDateTime date_modification) {
+    public Commentaire(int id, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, int reportCount) {
         this.id = id;
         this.contenu = contenu;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
+        this.reportCount=reportCount;
     }
 
-    public Commentaire(String contenu, LocalDateTime date_creation, LocalDateTime date_modification) {
+    public Commentaire(int id, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, Blog blog, int reportCount) {
+        this.id = id;
         this.contenu = contenu;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
+        this.blog = blog;
+        this.reportCount=reportCount;
+    }
+
+    public Commentaire(String contenu, LocalDateTime date_creation, LocalDateTime date_modification, Blog blog, int reportCount) {
+        this.contenu = contenu;
+        this.date_creation = date_creation;
+        this.date_modification = date_modification;
+        this.blog = blog;
+        this.reportCount=reportCount;
+    }
+
+    public Commentaire(String contenu, LocalDateTime date_creation, LocalDateTime date_modification, int reportCount) {
+        this.contenu = contenu;
+        this.date_creation = date_creation;
+        this.date_modification = date_modification;
+        this.reportCount=reportCount;
+    }
+
+    public int getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(int reportCount) {
+        this.reportCount = reportCount;
     }
 
     public Blog getBlog() {
