@@ -72,7 +72,7 @@ public class ServiceCategorieProduit {
               alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("Produit modifié avec succès!");
+                    alert.setContentText("Categorie Produit modifié avec succès!");
                     alert.showAndWait();
         } catch (SQLException ex) {
            System.err.println(ex.getMessage());
@@ -162,5 +162,29 @@ public class ServiceCategorieProduit {
             System.out.println(ex.getMessage());
         }
         return categories;
+    }
+     public ArrayList<CategorieProduit> afficherCategorie()
+    {
+        ArrayList<CategorieProduit> myList=new ArrayList<>();
+        
+         try {
+             String requete3="SELECT * FROM categorie_produit";
+             Statement st=cnx2.createStatement();
+             ResultSet rs=st.executeQuery(requete3);
+             
+             while(rs.next())
+             {
+                 CategorieProduit cp=new CategorieProduit();
+                 cp.setId(rs.getInt(1));
+                 cp.setNom(rs.getString("nom"));
+                
+                 myList.add(cp);
+                 
+             }
+         } catch (SQLException ex) {
+             System.err.println(ex.getMessage());
+         }
+         
+         return myList;
     }
 }

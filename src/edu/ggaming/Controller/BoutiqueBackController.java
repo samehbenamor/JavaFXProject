@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package edu.ggaming.Controller;
 
 import edu.ggaming.entities.CategorieProduit;
@@ -30,11 +32,17 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -68,6 +76,9 @@ public class BoutiqueBackController  implements Initializable{
      
      @FXML
     private AnchorPane boutique_front;
+     
+       @FXML
+    private AnchorPane statistiques;
      
       @FXML
     private AnchorPane page_produit;
@@ -124,6 +135,17 @@ public class BoutiqueBackController  implements Initializable{
     private TableColumn<?,?> tccreation;
      @FXML
     private ImageView produit_image;
+     
+      @FXML
+    private BarChart<String, Number> barChart;
+
+    @FXML
+    private  CategoryAxis categoryAxis;
+
+    @FXML
+    private NumberAxis numberAxis;
+    
+    
      byte [] post_image = null;
    
     @FXML
@@ -196,12 +218,34 @@ public class BoutiqueBackController  implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
           show_produit();
           show_categorie_produit();
+          
+          
            
     }
     public void show_produit()
     {
           ServiceProduit service=new ServiceProduit();
           ObservableList<Produit> list = service.getall();
+          System.out.print(list);
+          tcid_categorie.setCellValueFactory(new PropertyValueFactory<>("id"));
+          tcref_categorie.setCellValueFactory(new PropertyValueFactory<>("description"));
+          tcnom_categorie.setCellValueFactory(new PropertyValueFactory<>("nom"));
+          
+          addProduit_tableView.setItems(list);
+          List<String> listG = new ArrayList<>();
+          ServiceCategorieProduit scp= new ServiceCategorieProduit();
+         ObservableList<CategorieProduit> listCategorie = scp.getall();
+        for (CategorieProduit cp : listCategorie) {
+            listG.add(cp.getNom());
+        }
+
+        ObservableList listData = FXCollections.observableArrayList(listG);
+        categorie_produit.setItems(listData);
+    }
+    public void show_produit2(String mot) //a supprimer après
+    {
+          ServiceProduit service=new ServiceProduit();
+          ObservableList<Produit> list = service.rechercherProduitMultiCriteres(mot);
           System.out.print(list);
           tcid_categorie.setCellValueFactory(new PropertyValueFactory<>("id"));
           tcref_categorie.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -776,16 +820,17 @@ public class BoutiqueBackController  implements Initializable{
        // annulerProduit(); //pour vide les champs du formulaire
         
       }
-          @FXML
-          public void afficherBoutique()
-          {
+      
+      @FXML
+    public void afficherBoutique(ActionEvent event)
+     {
               
-              Parent parent;
+              Parent root;
          try {
-             parent = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
-              Scene scene = new Scene(parent);
-                Stage stage = new Stage();
-                //stage.getIcons().add(new Image("/images/logo.png"));
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.initStyle(StageStyle.UTILITY);
                 stage.show();
@@ -793,8 +838,34 @@ public class BoutiqueBackController  implements Initializable{
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
                
-          }
-          
+    }
+    @FXML
+    public void StatistiqueProduit(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/statistiquesBoutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    
+    @FXML
+    
+    public void rechercherProduit()
+    {
+        String mot=produit_search.getText();
+        show_produit2(mot);
+    }
+    
+     
           
 }
 

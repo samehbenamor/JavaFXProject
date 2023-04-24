@@ -3,6 +3,7 @@ package edu.ggaming.Controller;
 
 
 
+import com.itextpdf.text.DocumentException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +20,7 @@ import edu.ggaming.main.Main;
 import edu.ggaming.main.MyListener;
 import edu.ggaming.entities.Fruit;
 import edu.ggaming.entities.Panier;
+import edu.ggaming.entities.Pdf;
 import edu.ggaming.entities.Produit;
 import edu.ggaming.entities.Session;
 import edu.ggaming.services.ServiceProduit;
@@ -43,11 +45,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class MarketController implements Initializable {
+public class PanierController implements Initializable {
     @FXML
     private VBox chosenFruitCard;
 
@@ -66,10 +69,13 @@ public class MarketController implements Initializable {
     @FXML
     private GridPane grid;
     
-   @FXML
+    @FXML
     private Label description;
+   
+    @FXML
+    private TextField tfQuantite;
     
-      @FXML
+    @FXML
     private ComboBox<Integer> combobox_quantite;
 
     private List<Fruit> fruits = new ArrayList<>();
@@ -80,15 +86,6 @@ public class MarketController implements Initializable {
    
     private void setChosenProduit(Produit produit)
     {
-         List<Integer> listG = new ArrayList<>();
-         
-         for(Integer i=1;i<=produit.getQuantite();i++)
-         {
-             listG.add(i);
-         }
-        ObservableList listData = FXCollections.observableArrayList(listG);
-        System.out.println("la liste est "+listData);
-        combobox_quantite.setItems(listData);
         
         labelNomProduit.setText(produit.getNom());
         fruitPriceLabel.setText(Main.CURRENCY + produit.getPrix());
@@ -98,16 +95,28 @@ public class MarketController implements Initializable {
         description.setText(produit.getDescription());
         chosenFruitCard.setStyle("-fx-background-color: #FFFFFF" +  ";\n" +
               "    -fx-background-radius: 30;");
+        
+        tfQuantite.setText(Integer.toString(produit.getQuantite()));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        ServiceProduit sp=new ServiceProduit();
+       showPanier();
+    }
+    public void showPanier()
+    {
         
-        produits=sp.afficherProduit();
-        System.out.println(produits);
-                
+        
+        Session session = Session.getInstance();
+        Panier panier=new Panier();
+        panier = session.getAttribute("panier");
+        
+        
+        produits=panier.getProduits();
+        System.out.println("voiciiii les produits"+produits);
+       
+        
         if (produits.size() > 0) {
             setChosenProduit(produits.get(0));
             myListener = new MyListener() {
@@ -124,7 +133,7 @@ public class MarketController implements Initializable {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("../views/item.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
-                    
+
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(produits.get(i),myListener);
 
@@ -151,17 +160,69 @@ public class MarketController implements Initializable {
         }
     }
     
+    public void showPanier2()
+    {
+           
+        Session session = Session.getInstance();
+        Panier panier=new Panier();
+        panier = session.getAttribute("panier");
+        
+        
+        produits=panier.getProduits();
+        System.out.println("voiciiii les produits"+produits);
+       
+        
+        if (produits.size() > 0) {
+            setChosenProduit(produits.get(0));
+            myListener = new MyListener() {
+                @Override
+                public void onClickListener(Produit produit) {
+                    setChosenProduit(produit);
+                }
+            };
+        }
+        int column = 0;
+        int row = 1;
+        try {
+            for (int i = 0; i < produits.size(); i++) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("../views/item.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                ItemController itemController = fxmlLoader.getController();
+                itemController.setData(produits.get(i),myListener);
+
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
+
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(anchorPane, new Insets(10));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     @FXML
-    public void ajouterPanier(ActionEvent event)
+    public void retirerPanier(ActionEvent event)
     {
-        
         Alert alert;
-        BoutiqueBackController bp=new BoutiqueBackController();
          alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Cofirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Voulez-vous ajouter ce produit a votre panier?");
+                alert.setContentText("Voulez-vous retirer ce produit de votre panier?");
                 Optional<ButtonType> option = alert.showAndWait();
                 
                  if (option.get().equals(ButtonType.OK)) {         
@@ -171,55 +232,34 @@ public class MarketController implements Initializable {
         
         try {
             Produit produit=sp.rechercherProduitByName(nom_produit);
-            int quantite_produit=produit.getQuantite();
-           // System.out.println("produit afficher après recupération:"+produit);
-           if(combobox_quantite.getSelectionModel().getSelectedItem()!=null)
-           {
-               produit.setQuantite(combobox_quantite.getSelectionModel().getSelectedItem());
-           }
-           else
-           {
-               produit.setQuantite(1);
-           }
-            
+             int quantite_produit=produit.getQuantite();
+            produit.setQuantite(Integer.parseInt(tfQuantite.getText()));
             Panier panier=new Panier();
-            panier.ajouterArticle(produit);
-            
-            
+             // panier.ajouterArticle(produit);
+                        
             Session session = Session.getInstance();
 
             // Récupération de l'objet Panier stocké dans la variable de session
             panier = session.getAttribute("panier");
-
-            // Si le panier n'existe pas, on le crée et on le stocke dans la variable de session
-            if (panier == null) {
-                panier = new Panier();
-                session.setAttribute("panier", panier);
-            }
-
-            // Ajout du produit au panier
-            panier.ajouterArticle(produit);
-            session.setAttribute("panier", panier);
-            sp.modifierQuantiteProduit(produit.getId(), quantite_produit-produit.getQuantite());//ceci pour mettre à jour la quantite du prdout
+                                   
+            System.out.println("voici le panier avant suppresion");
+           /*  panier.afficherPanier();
+             
+            System.out.println("voici le panier après suppression");
+            panier.afficherPanier();*/
+           
             
-            bp.afficherBoutique(event);
-                 
-        } catch (SQLException ex) {
-            Logger.getLogger(MarketController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                 }
-                 
-                 
-                 
-                         
-    }
-    
-    @FXML
-    
-    public void afficherPanier(MouseEvent event)
-    {
-         
-         Parent root;
+                    
+             System.out.println("voici le panier avant suppresion");
+             System.out.println(session.getAttribute("panier").getProduits());
+             
+             panier.retirerArticle(produit);
+             session.setAttribute("panier", panier);
+             
+              System.out.println("voici le panier après suppresion");
+             System.out.println(session.getAttribute("panier").getProduits());
+           sp.modifierQuantiteProduit(produit.getId(), quantite_produit+produit.getQuantite());
+           Parent root;
          try {
              root = FXMLLoader.load(getClass().getResource("../views/panier.fxml"));
               Scene scene = new Scene(root);
@@ -231,6 +271,50 @@ public class MarketController implements Initializable {
          } catch (IOException ex) {
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
+            
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(MarketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 } 
     }
-
+    
+     @FXML
+    
+    public void retourBoutique(MouseEvent event)
+    {
+         
+         Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    @FXML
+    public void passerCommande(MouseEvent event)
+    {
+       
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/commande.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+            
 }

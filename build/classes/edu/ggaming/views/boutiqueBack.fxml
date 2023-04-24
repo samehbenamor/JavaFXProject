@@ -97,7 +97,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="452" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="452" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
@@ -129,7 +129,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="home_form" layoutX="63.0" layoutY="87.0" prefHeight="555.0" prefWidth="889.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="statistiques" layoutX="63.0" layoutY="87.0" prefHeight="555.0" prefWidth="889.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane layoutX="13.0" layoutY="17.0" prefHeight="521.0" prefWidth="863.0" stylesheets="@dashboardDesign.css">
                                  <styleClass>
@@ -190,13 +190,13 @@
                                           </AnchorPane>
                                        </children>
                                     </AnchorPane>
-                                    <BarChart fx:id="home_chart" layoutX="87.0" layoutY="204.0" prefHeight="281.0" prefWidth="690.0" title="Employees Data Chart">
-                                      <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
-                                      </xAxis>
-                                      <yAxis>
-                                        <NumberAxis side="LEFT" />
-                                      </yAxis>
+                                    <BarChart fx:id="barchart" layoutX="87.0" layoutY="204.0" prefHeight="357.0" prefWidth="862.0" title="Employees Data Chart">
+                                       <xAxis>
+                                            <CategoryAxis fx:id="categoryAxis" label="Category" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis fx:id="numberAxis" label="Number of Products" />
+                                        </yAxis>
                                     </BarChart>
                                  </children>
                               </AnchorPane>
@@ -225,7 +225,7 @@
                                                 <TableColumn fx:id="tccreation" minWidth="0.0" prefWidth="137.0" text="Catégorie" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="produit_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
+                                          <TextField fx:id="produit_search" layoutX="14.0" layoutY="14.0" onKeyPressed="#rechercherProduit" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher" styleClass="search" stylesheets="@dashboardDesign.css" />
                                          
                                        </children>
                                     </AnchorPane>

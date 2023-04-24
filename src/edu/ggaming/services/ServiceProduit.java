@@ -125,6 +125,25 @@ public boolean isNumeric(String text) {
        
         
     }
+     public void modifierQuantiteProduit(int id, int quantite) //cette methode permet de modifier la quantite d'un produit lors de son ajout ou de son retrait d'un panier
+    {
+        String requete="UPDATE produit SET quantite=? WHERE id=? ";
+        try {
+            Alert alert;
+             PreparedStatement pst=cnx2.prepareStatement(requete);
+             pst.setInt(1,quantite);
+             pst.setInt(2,id);
+             
+             pst.executeUpdate();
+             pst.close();
+             System.out.println("Quantite du Produit Modifié avec succès...");
+        
+        } catch (SQLException ex) {
+           System.err.println(ex.getMessage());
+        }
+      
+        
+    }
     public void supprimerProduit(int id)
     {
         String requete="DELETE FROM produit WHERE id=?";
@@ -182,6 +201,10 @@ public boolean isNumeric(String text) {
                 produit = new Produit();
                 produit.setId(rs.getInt("id"));
                 produit.setNom(rs.getString("nom"));
+                produit.setPrix(rs.getString("prix"));
+                produit.setQuantite(rs.getInt("quantite"));
+                produit.setDescription(rs.getString("description"));
+                produit.setImage(rs.getString("image"));
               
             }
         }
@@ -221,4 +244,57 @@ public boolean isNumeric(String text) {
         }
         return produits;
     }
+    
+    public int getNumProductsByCategory(int category) throws SQLException {
+        String req = "SELECT COUNT(*) AS num_products FROM produit WHERE categorie_produit_id = ?";
+        int quantite=0;
+        try (PreparedStatement ps = cnx2.prepareStatement(req)) {
+            ps.setInt(1, category);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    quantite= rs.getInt("num_products");
+                }
+            }
+        }
+        catch (SQLException ex) {
+        throw new SQLException("Erreur lors de la récupération de la catégorie de produit par nom : " + ex.getMessage(), ex);
+    }
+        return quantite;
+    }
+    
+    public ObservableList<Produit> rechercherProduitMultiCriteres(String mot) {
+        ObservableList<Produit> produits = FXCollections.observableArrayList();
+        ServiceCategorieProduit scp=new ServiceCategorieProduit();
+        try {
+            String req = "SELECT * FROM produit WHERE nom LIKE ? ";  //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
+            PreparedStatement ps = cnx2.prepareStatement(req);
+            ps.setString(1, '%' +mot+ '%');
+           
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                 Produit p=new Produit();
+                 p.setId(rs.getInt(1));
+                 p.setNom(rs.getString("nom"));
+                 p.setDescription(rs.getString("description"));
+                 p.setImage(rs.getString("image"));
+                 p.setPrix(rs.getString("prix"));
+                 p.setQuantite(rs.getInt("quantite"));
+                 CategorieProduit categorie=scp.rechercherCategorieById(rs.getInt("categorie_produit_id"));
+                          
+                 p.setCategorie(categorie);
+                
+                
+                 produits.add(p);
+            }
+            System.out.print(produits);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produits;
+    }
+    
+    
+    
 }

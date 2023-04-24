@@ -67,7 +67,7 @@
                      <children>
                         <HBox prefHeight="60.0" prefWidth="335.0">
                            <children>
-                              <Label fx:id="fruitNameLable" prefHeight="48.0" prefWidth="276.0" text="Peach">
+                              <Label fx:id="labelNomProduit" prefHeight="48.0" prefWidth="276.0" text="Peach">
                                  <font>
                                     <Font name="Cambria" size="36.0" />
                                  </font>
@@ -98,7 +98,7 @@
                                     <Font name="Cambria" size="24.0" />
                                  </font>
                               </Label>
-                              <ComboBox prefHeight="45.0" prefWidth="130.0" promptText="1" styleClass="comboBox" stylesheets="@../values/style.css" />
+                              <ComboBox fx:id="combobox_quantite" prefHeight="45.0" prefWidth="130.0" promptText="1" styleClass="comboBox" stylesheets="@../values/style.css" />
                            </children>
                            <VBox.margin>
                               <Insets top="20.0" />
@@ -121,7 +121,7 @@
                         <Label fx:id="description" prefHeight="38.0" prefWidth="287.0" />
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="335.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="200.0" styleClass="button-panier" stylesheets="@../Values/style.css" text="Ajouter au Panier" textFill="#252423" />
+                              <Button mnemonicParsing="false" onAction="#ajouterPanier" prefHeight="47.0" prefWidth="200.0" styleClass="button-panier" stylesheets="@../Values/style.css" text="Ajouter au Panier" textFill="#252423" />
                            </children>
                         </HBox>
                      </children>
@@ -148,7 +148,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
-                        <Label prefHeight="62.0" prefWidth="100.0" text="Mon panier" textFill="#878787">
+                        <Label onMouseClicked="#afficherPanier" prefHeight="62.0" prefWidth="100.0" text="Mon panier" textFill="#878787">
                            <font>
                               <Font name="Cambria" size="18.0" />
                            </font>

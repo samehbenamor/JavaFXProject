@@ -6,6 +6,7 @@
 package edu.ggaming.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -126,6 +127,51 @@ public class Produit {
 
     public void setDate_creation(String date_creation) {
         this.date_creation = date_creation;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + this.id;
+        hash = 41 * hash + Objects.hashCode(this.nom);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        hash = 41 * hash + Objects.hashCode(this.image);
+        hash = 41 * hash + Objects.hashCode(this.prix);
+        hash = 41 * hash + this.quantite;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Produit other = (Produit) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.quantite != other.quantite) {
+            return false;
+        }
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.image, other.image)) {
+            return false;
+        }
+        if (!Objects.equals(this.prix, other.prix)) {
+            return false;
+        }
+        return true;
     }
     
 }
