@@ -189,9 +189,10 @@ public List<Jeux> afficherJeux()
                  Jeux p=new Jeux();
                  p.setId(rs.getInt(1));
                  p.setLibelle(rs.getString("libelle"));
-                 //p.setImageJeux(rs.getString("image_jeux"));
+                 p.setImageJeux(rs.getString("image_jeux"));
                  //p.setLogoJeux(rs.getString("logo_jeux"));
                  p.setViews(rs.getInt("views"));
+                  p.setNoteMyonne(rs.getFloat("note_myonne"));
                  myList.add(p);
                  
              }
@@ -201,6 +202,25 @@ public List<Jeux> afficherJeux()
          
          return myList;
     }
+public Jeux bestJeux() {
+    Jeux bestGame = null;
+    
+    try {
+        String requete = "SELECT * FROM jeux ORDER BY note_myonne DESC LIMIT 1";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(requete);
+
+        if (rs.next()) {
+            bestGame = new Jeux();
+            bestGame.setLibelle(rs.getString("libelle"));
+            bestGame.setNoteMyonne(rs.getFloat("note_myonne"));
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+
+    return bestGame;
+}
 
     
    public List<Jeux> rechercherJeuxParNom(String name) {

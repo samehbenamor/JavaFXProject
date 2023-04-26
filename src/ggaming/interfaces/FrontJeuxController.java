@@ -7,6 +7,8 @@ package ggaming.interfaces;
 import ggaming.entity.Jeux;
 import ggaming.services.ServiceJeux;
 import ggaming2.MyListener;
+import javafx.scene.text.Font;
+import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,11 +18,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -30,56 +42,103 @@ import javafx.scene.layout.Region;
 public class FrontJeuxController implements Initializable {
     
     
-    @FXML
-    private GridPane grid;
+      @FXML
+    private VBox Vjeux;
 
+    @FXML
+    private Label note;
+    
+    @FXML
+    private Label best;
     @FXML
     private ScrollPane scroll;
-
+    private MyListener myListener;
     private Image image;
     private List<Jeux> jeuxes;
-    ServiceJeux sp=new ServiceJeux();
+    
     /**
      * Initializes the controller class.
      */
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-      /*
-        jeuxes = new ArrayList<>();
-        jeuxes.addAll(sp.afficherJeux());  
-        int column = 0;
-        int row = 1;
-            for (int i = 0; i < jeuxes.size(); i++) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("itemj.fxml"));
-                AnchorPane anchorPane = fxmlLoader.load();
+        try {
+            ServiceJeux sj = new ServiceJeux();
+            sj.initConnection();
+            List<Jeux> jeuxes = sj.afficherJeux();
+             Jeux gameWithMaxNote = sj.bestJeux();
+                System.out.println("Game with highest noteMyonne: " + gameWithMaxNote.getLibelle() + " - Note: " + gameWithMaxNote.getNoteMyonne());
+            best.setText(gameWithMaxNote.getLibelle());
+            note.setText(Float.toString(gameWithMaxNote.getNoteMyonne()));
+            VBox jeuxContainer = new VBox();
+            for (Jeux j : jeuxes) {
+                Label titleLabel = new Label(j.getLibelle());
+                titleLabel.setFont(new Font(30));
+            System.out.println(titleLabel);
+              System.out.println(j.getImageJeux());
+              Image image = loadImage(j.getImageJeux());
+            ImageView imageView = new ImageView(image);
 
-                ItemjeuxController itemController = fxmlLoader.getController();
-                itemController.setData(jeuxes.get(i));
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
-
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                GridPane.setMargin(anchorPane, new Insets(10));
-
-               //set grid width
-                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                grid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                //set grid height
-                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-            } 
-            catch (IOException ex) {
-                System.out.print(ex);
+            
+            
+                
+                 VBox jBox = new VBox( imageView,titleLabel);
+                jBox.setAlignment(Pos.CENTER);
+                jBox.setSpacing(20);
+                jeuxContainer.getChildren().add(jBox);
+            
+                titleLabel.setOnMouseClicked(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Jeuxdetails.fxml"));
+                        Parent root = loader.load();
+                        JeuxdetailsController jeuxController = loader.getController();
+                        jeuxController.setJeux(j);
+                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
             }
-            } */
+            ScrollPane scrollPane = new ScrollPane(jeuxContainer);
+            scrollPane.setFitToWidth(true);
+            Vjeux.getChildren().add(scrollPane);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public Image loadImage(String imageUrl) {
+    try {
+        // Try to load the image from the URL
+        Image image = new Image(imageUrl);
+
+        // Create an ImageView to display the image (optional)
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(800);
+        imageView.setFitHeight(500);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+
+        // Create a Rectangle to clip the ImageView (optional)
+        Rectangle clip = new Rectangle(
+            imageView.getFitWidth(), imageView.getFitHeight()
+        );
+        imageView.setClip(clip);
+
+        // Return the loaded image
+        return image;
+    } catch (Exception e) {
+        // If the URL is invalid or the image cannot be loaded, return null
+        return null;
     }
 }
+
+   
+}
+
+     
+    
+

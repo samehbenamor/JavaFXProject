@@ -25,8 +25,12 @@ public class FXMainFront extends Application {
     @Override
     public void start(Stage primaryStage) {
          Parent root ;
+         //System.out.println(getClass().getResource("/ggaming/interfaces/item.fxml"));
+        // System.out.println(getClass().getResource("/ggaming/interfaces/FrontJeux2.fxml"));
+
+
         try{
-            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/FrontJeux.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/FrontJeux2.fxml"));
             Scene scene = new Scene(root, 1315, 695);
         
             primaryStage.initStyle(StageStyle.DECORATED); 

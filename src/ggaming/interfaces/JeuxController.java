@@ -12,6 +12,7 @@ import ggaming.entity.CategorieJeux;
 import ggaming.entity.Jeux;
 import ggaming.services.ServiceCatJeux;
 import ggaming.services.ServiceJeux;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -63,6 +64,14 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  * FXML Controller class
@@ -155,6 +164,8 @@ public class JeuxController implements Initializable {
 
     @FXML
     private Button close;
+    @FXML
+    private Button statbtn;
     
     private int selectedJeuxId;
     int index=-1;
@@ -170,7 +181,7 @@ public class JeuxController implements Initializable {
     Jeux jeux = null ;
     Jeux j = new Jeux();
     ObservableList<Jeux>  jeuxList = FXCollections.observableArrayList();
- 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -353,8 +364,14 @@ private void loadDataJeux() {
     }
     
     @FXML
-    void affjeux(ActionEvent event) {
+    void affjeux(ActionEvent event) throws IOException {
+        catView = true;
 
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/backjeux.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     void checknew(ActionEvent event) throws IOException {
@@ -380,5 +397,58 @@ private void loadDataJeux() {
 
        
     }
+   
     
+    @FXML
+    void affstat(ActionEvent event) throws IOException {
+           try {
+        // Create a dataset to hold the data for the chart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        ServiceJeux sj = new ServiceJeux();
+        sj.initConnection();
+        List<Jeux> jeuxes = sj.afficherJeux();
+        // Populate the dataset with data from the list of games
+        for (Jeux j : jeuxes) {
+            dataset.addValue(j.getNoteMyonne(), "Notemyonne", j.getLibelle());
+        }
+
+        // Create a chart using the dataset
+        JFreeChart chart = ChartFactory.createBarChart("Evaluation des jeux", "Games", "Notemyonne", dataset, PlotOrientation.VERTICAL, false, false, false);
+
+        // Customize the chart appearance
+        chart.setBackgroundPaint(Color.WHITE);
+
+        // Customize the x-axis
+        org.jfree.chart.axis.CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
+        domainAxis.setTickLabelFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        domainAxis.setTickMarksVisible(false);
+        domainAxis.setAxisLineVisible(false);
+
+        // Customize the y-axis
+        ValueAxis rangeAxis = chart.getCategoryPlot().getRangeAxis();
+rangeAxis.setTickLabelFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        rangeAxis.setTickMarksVisible(false);
+        rangeAxis.setAxisLineVisible(false);
+
+        // Customize the chart plot area
+      
+        chart.getPlot().setBackgroundPaint(Color.WHITE);
+        chart.getPlot().setOutlinePaint(Color.WHITE);
+        
+
+       // Add the chart to a JPanel
+    ChartPanel chartPanel = new ChartPanel(chart);
+    chartPanel.setBackground(Color.WHITE);
+
+    // Add the JPanel to a JFrame
+    JFrame frame = new JFrame("Chart Demo");
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.add(chartPanel);
+    frame.pack();
+    frame.setVisible(true);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }
 }

@@ -30,7 +30,7 @@ public class FXMain extends Application {
     public void start(Stage primaryStage) {
           Parent root ;
         try{
-            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/jeuxback.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/backjeux.fxml"));
             Scene scene = new Scene(root, 1315, 695);
         
             primaryStage.initStyle(StageStyle.DECORATED); 

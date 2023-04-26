@@ -132,7 +132,7 @@ private ObservableList<CategorieJeux> catdata;
 throws IOException {
         catView = true;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/jeuxback.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/backjeux.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

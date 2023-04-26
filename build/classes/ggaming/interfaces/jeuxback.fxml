@@ -99,7 +99,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="422.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="statbtn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#affstat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
