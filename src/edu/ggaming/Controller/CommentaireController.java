@@ -104,8 +104,9 @@ public class CommentaireController implements Initializable {
                 reportButton.setOnAction(event -> {
                     int reportCount = commentaire.getReportCount();
                     commentaire.setReportCount(reportCount + 1);
+                    servicesCommentaire.initConnection();
                     servicesCommentaire.updateCommentaire(commentaire);
-                    reportCount = commentaire.getReportCount(); // Update reportCount with new value
+                    reportCount = commentaire.getReportCount();
                     System.out.println(reportCount);
                 });
 

@@ -84,6 +84,10 @@ public class BlogBackController implements Initializable {
     @FXML
     private TableColumn<Blog, Integer> etatcol;
     @FXML
+    private TableColumn<Blog, Integer> likescol;
+    @FXML
+    private TableColumn<Blog, Integer> dislikescol;
+    @FXML
     private TableColumn<Blog, String> titrecol;
     @FXML
     private TableColumn<Blog, String> contenucol;
@@ -112,7 +116,6 @@ public class BlogBackController implements Initializable {
     @FXML
     private TextField urlpathimage;
 
-
     @FXML
     private TableColumn<Commentaire, Integer> idcommentaire;
     @FXML
@@ -127,16 +130,17 @@ public class BlogBackController implements Initializable {
 
     private ObservableList<Commentaire> commentaireList = FXCollections.observableArrayList();
 
-/************************************************************/
+    /**
+     * *********************************************************
+     */
     String query = null;
     private ServicesBlog servicesBlog;
-    PreparedStatement preparedStatement = null ;
-    ResultSet resultSet = null ;
-    Blog blog = null ;
-    ObservableList<Blog>  blogList = FXCollections.observableArrayList();
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    Blog blog = null;
+    ObservableList<Blog> blogList = FXCollections.observableArrayList();
     private boolean isCommentView = false;
     int index = -1;
-
 
     /**
      * Initializes the controller class.
@@ -147,7 +151,7 @@ public class BlogBackController implements Initializable {
         servicesBlog = new ServicesBlog();
         servicesBlog.initConnection();
         loadDataBlog();
-        //loadDataCommentaire();
+        loadDataCommentaire();
         isCommentView = false;
     }
 
@@ -179,7 +183,7 @@ public class BlogBackController implements Initializable {
         refreshTable();
     }
 
-    public void clearBlog(){
+    public void clearBlog() {
         titretxt.setText("");
         contenutxt.setText("");
         idtxt.setText("");
@@ -188,20 +192,20 @@ public class BlogBackController implements Initializable {
         urlpathimage.setText("");
     }
 
-    public void clearComment(){
+    public void clearComment() {
         contenuCommentairetxt.setText("");
         idBlogTxt.setText("");
         idCommenttxt.setText("");
     }
 
-    public void AnnulerBlog(ActionEvent event){
+    public void AnnulerBlog(ActionEvent event) {
         clearBlog();
     }
 
-    public void AnnulerCommentaire(ActionEvent event){
+    public void AnnulerCommentaire(ActionEvent event) {
         clearComment();
     }
-    
+
     public void addimageblog(ActionEvent event) throws IOException {
         FileChooser chooser = new FileChooser();
 
@@ -226,32 +230,18 @@ public class BlogBackController implements Initializable {
         }
     }
 
-
-
-
-
-
-
-
-
-
-/*********************************************************************************/
-
-
-
-
-
-
-
+    /**
+     * ******************************************************************************
+     */
     @FXML
-    public void AjouterBlog(ActionEvent event) throws IOException{
+    public void AjouterBlog(ActionEvent event) throws IOException {
         String titre = titretxt.getText().trim();
         String contenu = contenutxt.getText().trim();
         String idstring = idtxt.getText().trim();
         String etatstring = etattxt.getText().trim();
-        String imageBlog=urlpathimage.getText().trim();
+        String imageBlog = urlpathimage.getText().trim();
 
-        if(titre.isEmpty()){
+        if (titre.isEmpty()) {
             titretxt.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -261,7 +251,7 @@ public class BlogBackController implements Initializable {
             return;
         }
 
-        if(contenu.isEmpty()){
+        if (contenu.isEmpty()) {
             contenutxt.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -271,7 +261,7 @@ public class BlogBackController implements Initializable {
             return;
         }
 
-        if(imageBlog.isEmpty()){
+        if (imageBlog.isEmpty()) {
             contenutxt.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -295,7 +285,7 @@ public class BlogBackController implements Initializable {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Blog b = new Blog(titre,contenu,currentDate,currentDate,imageBlog, etat);
+        Blog b = new Blog(titre, contenu, currentDate, currentDate, imageBlog, etat, 0, 0);
         ServicesBlog sb = new ServicesBlog();
         sb.initConnection();
         sb.ajouter(b);
@@ -304,7 +294,7 @@ public class BlogBackController implements Initializable {
     }
 
     @FXML
-    public void AjouterCommentaire(ActionEvent event){
+    public void AjouterCommentaire(ActionEvent event) {
         String contenu = contenuCommentairetxt.getText().trim();
         String idblogstring = idBlogTxt.getText().trim();
 
@@ -321,7 +311,7 @@ public class BlogBackController implements Initializable {
             return;
         }
 
-        if(contenu.isEmpty()){
+        if (contenu.isEmpty()) {
             contenutxt.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -332,72 +322,70 @@ public class BlogBackController implements Initializable {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Commentaire c = new Commentaire(contenu,currentDate,currentDate,0);
+        Commentaire c = new Commentaire(contenu, currentDate, currentDate, 0);
 
         ServicesCommentaire sc = new ServicesCommentaire();
         sc.initConnection();
-        sc.ajouterCommentaire(c,idblog);
+        sc.ajouterCommentaire(c, idblog);
         refreshTableC();
     }
 
-
-
-
-/****************************************************************************/
-
-
-
-
-    private void refreshTable(){
-        try{
+    /**
+     * *************************************************************************
+     */
+    private void refreshTable() {
+        try {
             blogList.clear();
-            query = "SELECT * FROM `blog`";
+            query = "SELECT * FROM blog";
             Connection connection = MyConnection.getInstance().getCnx();
             if (connection != null) {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
+                preparedStatement = connection.prepareStatement(query);
+                resultSet = preparedStatement.executeQuery();
+                System.out.println("test 1");
 
-                while (resultSet.next()){
-                LocalDateTime dateCreation = resultSet.getDate("date_creation").toLocalDate().atStartOfDay();
-                LocalDateTime dateModification = resultSet.getDate("date_modification").toLocalDate().atStartOfDay();
+                while (resultSet.next()) {
+                    LocalDateTime dateCreation = resultSet.getDate("date_creation").toLocalDate().atStartOfDay();
+                    LocalDateTime dateModification = resultSet.getDate("date_modification").toLocalDate().atStartOfDay();
                     blogList.add(new Blog(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("etat"),
-                        resultSet.getString("titre"),
-                        resultSet.getString("contenu"),
-                        dateCreation,
-                        dateModification,
-                        resultSet.getString("image_blog")
+                            resultSet.getInt("id"),
+                            resultSet.getInt("etat"),
+                            resultSet.getString("titre"),
+                            resultSet.getString("contenu"),
+                            dateCreation,
+                            dateModification,
+                            resultSet.getString("image_blog"),
+                            resultSet.getInt("likeblog"),
+                            resultSet.getInt("dislikeblog")
                     ));
                     blogsTable.setItems(blogList);
                 }
             } else {
                 System.out.println("Database connection is null");
             }
-        }catch(SQLException ex){
-            Logger.getLogger(BlogBackController.class.getName()).log(Level.SEVERE,null,ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogBackController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void refreshTableC(){
-        try{
+    private void refreshTableC() {
+        try {
             commentaireList.clear();
-            blogList.clear();
-            query = "SELECT * FROM `commentaire`";
+            //blogList.clear();
+            query = "SELECT * FROM commentaire";
             Connection connection = MyConnection.getInstance().getCnx();
             if (connection != null) {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
+                preparedStatement = connection.prepareStatement(query);
+                resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()){
-                LocalDateTime dateCreation = resultSet.getDate("date_creation").toLocalDate().atStartOfDay();
-                LocalDateTime dateModification = resultSet.getDate("date_modification").toLocalDate().atStartOfDay();
+                while (resultSet.next()) {
+                    LocalDateTime dateCreation = resultSet.getDate("date_creation").toLocalDate().atStartOfDay();
+                    LocalDateTime dateModification = resultSet.getDate("date_modification").toLocalDate().atStartOfDay();
                     commentaireList.add(new Commentaire(
-                        resultSet.getInt("id"),
-                        resultSet.getString("contenu"),
-                        dateCreation,
-                        dateModification,
-                        resultSet.getInt("reportCount")
+                            resultSet.getInt("id"),
+                            resultSet.getString("contenu"),
+                            dateCreation,
+                            dateModification,
+                            resultSet.getInt("reportCount")
                     ));
                     if (CommentairesTable != null) {
                         CommentairesTable.setItems(commentaireList);
@@ -407,11 +395,10 @@ public class BlogBackController implements Initializable {
             } else {
                 System.out.println("Database connection is null");
             }
-        }catch(SQLException ex){
-            Logger.getLogger(BlogBackController.class.getName()).log(Level.SEVERE,null,ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlogBackController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
     private void loadDataBlog() {
         try {
@@ -423,6 +410,8 @@ public class BlogBackController implements Initializable {
             datecreationcol.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
             datemodificationcol.setCellValueFactory(new PropertyValueFactory<>("date_modification"));
             imagecol.setCellValueFactory(new PropertyValueFactory<>("imageblog"));
+            likescol.setCellValueFactory(new PropertyValueFactory<>("like"));
+            dislikescol.setCellValueFactory(new PropertyValueFactory<>("dislike"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -447,7 +436,7 @@ public class BlogBackController implements Initializable {
                         setItem(reportCount);
                         if (reportCount >= 5) {
                             Commentaire commentaire = getTableView().getItems().get(getIndex());
-                            try{
+                            try {
                                 sendEmailToUser(commentaire);
                                 ServicesCommentaire sc = new ServicesCommentaire();
                                 sc.initConnection();
@@ -495,26 +484,26 @@ public class BlogBackController implements Initializable {
                         }
                     });
 
-                    try{
+                    try {
                         // Create a Message object
                         Message message = new MimeMessage(session);
                         message.setFrom(new InternetAddress(userName));
                         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("onesskh@gmail.com"));
                         message.setSubject("Avertissement concernant les commentaires inappropriés");
-                        message.setText("Je vous écris aujourd'hui au sujet des commentaires que vous avez publiés sur nos blogs. Comme vous le savez, nous apprécions notre communauté et nous nous efforçons de maintenir un environnement positif et respectueux pour tous. Malheureusement, les commentaires que vous avez laissés ont été inappropriés et irrespectueux, ce qui n'est pas conforme aux normes de notre communauté.\n" +
-                        "\n" +
-                        "Je voulais vous contacter personnellement pour vous faire savoir que si ce comportement persiste, nous n'aurons d'autre choix que de désactiver votre compte. Nous prenons l'intégrité de notre communauté très au sérieux et nous ne tolérerons aucun comportement contraire à nos valeurs.\n" +
-                        "\n" +
-                        "Je comprends que vous n'ayez peut-être pas été conscient de l'impact de vos commentaires, mais nous vous serions reconnaissants si vous pouviez prendre un moment pour réfléchir à l'impact que vos paroles ont sur les autres. Nous voulons que notre communauté soit un endroit où chacun se sent en sécurité et valorisé.\n" +
-                        "\n" +
-                        "Si vous avez des questions ou des préoccupations concernant cet avertissement, n'hésitez pas à me contacter. J'espère que nous pourrons travailler ensemble pour créer un environnement positif et respectueux pour tous les membres de notre communauté.\n" +
-                        "\n" +
-                        "Cordialement,");
+                        message.setText("Je vous écris aujourd'hui au sujet des commentaires que vous avez publiés sur nos blogs. Comme vous le savez, nous apprécions notre communauté et nous nous efforçons de maintenir un environnement positif et respectueux pour tous. Malheureusement, les commentaires que vous avez laissés ont été inappropriés et irrespectueux, ce qui n'est pas conforme aux normes de notre communauté.\n"
+                                + "\n"
+                                + "Je voulais vous contacter personnellement pour vous faire savoir que si ce comportement persiste, nous n'aurons d'autre choix que de désactiver votre compte. Nous prenons l'intégrité de notre communauté très au sérieux et nous ne tolérerons aucun comportement contraire à nos valeurs.\n"
+                                + "\n"
+                                + "Je comprends que vous n'ayez peut-être pas été conscient de l'impact de vos commentaires, mais nous vous serions reconnaissants si vous pouviez prendre un moment pour réfléchir à l'impact que vos paroles ont sur les autres. Nous voulons que notre communauté soit un endroit où chacun se sent en sécurité et valorisé.\n"
+                                + "\n"
+                                + "Si vous avez des questions ou des préoccupations concernant cet avertissement, n'hésitez pas à me contacter. J'espère que nous pourrons travailler ensemble pour créer un environnement positif et respectueux pour tous les membres de notre communauté.\n"
+                                + "\n"
+                                + "Cordialement,");
 
                         // Send the message
                         Transport.send(message);
                         System.out.println("email sent");
-                    }catch(MessagingException e){
+                    } catch (MessagingException e) {
                         e.printStackTrace();
                     }
                 }
@@ -526,20 +515,13 @@ public class BlogBackController implements Initializable {
         }
     }
 
-
-
-
-
-/********************************************************************************/
-
-
-
-
-
+    /**
+     * *****************************************************************************
+     */
     @FXML
-    private void GetSelected(MouseEvent event){
+    private void GetSelected(MouseEvent event) {
         index = blogsTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         titretxt.setText(titrecol.getCellData(index).toString());
@@ -560,18 +542,17 @@ public class BlogBackController implements Initializable {
     }
 
     @FXML
-    private void GetSelectedCommentaire(MouseEvent event){
+    private void GetSelectedCommentaire(MouseEvent event) {
         index = CommentairesTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         contenuCommentairetxt.setText(contenucolC.getCellData(index).toString());
         idCommenttxt.setText(idcommentaire.getCellData(index).toString());
     }
 
-
     @FXML
-    private void SupprimerBlog(ActionEvent event){
+    private void SupprimerBlog(ActionEvent event) {
         String idstring = idtxt.getText().trim();
         int id = Integer.parseInt(idstring);
 
@@ -583,7 +564,7 @@ public class BlogBackController implements Initializable {
     }
 
     @FXML
-    private void SupprimerCommentaire(ActionEvent event){
+    private void SupprimerCommentaire(ActionEvent event) {
         String idstring = idCommenttxt.getText().trim();
         int id = Integer.parseInt(idstring);
 
@@ -594,21 +575,17 @@ public class BlogBackController implements Initializable {
         clearComment();
     }
 
-
-
-
-/********************************************************************************/
-
-
-
+    /**
+     * *****************************************************************************
+     */
     @FXML
-    private void EditerCommentaire(ActionEvent event){
+    private void EditerCommentaire(ActionEvent event) {
         String idstring = idCommenttxt.getText();
         String contenu = contenutxt.getText();
 
         int id = Integer.parseInt(idstring);
         LocalDateTime currentDate = LocalDateTime.now();
-        Commentaire c = new Commentaire(id,contenu,currentDate,0);
+        Commentaire c = new Commentaire(id, contenu, currentDate, 0);
 
         ServicesCommentaire sc = new ServicesCommentaire();
         sc.initConnection();
@@ -618,15 +595,15 @@ public class BlogBackController implements Initializable {
     }
 
     @FXML
-    private void EditerBlog(ActionEvent event){
-        try{
+    private void EditerBlog(ActionEvent event) {
+        try {
             String idstring = idtxt.getText().trim();
             String etatstring = etattxt.getText().trim();
             String titre = titretxt.getText().trim();
             String contenu = contenutxt.getText().trim();
-            String imageBlog=urlpathimage.getText().trim();
+            String imageBlog = urlpathimage.getText().trim();
 
-            if(titre.isEmpty()){
+            if (titre.isEmpty()) {
                 titretxt.setStyle("-fx-border-color: red");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -636,7 +613,7 @@ public class BlogBackController implements Initializable {
                 return;
             }
 
-            if(contenu.isEmpty()){
+            if (contenu.isEmpty()) {
                 contenutxt.setStyle("-fx-border-color: red");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -672,43 +649,43 @@ public class BlogBackController implements Initializable {
                 return;
             }
 
-            if (etat == 2){
+            if (etat == 2) {
                 Notifications notificationBuilder = Notifications.create()
-                    .title("Blog est publier !")
-                    .text("Blog publier avec sucee !!")
-                    .graphic(null)
-                    .hideAfter(Duration.seconds(3))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .onAction(new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event){
-                        System.out.println("Clicked");
-                    }
-                });
+                        .title("Blog est publier !")
+                        .text("Blog publier avec sucee !!")
+                        .graphic(null)
+                        .hideAfter(Duration.seconds(3))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .onAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                System.out.println("Clicked");
+                            }
+                        });
                 notificationBuilder.showConfirm();
-            }else if (etat == 1 ){
+            } else if (etat == 1) {
                 Notifications notificationBuilder = Notifications.create()
-                    .title("Blog est refuser !")
-                    .text("Blog n'est pas accepter !!")
-                    .graphic(null)
-                    .hideAfter(Duration.seconds(3))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .onAction(new EventHandler<ActionEvent>() {
-                    public void handle(ActionEvent event){
-                        System.out.println("Clicked");
-                    }
-                });
+                        .title("Blog est refuser !")
+                        .text("Blog n'est pas accepter !!")
+                        .graphic(null)
+                        .hideAfter(Duration.seconds(3))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .onAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent event) {
+                                System.out.println("Clicked");
+                            }
+                        });
                 notificationBuilder.showError();
             }
 
             LocalDateTime currentDate = LocalDateTime.now();
-            Blog b = new Blog(id,titre,contenu,imageBlog,currentDate,etat);
+            Blog b = new Blog(id, titre, contenu, imageBlog, currentDate, etat);
 
             ServicesBlog sb = new ServicesBlog();
             sb.initConnection();
             sb.updateBlog(b);
             refreshTable();
             clearBlog();
-        }catch(Exception e){
+        } catch (Exception e) {
         }
     }
 }

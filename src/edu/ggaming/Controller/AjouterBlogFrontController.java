@@ -119,7 +119,7 @@ public class AjouterBlogFrontController implements Initializable {
         }
 
         LocalDateTime currentDate = LocalDateTime.now();
-        Blog b = new Blog(titre,contenu,currentDate,currentDate,imageBlog, 2);
+        Blog b = new Blog(titre,contenu,currentDate,currentDate,imageBlog, 0, 0, 0);
         ServicesBlog sb = new ServicesBlog();
         sb.initConnection();
         sb.ajouter(b);

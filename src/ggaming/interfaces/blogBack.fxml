@@ -199,12 +199,14 @@
                                           <TableView fx:id="blogsTable" layoutX="1.0" layoutY="62.0" onMouseClicked="#GetSelected" prefHeight="318.0" prefWidth="1102.0" style="-fx-border-color: #212530;">
                                             <columns>
                                               <TableColumn fx:id="idcol" prefWidth="63.0" text="Id" />
-                                              <TableColumn fx:id="titrecol" prefWidth="235.0" text="Titre" />
-                                                <TableColumn fx:id="contenucol" prefWidth="290.0" text="Contenu" />
-                                                <TableColumn fx:id="datecreationcol" minWidth="0.0" prefWidth="141.0" text="Date Creation" />
-                                                <TableColumn fx:id="datemodificationcol" minWidth="0.0" prefWidth="134.0" text="Date Modification" />
-                                                <TableColumn fx:id="imagecol" minWidth="8.0" prefWidth="155.0" text="Image" />
-                                                <TableColumn fx:id="etatcol" minWidth="8.0" prefWidth="78.0" text="Etat" />
+                                              <TableColumn fx:id="titrecol" prefWidth="216.0" text="Titre" />
+                                                <TableColumn fx:id="contenucol" prefWidth="289.0" text="Contenu" />
+                                                <TableColumn fx:id="datecreationcol" minWidth="0.0" prefWidth="112.0" text="Date Creation" />
+                                                <TableColumn fx:id="datemodificationcol" minWidth="0.0" prefWidth="142.0" text="Date Modification" />
+                                                <TableColumn fx:id="imagecol" minWidth="8.0" prefWidth="110.0" text="Image" />
+                                                <TableColumn fx:id="etatcol" minWidth="8.0" prefWidth="54.0" text="Etat" />
+                                                <TableColumn fx:id="likescol" minWidth="8.0" prefWidth="56.0" text="Likes" />
+                                                <TableColumn fx:id="dislikescol" minWidth="8.0" prefWidth="59.0" text="Dislikes" />
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />

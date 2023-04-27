@@ -62,6 +62,7 @@ public class ServicesCommentaire {
 
     public void updateCommentaire(Commentaire c) {
         try {
+            System.out.println(c.getId());
             String sql = "UPDATE commentaire SET contenu = ?, date_modification = ?, reportCount = ? WHERE id = ?";
 
             PreparedStatement ps = cnx.prepareStatement(sql);
@@ -69,6 +70,7 @@ public class ServicesCommentaire {
             ps.setString(1, c.getContenu());
             ps.setObject(2, c.getDate_modification());
             ps.setObject(3, c.getReportCount());
+            ps.setInt(4, c.getId());
 
             ps.executeUpdate();
 
@@ -123,7 +125,9 @@ public class ServicesCommentaire {
                 Timestamp date_modification = rs.getTimestamp("date_modification");
                 LocalDateTime localDateTime_modification = date_modification.toLocalDateTime();
                 int etat = rs.getInt("etat");
-                blog = new Blog(blogId, etat, titre, contenu, localDateTime_creation, localDateTime_modification, image_blog);
+                int like = rs.getInt("likeblog");
+                int dislike = rs.getInt("dislikeblog");
+                blog = new Blog(blogId, etat, titre, contenu, localDateTime_creation, localDateTime_modification, image_blog, like, dislike);
             }
             rs.close();
             ps.close();

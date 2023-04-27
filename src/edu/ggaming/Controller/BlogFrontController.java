@@ -8,9 +8,11 @@ import ggaming.entity.Blog;
 import ggaming.services.ServicesBlog;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,10 +25,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +47,8 @@ public class BlogFrontController implements Initializable {
 
     @FXML
     private VBox mycontainerBlog;
+    @FXML
+    private VBox topBlogscontainer;
 
 
 
@@ -53,6 +62,50 @@ public class BlogFrontController implements Initializable {
             servicesBlog.initConnection();
             List<Blog> blogs = servicesBlog.getAllBlogs();
             VBox blogContainer = new VBox();
+
+            List<Blog> topblogs = servicesBlog.getTop3Blogs(blogs);
+
+            VBox topblogsContainer = new VBox();
+
+            for (Blog blog : topblogs) {
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDateTime = blog.getDate_creation().format(formatter);
+
+                Label dateLabel = new Label(formattedDateTime);
+                Label blogLabel = new Label(blog.getTitre());
+                blogLabel.setWrapText(true);
+                blogLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16)); 
+                blogLabel.setTextAlignment(TextAlignment.LEFT); 
+
+                if(blog.getTitre().length() > 10) {
+                    blogLabel.setText(blog.getTitre().substring(0, 10) + "...");
+                }
+
+                Pane spacer = new Pane();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                HBox blogEntry = new HBox();
+                blogEntry.setSpacing(10);
+                blogEntry.getChildren().addAll(dateLabel, spacer, blogLabel); // add spacer between dateLabel and blogLabel
+
+                topBlogscontainer.getChildren().add(blogEntry);
+
+                blogLabel.setOnMouseClicked(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
+                        Parent root = loader.load();
+                        BlogController blogController = loader.getController();
+                        blogController.setBlog(blog);
+                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            }
+
             for (Blog blog : blogs) {
                 Label titleLabel = new Label(blog.getTitre());
                 titleLabel.setFont(new Font(30));
@@ -66,8 +119,6 @@ public class BlogFrontController implements Initializable {
                 Rectangle clip = new Rectangle(
                     imageView.getFitWidth(), imageView.getFitHeight()
                 );
-                clip.setArcWidth(30);
-                clip.setArcHeight(30);
                 imageView.setClip(clip);
 
                 VBox blogBox = new VBox(imageView, titleLabel);
@@ -120,7 +171,6 @@ public class BlogFrontController implements Initializable {
 
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
-
         stage.show();
     }
 

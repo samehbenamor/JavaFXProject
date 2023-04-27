@@ -24,7 +24,6 @@
                <Font size="48.0" />
             </font>
          </Label>
-         <Button fx:id="addBtn" layoutX="1079.0" layoutY="620.0" mnemonicParsing="false" onAction="#AjouterBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Ajouter" />
          <Button fx:id="RetourBtn" layoutX="1079.0" layoutY="620.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
          <Button fx:id="editbtn" layoutX="1190.0" layoutY="620.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Edit" />
          <ImageView fx:id="imageviewBlog" fitHeight="150.0" fitWidth="200.0" layoutX="1073.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />

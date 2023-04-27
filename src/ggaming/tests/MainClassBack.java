@@ -26,14 +26,14 @@ import javafx.stage.Stage;
  *
  * @author oness
  */
-public class MainClass extends Application {
+public class MainClassBack extends Application {
 
     @Override
     public void start(Stage primaryStage){
         Parent root;
         try {
             root = FXMLLoader.load(getClass()
-                    .getResource("/ggaming/interfaces/blogfront.fxml"));
+                    .getResource("/ggaming/interfaces/blogBack.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

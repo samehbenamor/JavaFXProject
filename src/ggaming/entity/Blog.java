@@ -18,13 +18,14 @@ public class Blog {
     private String titre,contenu,imageblog;
     private LocalDateTime date_creation,date_modification;
     private List<Commentaire> commentaires;
+    private int like, dislike;
 
 
     public Blog() {
         commentaires = new ArrayList<Commentaire>();
     }
 
-    public Blog(int id,String titre, String contenu, String imageblog, LocalDateTime date_modification,int etat) {
+    public Blog(int id,String titre, String contenu, String imageblog, LocalDateTime date_modification,int etat,int like,int dislike) {
         this.id = id;
         this.titre = titre;
         this.contenu = contenu;
@@ -40,7 +41,17 @@ public class Blog {
         this.contenu = contenu;
     }
 
-    public Blog(int id, int etat, String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog) {
+    public Blog(int id, String titre, String contenu, String imageblog, LocalDateTime date_modification, int etat) {
+        this.id = id;
+        this.etat = etat;
+        this.titre = titre;
+        this.contenu = contenu;
+        this.imageblog = imageblog;
+        this.date_modification = date_modification;
+    }
+
+
+    public Blog(int id, int etat, String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog,int like,int dislike) {
         this.id = id;
         this.etat = etat;
         this.titre = titre;
@@ -48,34 +59,42 @@ public class Blog {
         this.date_creation = date_creation;
         this.date_modification = date_modification;
         this.imageblog = imageblog;
+        this.like=like;
+        this.dislike=dislike;
         commentaires = new ArrayList<Commentaire>();
     }
 
-    public Blog(int etat, String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog) {
+    public Blog(int etat, String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog,int like,int dislike) {
         this.etat = etat;
         this.titre = titre;
         this.contenu = contenu;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
         this.imageblog = imageblog;
+this.like=like;
+this.dislike=dislike;
         commentaires = new ArrayList<Commentaire>();
     }
 
-    public Blog(String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog, int etat) {
+    public Blog(String titre, String contenu, LocalDateTime date_creation, LocalDateTime date_modification, String imageblog, int etat,int like,int dislike) {
         this.titre = titre;
         this.contenu = contenu;
         this.date_creation = date_creation;
         this.date_modification = date_modification;
         this.imageblog = imageblog;
         this.etat = etat;
+this.like=like;
+this.dislike=dislike;
         commentaires = new ArrayList<Commentaire>();
     }
 
-    public Blog(int id, String titre, String contenu, String imageblog) {
+    public Blog(int id, String titre, String contenu, String imageblog,int like,int dislike) {
         this.id = id;
         this.titre = titre;
         this.contenu = contenu;
         this.imageblog = imageblog;
+this.like=like;
+this.dislike=dislike;
         commentaires = new ArrayList<Commentaire>();
     }
 
@@ -93,6 +112,22 @@ public class Blog {
 
     public void removeCommentaire(Commentaire commentaire) {
         commentaires.remove(commentaire);
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getDislike() {
+        return dislike;
+    }
+
+    public void setDislike(int dislike) {
+        this.dislike = dislike;
     }
 
     public int getId() {

@@ -38,5 +38,9 @@
          <Button fx:id="editbtnBlog" layoutX="1207.0" layoutY="13.0" mnemonicParsing="false" onAction="#EditerBlogfront" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
          <Button fx:id="deleteBtnBlog" layoutX="1102.0" layoutY="13.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
          <Button fx:id="addBtn" layoutX="970.0" layoutY="620.0" mnemonicParsing="false" onAction="#Accedercommentaires" prefHeight="41.0" prefWidth="226.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Acceder aux commentaires" />
+         <Button fx:id="jaimebtn" layoutX="198.0" layoutY="628.0" mnemonicParsing="false" onAction="#likeblog" text="J'aime" />
+         <Button fx:id="jaimepasbtn" layoutX="356.0" layoutY="628.0" mnemonicParsing="false" onAction="#dislikeblog" text="J'aime pas" />
+         <Label fx:id="likenum" layoutX="170.0" layoutY="632.0" prefHeight="17.0" prefWidth="11.0" />
+         <Label fx:id="dislikenum" layoutX="318.0" layoutY="632.0" prefHeight="17.0" prefWidth="21.0" />
       </children></AnchorPane>
 </StackPane>

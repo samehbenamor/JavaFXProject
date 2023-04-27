@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ServicesBlog {
     
     public void ajouter(Blog b) {
         try {
-            String sql = "INSERT INTO blog (titre, contenu, date_creation, date_modification, image_blog, etat) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO blog (titre, contenu, date_creation, date_modification, image_blog, etat, likeblog, dislikeblog) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
 
             System.out.println("cnx is null: " + (cnx == null));
             PreparedStatement ps = cnx.prepareStatement(sql);
@@ -40,6 +41,8 @@ public class ServicesBlog {
             ps.setObject(4, b.getDate_modification());
             ps.setString(5, b.getImageblog());
             ps.setInt(6, b.getEtat());
+            ps.setInt(7, b.getLike());
+            ps.setInt(8, b.getDislike());
 
             ps.executeUpdate();
 
@@ -67,7 +70,9 @@ public class ServicesBlog {
                 LocalDateTime localDateTime_modification = date_modification.toLocalDateTime();
                 String image_blog = rs.getString("image_blog");
                 int etat = rs.getInt("etat");
-                Blog b = new Blog(id, etat, titre, contenu, localDateTime_creation, localDateTime_modification, image_blog);
+                int like = rs.getInt("likeblog");
+                int dislike = rs.getInt("dislikeblog");
+                Blog b = new Blog(id, etat, titre, contenu, localDateTime_creation, localDateTime_modification, image_blog,like,dislike);
                 blogs.add(b);
             }
             rs.close();
@@ -91,9 +96,32 @@ public class ServicesBlog {
         }
     }
 
+
+public void updateBlogFF(Blog b) {
+    try {
+        String sql = "UPDATE blog SET titre = ?, contenu = ?, date_modification = ?, image_blog = ?, etat = ? WHERE id = ?";
+
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, b.getTitre());
+        ps.setString(2, b.getContenu());
+        ps.setObject(3, b.getDate_modification());
+        ps.setString(4, b.getImageblog());
+        ps.setInt(5, b.getEtat());
+        ps.setInt(6, b.getId());
+
+        ps.executeUpdate();
+
+        System.out.println("Blog updated successfully");
+
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+}
+
+
     public void updateBlog(Blog b) {
         try {
-            String sql = "UPDATE blog SET titre = ?, contenu = ?, date_modification = ?, image_blog = ?, etat = ? WHERE id = ?";
+            String sql = "UPDATE blog SET titre = ?, contenu = ?, date_modification = ?, image_blog = ?, etat = ?, likeblog = ?, dislikeblog = ? WHERE id = ?";
 
             PreparedStatement ps = cnx.prepareStatement(sql);
             ps.setString(1, b.getTitre());
@@ -101,7 +129,9 @@ public class ServicesBlog {
             ps.setObject(3, b.getDate_modification());
             ps.setString(4, b.getImageblog());
             ps.setInt(5, b.getEtat());
-            ps.setInt(6, b.getId());
+            ps.setInt(6, b.getLike());
+            ps.setInt(7, b.getDislike());
+            ps.setInt(8, b.getId());
 
             ps.executeUpdate();
 
@@ -110,5 +140,16 @@ public class ServicesBlog {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public List<Blog> getTop3Blogs(List<Blog> blogs) {
+        blogs.sort(Comparator.comparingInt(Blog::getLike).reversed());
+
+        List<Blog> top3Blogs = new ArrayList<>();
+        for (int i = 0; i < Math.min(3, blogs.size()); i++) {
+            top3Blogs.add(blogs.get(i));
+        }
+
+        return top3Blogs;
     }
 }

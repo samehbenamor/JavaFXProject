@@ -39,6 +39,10 @@ public class BlogController implements Initializable {
     @FXML
     private Label titleLabel;
     @FXML
+    private Label likenum;
+    @FXML
+    private Label dislikenum;
+    @FXML
     private ImageView imageView;
     @FXML
     private Label contentLabel;
@@ -54,6 +58,9 @@ public class BlogController implements Initializable {
         titleLabel.setText(blog.getTitre());
         imageView.setImage(new Image(blog.getImageblog()));
         contentLabel.setText(blog.getContenu());
+        likenum.setText(String.valueOf(blog.getLike()));
+        dislikenum.setText(String.valueOf(blog.getDislike()));
+
         
         StackPane imagePane = new StackPane(imageView);
         imagePane.setAlignment(Pos.CENTER);
@@ -96,7 +103,7 @@ public class BlogController implements Initializable {
 
     @FXML
     public void EditerBlogfront(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/editblog.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/plswork.fxml"));
         Parent root = loader.load();
         EditBlogController editBlogController = loader.getController();
         editBlogController.setBlog(blog);
@@ -164,5 +171,25 @@ public class BlogController implements Initializable {
         }
     }
 
+    @FXML
+    public void likeblog(ActionEvent event){
+        blog.setLike(blog.getLike() + 1);
+        likenum.setText("" + blog.getLike());
 
+        ServicesBlog sb = new ServicesBlog();
+        sb.initConnection();
+        sb.updateBlog(blog);
+    }
+
+
+
+    @FXML
+    public void dislikeblog(ActionEvent event){
+        blog.setDislike(blog.getDislike() + 1);
+        dislikenum.setText("" + blog.getDislike());
+
+        ServicesBlog sb = new ServicesBlog();
+        sb.initConnection();
+        sb.updateBlog(blog);
+    }
 }
