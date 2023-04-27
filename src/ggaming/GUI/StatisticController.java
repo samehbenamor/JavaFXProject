@@ -19,6 +19,7 @@ import ggaming.entity.Tournoi;
 import ggaming.services.MatchService;
 import ggaming.services.TournoiService;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
@@ -29,7 +30,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
@@ -47,25 +50,21 @@ import javafx.stage.Stage;
  */
 public class StatisticController implements Initializable {
     @FXML
-    private PieChart pieChart;
+    private BarChart barChart;
     
     private TournoiService ts=new TournoiService();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        int total=ts.getTotalType();
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+         XYChart.Series<String, Number> series = new XYChart.Series<>();
+         series.setName("Prix Moyen Par Categorie");
+         
         for (StatTournoi data : ts.getStatsType()) {
-            pieChartData.add(new PieChart.Data(data.getType(),(data.getStat()*100)/ts.getTotalType()));
-            // Set a value of 1 for each data point
-       // pieChartData.get
+            
+            series.getData().add(new XYChart.Data<>(data.getType(), data.getStat()));
+           
         }
-        pieChartData.forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName(), " " , data.pieValueProperty(),"%")));
-        
-// Create the pie chart
-        pieChart.setTitle("Tournois Les Plus Populaires");
-        Label title = (Label) pieChart.lookup(".chart-title");
-        title.setStyle("-fx-text-fill: white;");
-        pieChart.getData().addAll(pieChartData);
+
+        barChart.getData().add(series);
      
     }    
     

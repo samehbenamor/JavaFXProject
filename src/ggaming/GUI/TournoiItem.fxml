@@ -60,7 +60,7 @@
             </HBox>
             <ImageView fx:id="imgTournoi" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#selectionnerTournoi" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Desktop/ggaminglogo.png" />
+                  <Image url="@../images/ggaminglogo.png" />
                </image>
             </ImageView>
          </children>

@@ -73,8 +73,8 @@ public class TournoiItemController implements Initializable {
         lblPrix.setText(Integer.toString(tournoi.getPrix())+"dt");
         lblJeu.setText(tournoi.getJeu().getLibelle());
         lblTournoiNom.setText(tournoi.getNomTournoi());
-        Image image = new Image(getClass().getResourceAsStream("ggaminglogo.png"));
-        imgTournoi.setImage(image);
+        //Image image = new Image(getClass().getResourceAsStream("ggaminglogo.png"));
+        //imgTournoi.setImage(image);
     }
     /**
      * Initializes the controller class.

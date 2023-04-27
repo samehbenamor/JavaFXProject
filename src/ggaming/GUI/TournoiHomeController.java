@@ -37,10 +37,12 @@ import javafx.scene.layout.VBox;
 import ggaming.entity.Jeux;
 import ggaming.entity.Tournoi;
 import ggaming.entity.Mailer;
+import ggaming.entity.TypeTournoi;
 import ggaming.services.TournoiService;
 import ggaming.tools.MaConnection;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -89,12 +91,16 @@ public class TournoiHomeController implements Initializable {
     private ScrollPane scroll;
     private List<Tournoi> lt;
     private final TournoiService ts=new TournoiService();
-
+    @FXML
+    private ComboBox<String> tri;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ObservableList<String> options = FXCollections.observableArrayList("Jeu","Alphabetique","Date");
+        tri.setItems(options);
+
         lt = new ArrayList<>();
         lt.addAll(ts.afficherTournoi());     
         int column = 0;
@@ -114,7 +120,6 @@ public class TournoiHomeController implements Initializable {
 
                 grid.add(anchorPane, column++, row); //(child,column,row)
                 GridPane.setMargin(anchorPane, new Insets(10));
-
                //set grid width
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
@@ -155,7 +160,7 @@ public class TournoiHomeController implements Initializable {
         else if(dateFrom.getValue()!=null && dateTo.getValue()!=null && tfNom.getText().isEmpty()) //nom pas saisi date saisie
         {
             if(dateFrom.getValue().isAfter(dateTo.getValue())){
-                alert.setContentText("La date doit etre superieur à la date d'aujourd'hui ");
+                alert.setContentText("La date de commencement doit etre superieur à la date de fin ");
                 alert.showAndWait(); 
             }
             else{
@@ -174,51 +179,46 @@ public class TournoiHomeController implements Initializable {
                 alert.showAndWait();
             }
         }
-        //error because executing methods on null values 
-        /*if(ts.rechercherTournoiParNom(tfNom.getText()).isEmpty() ||  
-                ts.rechercherTournoiParNomEtDate(tfNom.getText(), 
-                Date.valueOf(dateFrom.getValue().toString()), 
-                Date.valueOf(dateTo.getValue().toString())).isEmpty()||
-                ts.rechercherTournoiParDate(Date.valueOf(dateFrom.getValue()
-                .toString()), Date.valueOf(dateTo.getValue().toString())).isEmpty())
-        {
-                alert.setContentText("Rien Trouvé !");
-                alert.showAndWait();             
-        }*/
-        
+        afficher(lt);
+        dateFrom.setValue(null);
+        dateTo.setValue(null);
+        tfNom.setText("");
+    }
+    public void afficher(List<Tournoi> lt)
+    {
+      grid.getChildren().clear();    
       int column = 0;
-      int row = 1;
-          for (int i = 0; i < lt.size(); i++) {
-          try {
-              FXMLLoader fxmlLoader = new FXMLLoader();
-              fxmlLoader.setLocation(getClass().getResource("TournoiItem.fxml"));
-              AnchorPane anchorPane = fxmlLoader.load();
+        int row = 1;
+            for (int i = 0; i < lt.size(); i++) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("TournoiItem.fxml"));
+                AnchorPane anchorPane = fxmlLoader.load();
 
-              TournoiItemController itemController = fxmlLoader.getController();
-              itemController.setData(lt.get(i));
-              if (column == 1) {
-                  column = 0;
-                  row++;
-              }
+                TournoiItemController itemController = fxmlLoader.getController();
+                itemController.setData(lt.get(i));
+                if (column == 3) {
+                    column = 0;
+                    row++;
+                }
 
-              gridR.add(anchorPane, column++, row); //(child,column,row)
-              GridPane.setMargin(anchorPane, new Insets(10));
+                grid.add(anchorPane, column++, row); //(child,column,row)
+                GridPane.setMargin(anchorPane, new Insets(10));
+               //set grid width
+                grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                grid.setMaxWidth(Region.USE_PREF_SIZE);
 
-             //set grid width
-              gridR.setMinWidth(Region.USE_COMPUTED_SIZE);
-              gridR.setPrefWidth(Region.USE_COMPUTED_SIZE);
-              gridR.setMaxWidth(Region.USE_PREF_SIZE);
+                //set grid height
+                grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                grid.setMaxHeight(Region.USE_PREF_SIZE);
 
-              //set grid height
-              gridR.setMinHeight(Region.USE_COMPUTED_SIZE);
-              gridR.setPrefHeight(Region.USE_COMPUTED_SIZE);
-              gridR.setMaxHeight(Region.USE_PREF_SIZE);
-
-          } 
-          catch (IOException ex) {
-              System.out.print(ex);
-          }
-      }
+            } 
+            catch (IOException ex) {
+                System.out.print(ex);
+            }
+            } 
     }
     @FXML
     void goBackOffice(MouseEvent event) {
@@ -234,7 +234,23 @@ public class TournoiHomeController implements Initializable {
         }
     }
     
-    
+    @FXML
+    void trier(ActionEvent event) {
+        String selectedOption = tri.getValue();
+        switch (selectedOption) {
+            case "Date":
+                afficher(ts.trierDate());
+                break;
+            case "Jeu":
+                afficher(ts.trierJeu());
+                break;
+            case "Alphabetique":
+                afficher(ts.trierAlpha());
+                break;
+            default:
+                break;
+        }
+    }
     
     @FXML
     public void SendMailSSL()

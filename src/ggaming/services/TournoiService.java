@@ -159,8 +159,7 @@ public class TournoiService implements interfaceTournoi {
      public ArrayList<StatTournoi> getStatsType() {
         ArrayList<StatTournoi> result = new ArrayList<>();
         try {
-            String sql = "SELECT count(*) as number ,type_tournoi "
-                    + "as type FROM `tournoi` GROUP by type_tournoi;";
+            String sql = "Select avg(prix) number,type_tournoi as type from tournoi GROUP BY type_tournoi;";
             Statement ste = cnx.createStatement();
             ResultSet s = ste.executeQuery(sql);
             while (s.next()) {
@@ -221,9 +220,14 @@ public class TournoiService implements interfaceTournoi {
     public List<Tournoi> rechercherTournoiParNom(String name) {
         ArrayList<Tournoi> result = new ArrayList<>();
         try {
-           String sql = "SELECT * FROM tournoi WHERE LOWER(nom_tournoi) LIKE CONCAT('%', LOWER(?), '%') limit 1;";
+           String sql = "SELECT *\n" +
+            "FROM tournoi\n" +
+            "JOIN jeux ON tournoi.jeu_id = jeux.id \n" +
+            "WHERE LOWER(tournoi.nom_tournoi) LIKE CONCAT('%', LOWER(?), '%')\n" +
+            "OR LOWER(jeux.libelle) LIKE CONCAT('%', LOWER(?), '%');";
             PreparedStatement ste = cnx.prepareStatement(sql);
             ste.setString(1, name); // set the value of the first parameter to the name you want to match
+            ste.setString(2, name); // set the value of the first parameter to the name you want to match
             ResultSet s = ste.executeQuery();
 
            while (s.next()) {
@@ -249,11 +253,15 @@ public class TournoiService implements interfaceTournoi {
     public List<Tournoi> rechercherTournoiParNomEtDate(String name,Date dateFrom,Date dateTo) {
     ArrayList<Tournoi> result = new ArrayList<>();
     try {
-       String sql = "SELECT * FROM tournoi WHERE LOWER(nom_tournoi) LIKE CONCAT('%', LOWER(?), '%') and DATE(date_debut) between ? and ? limit 1 ;";
+       String sql = "SELECT * FROM tournoi JOIN jeux ON tournoi.jeu_id = jeux.id "
+               + "WHERE LOWER(nom_tournoi) LIKE CONCAT('%', LOWER(?), '%') "
+               + "OR LOWER(jeux.libelle) LIKE CONCAT('%', LOWER(?), '%')"
+               + "and DATE(date_debut) between ? and ? ;";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setString(1, name);
-        ste.setDate(2, dateFrom);
-        ste.setDate(3, dateTo);
+        ste.setString(2, name);
+        ste.setDate(3, dateFrom);
+        ste.setDate(4, dateTo);
         ResultSet s = ste.executeQuery();
 
        while (s.next()) {
@@ -278,7 +286,7 @@ public class TournoiService implements interfaceTournoi {
     public List<Tournoi> rechercherTournoiParDate(Date dateFrom,Date dateTo) {
         ArrayList<Tournoi> result = new ArrayList<>();
         try {
-           String sql = "SELECT * FROM tournoi WHERE DATE(date_debut) between ? and ? limit 1 ;";
+           String sql = "SELECT * FROM tournoi WHERE DATE(date_debut) between ? and ? ;";
             PreparedStatement ste = cnx.prepareStatement(sql);
             ste.setDate(1, dateFrom); 
             ste.setDate(2, dateTo); 
@@ -306,10 +314,11 @@ public class TournoiService implements interfaceTournoi {
     public List<Tournoi> TournoiSimilaire(Tournoi t) {
         ArrayList<Tournoi> result = new ArrayList<>();
         try {
-           String sql = "SELECT * FROM tournoi WHERE type_tournoi = ? or jeu_id= ?;";
+           String sql = "SELECT * FROM tournoi WHERE (type_tournoi = ? or jeu_id= ?) and id <> ?;";
             PreparedStatement ste = cnx.prepareStatement(sql);
             ste.setString(1, t.getTypeTournoi()); 
-            ste.setInt(2,t.getJeu().getId()); 
+            ste.setInt(2,t.getJeu().getId());
+            ste.setInt(3, t.getId()); 
             ResultSet s = ste.executeQuery();
 
            while (s.next()) {
@@ -325,6 +334,78 @@ public class TournoiService implements interfaceTournoi {
                         s.getDate("date_debut"));
                 result.add(r);
 
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+   
+    public List<Tournoi> trierDate() {
+        ArrayList<Tournoi> result = new ArrayList<>();
+        try {
+           String sql = "SELECT * FROM tournoi order by date_debut DESC";
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ResultSet s = ste.executeQuery();
+           while (s.next()) {
+                Tournoi r = new Tournoi(
+                        s.getInt("id"),
+                        s.getInt("participant_total"),
+                        s.getString("nom_tournoi"),
+                        findJeuById(s.getInt("jeu_id")),
+                        s.getInt("prix"),
+                        s.getString("type_tournoi"),
+                        s.getString("image_tournoi"),
+                        s.getDate("date_debut"));
+                result.add(r);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+
+    public List<Tournoi> trierJeu() {
+        ArrayList<Tournoi> result = new ArrayList<>();
+        try {
+           String sql = "SELECT * FROM tournoi inner join jeux on jeux.id=tournoi.jeu_id order by jeux.libelle";
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ResultSet s = ste.executeQuery();
+           while (s.next()) {
+                Tournoi r = new Tournoi(
+                        s.getInt("id"),
+                        s.getInt("participant_total"),
+                        s.getString("nom_tournoi"),
+                        findJeuById(s.getInt("jeu_id")),
+                        s.getInt("prix"),
+                        s.getString("type_tournoi"),
+                        s.getString("image_tournoi"),
+                        s.getDate("date_debut"));
+                result.add(r);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+   
+    public List<Tournoi> trierAlpha() {
+        ArrayList<Tournoi> result = new ArrayList<>();
+        try {
+           String sql = "SELECT * FROM tournoi order by nom_tournoi";
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ResultSet s = ste.executeQuery();
+           while (s.next()) {
+                Tournoi r = new Tournoi(
+                        s.getInt("id"),
+                        s.getInt("participant_total"),
+                        s.getString("nom_tournoi"),
+                        findJeuById(s.getInt("jeu_id")),
+                        s.getInt("prix"),
+                        s.getString("type_tournoi"),
+                        s.getString("image_tournoi"),
+                        s.getDate("date_debut"));
+                result.add(r);
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
