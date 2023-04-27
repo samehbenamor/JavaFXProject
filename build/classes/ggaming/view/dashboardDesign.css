@@ -39,7 +39,7 @@ and open the template in the editor.
 }
 
 .nav-form{
-    -fx-background-color:linear-gradient(to bottom right, #FFD100, #FFF500);
+    -fx-background-color:linear-gradient(to bottom right, #000000, #FFF500);
 }
 
 .nav-btn{

@@ -48,7 +48,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -314,8 +314,8 @@ private void loadDataSponsor() {
              Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE, null, ex);
          }
 */
-           if (tfnamesp.getText().isEmpty() || tfDescripsp.getText().isEmpty() ||tfwebsitesp.getText().isEmpty()||
-            comboboxsp.getValue().isEmpty() ||logoimagesp.getImage()==null ){
+           if (tfnamesp.getText().isEmpty() && tfDescripsp.getText().isEmpty() && tfwebsitesp.getText().isEmpty()&&
+            comboboxsp.getValue().isEmpty()  ){
            Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("");
         alert.setHeaderText("");

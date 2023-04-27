@@ -5,11 +5,13 @@
  */
 package ggaming.view;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import ggaming.cnx.MyConnection;
 import ggaming.entity.Equipe;
 import ggaming.entity.Sponsor;
 import ggaming.services.EquipeService;
-import ggaming.services.SponsorService;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -77,6 +79,8 @@ public class BackEquipeController implements Initializable {
     @FXML
     private Button Tournois_btn;
     @FXML
+    private Button Equipes_btn;
+    @FXML
     private Button Jeux_btn;
     @FXML
     private Button Blogs_btn;
@@ -108,6 +112,7 @@ public class BackEquipeController implements Initializable {
     private TableColumn<Equipe, String> collsiteweb;
     @FXML
     private TableColumn<Equipe, String> colllogoeq;
+    private TableColumn<Equipe, Date> colldatecr;
     @FXML
     private TextField addEmployee_search;
     @FXML
@@ -119,7 +124,17 @@ public class BackEquipeController implements Initializable {
     @FXML
     private TextField tfid;
     @FXML
+    private Button addimage;
+    @FXML
     private ImageView logoimage;
+    @FXML
+    private Button btnaddeq;
+    @FXML
+    private Button btnmodifeq;
+    @FXML
+    private Button btndeleteeq;
+    @FXML
+    private Button addEmployee_clearBtn;
     @FXML
     private TextArea tfDescripeq;
     @FXML
@@ -152,7 +167,7 @@ public class BackEquipeController implements Initializable {
     private TableColumn<?, ?> salary_col_salary;
     
     
-    ////////////////////////////////////////////////////
+    
     private ObservableList<Equipe> equipeData;
     private Connection con;
     String query = null;
@@ -163,33 +178,18 @@ public class BackEquipeController implements Initializable {
     Equipe elog = null ;
     ObservableList<Equipe>  equipeList = FXCollections.observableArrayList();
 private int selectedEquipeId;
- 
- private boolean sponsorView = false;
+ private boolean issponsorView = false;
     int index=-1;
-    
-    /////////////////////////////////////////////////////////
-    
-   
-    
-    /////////////////////////////////////////////////////////
     @FXML
     private TextField tfideq;
     @FXML
     private TableColumn<Equipe, LocalDateTime> colldatecreq;
     @FXML
-    private Button Equipess_btn;
-    @FXML
     private Button Sponsor_btn;
     @FXML
-    private Button addimage;
+    private Button btnqr;
     @FXML
-    private Button btnaddeq;
-    @FXML
-    private Button btnmodifeq;
-    @FXML
-    private Button btndeleteeq;
-    @FXML
-    private Button addEmployee_clearBtn;
+    private Button btnsms;
 
     /**
      * Initializes the controller class.
@@ -217,29 +217,9 @@ private int selectedEquipeId;
             tfideq.setText(Integer.toString(newSelection.getId()));
         }
     });
-        
-        //////////////////////////////////////////////////////////
-        /*
-        serviceSponsor = new SponsorService();
-         //serviceSponsor.initConnection();
-       //loadDataSponsor();
-        tableSponsor.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-        if (newSelection != null) {
-            // Get the id of the selected Jeux item
-            selectedSponsorId = newSelection.getId();
-            // Populate the input fields with the selected Jeux data
-            tfnamesp.setText(newSelection.getNom_sponsor());
-            tfDescripsp.setText(newSelection.getDescription_sponsor());
-            
-            tfwebsitesp.setText(newSelection.getSite_webs());
-            
-            
-           tfidsp.setText(Integer.toString(newSelection.getId()));
-        }
-    });
-       */ 
     }    
-@FXML
+
+    @FXML
     private void save(MouseEvent event) {
         
          String nom_equipe= tfnameeq.getText();
@@ -247,16 +227,7 @@ private int selectedEquipeId;
     int nb_joueurs=Integer.parseInt(tfnbrj.getText());
     String site_web=tfwebsite.getText();
     String logo_equipe=logoimage.getImage().toString();
-      if (tfnameeq.getText().isEmpty() || tfDescripeq.getText().isEmpty() ||tfnbrj.getText().isEmpty()||
-            tfwebsite.getText().isEmpty() ||logoimage.getImage()==null ){
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("");
-        alert.setHeaderText("");
-      
-		alert.setContentText("Remplir tous les champs");
-                alert.showAndWait();
-                 return;
-      }
+    
       if(nom_equipe.isEmpty()){
             tfnameeq.setStyle("-fx-border-color: red");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -310,34 +281,12 @@ private int selectedEquipeId;
     Equipe p = new Equipe(nom_equipe, description_equipe, logo_equipe, site_web, nb_joueurs,currentDatee);
     
     EquipeService es = new EquipeService();
-   /* 
-Equipe existingEquipe = es.findEquipeByNom(nom_equipe);
-if (existingEquipe != null) {
-    tfnameeq.setStyle("-fx-border-color: red");
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setHeaderText(null);
-    alert.setContentText("Une equipe avec le même nom existe déjà");
-    alert.showAndWait();
-    return;
-}
-*/
-TextField tfnameeq = new TextField();
-tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
-    if (newValue.length() > 15) {
-        tfnameeq.setText(oldValue);
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur de saisie");
-        alert.setHeaderText(null);
-        alert.setContentText("Le nom d'équipe ne peut pas dépasser 15 caractères !");
-        alert.showAndWait();
-    }
-});
     es.ajouterEquipe(p);
     refreshTableE();
     annulerequipe();
     }
-@FXML
+
+    @FXML
     private void addlogo(ActionEvent event) throws IOException {
         
         FileChooser Chooser = new FileChooser();
@@ -433,7 +382,6 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
             if (connection != null) {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
-
                 while (resultSet.next()){
                  LocalDateTime dateCreationn = resultSet.getTimestamp("date_creationn").toLocalDateTime();
                
@@ -455,10 +403,52 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
         }
     }
     */
-   
+    /*
+    private void suppequipe(MouseEvent event) {
+        
+         try{
+            String idstring = tfideq.getText();
+            int id = Integer.parseInt(idstring);
+            Equipe eq = new Equipe(id);
+        
+            EquipeService sb = new EquipeService();
+            sb.initConnection();
+            sb.deletee(eq);
+            refreshTable();
+            tfideq.clear();
+        tfnameeq.clear();
+        tfDescripeq.clear();
+        tfnbrj.clear();
+         tfwebsite.clear();
+         
+        }catch(Exception e){
+        }
+        
+        
+    }
+*/
     @FXML
     private void suppequipe() {
-               
+        /*
+         try{
+            String idstring = tfideq.getText();
+            int id = Integer.parseInt(idstring);
+            Equipe eq = new Equipe(id);
+        
+            EquipeService sb = new EquipeService();
+            sb.initConnection();
+            sb.deletee(eq);
+            refreshTable();
+            tfideq.clear();
+        tfnameeq.clear();
+        tfDescripeq.clear();
+        tfnbrj.clear();
+         tfwebsite.clear();
+         
+        }catch(Exception e){
+        }
+*/
+        
          Alert alert;
         EquipeService service=new EquipeService();
         int id=Integer.parseInt(tfideq.getText());
@@ -480,7 +470,8 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
                      annulerequipe(); //vider le contenu des textFields
                  }
     }
-@FXML
+
+    @FXML
     private void annulerequipe() {
          tfnameeq.setText("");
         tfDescripeq.setText("");
@@ -491,9 +482,12 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
         
     }
     
+    
     @FXML
-    private void modifierequipe() {
-         try{
+   private void modifierequipe() {
+         
+              Alert alert;
+               EquipeService service=new EquipeService();
       String idstringg = tfideq.getText();
             String nom_equipe = tfnameeq.getText();
             String description_equipe = tfDescripeq.getText();
@@ -501,23 +495,42 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
           int nb_joueurs=Integer.parseInt(tfnbrj.getText());
 
             int id = Integer.parseInt(idstringg);
-
+               alert = new Alert(Alert.AlertType.CONFIRMATION);
+                  alert.setTitle("Cofirmation Message");
+                  alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de modifier l equipe ID " + id + "?");
+                Optional<ButtonType> option = alert.showAndWait();
+               Equipe p = new Equipe(id,nom_equipe,description_equipe,site_web,nb_joueurs);
+                 if (option.get().equals(ButtonType.OK)) {
+                     
+                       service.modifierEquipe(p,id);
+                       annulerequipe();
+                        loadDataEquipe();//mise à jour de la table
+                             
+                 }
+                 else
+                 {
+                     annulerequipe();//vidre les champs des textFields
+                 }
+        
+/*
             Equipe p = new Equipe(id,nom_equipe);
         
             EquipeService es = new EquipeService();
             es.initConnection();
-            es.modifierEquipe(p);
+            es.modifierEquipe(p,id);
             
             refreshTableE();
            
         }catch(Exception e){
         }
-        
+        */
     }
 
     @FXML
-    private void gotosp(ActionEvent event) throws IOException {
-      sponsorView = true;
+    private void gotosponsors(ActionEvent event) 
+        throws IOException {
+        issponsorView = true;
 
         Parent root = FXMLLoader.load(getClass().getResource("/ggaming/view/BackSponsor.fxml"));
         Scene scene = new Scene(root);
@@ -527,213 +540,39 @@ tfnameeq.textProperty().addListener((observable, oldValue, newValue) -> {
 
        
     }
-    
-    
-    
-
-}
-    
-
-
-
-
-
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-    @FXML
-    private void addlogosp(ActionEvent event) throws IOException {
-         FileChooser Chooser = new FileChooser();
-        
-        FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
-        FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
-        
-        Chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
-        File file = Chooser.showOpenDialog(null);
-        BufferedImage bufferedimg = ImageIO.read(file);
-        Image image = SwingFXUtils.toFXImage(bufferedimg, null);
-        logoimagesp.setImage(image);
-    }
-    
-    private void loadDataSponsor() {
-        try {
-            refreshTableS();
-            collidsp.setCellValueFactory(new PropertyValueFactory<>("id"));
-            collnamesp.setCellValueFactory(new PropertyValueFactory<>("nom_sponsor"));
-            colldescsp.setCellValueFactory(new PropertyValueFactory<>("description_sponsor"));
-            collsitewebsp.setCellValueFactory(new PropertyValueFactory<>("site_webs"));
-            colllogoeqsp.setCellValueFactory(new PropertyValueFactory<>("logo_sponsor"));
-            colldatecrsp.setCellValueFactory(new PropertyValueFactory<>("date_creationn"));
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-private void refreshTableS(){
-        try{
-            sponsorList.clear();
-            query = "SELECT * FROM Sponsor";
-            Connection connection = MyConnection.getInstance().getCnx();
-            if (connection != null) {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-
-                while (resultSet.next()){
-                 LocalDateTime dateCreationn = resultSet.getTimestamp("date_creationn").toLocalDateTime();
-               
-                    sponsorList.add(new Sponsor(
-                        resultSet.getInt("id"),
-                        resultSet.getString("nom_sponsor"),
-                        resultSet.getString("description_sponsor"),
-                        resultSet.getString("logo_sponsor"),
-                        resultSet.getString("site_webs"),
-                           dateCreationn                                                                                             
-                    ));
-                    tableSponsor.setItems(sponsorList);
-                }
-            } else {
-                System.out.println("Database connection is null");
-            }
-        }catch(SQLException ex){
-            Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE,null,ex);
-        }
-    }
-    @FXML
-    private void savesp(MouseEvent event) throws SQLException {
-        
-         String nom_sponsor= tfnamesp.getText();
-         String description_sponsor=tfDescripsp.getText();
-         String logo_sponsor=logoimagesp.getImage().toString();
-         String site_webs=tfwebsitesp.getText();
-         EquipeService ese = new EquipeService();
-         Equipe equipe = new Equipe();
-          String nom_equipe= comboboxsp.getSelectionModel().getSelectedItem();
-          try {
-          equipe= ese.rechercherEquipeParNom(nom_equipe);
-         } catch (SQLException ex) {
-             Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-
-          
-          
-        if(nom_sponsor.isEmpty()){
-            tfnamesp.setStyle("-fx-border-color: red");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir le nom du sponsor");
-            alert.showAndWait();
-            return;
-        }
-
-        LocalDateTime currentDate = LocalDateTime.now();
-        Sponsor a = new Sponsor(nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate ,equipe);
-        SponsorService ss = new SponsorService();
-         
-        ss.ajouterSponsor(a);
-        
-        refreshTableS();
-    }
-    @FXML
-    private void modifiersponsor(ActionEvent event) {
-        
-         try{
-
-            String idstring = tfidsp.getText();
-            String nom_sponsor = tfnamesp.getText();
-            String description_sponsor = tfDescripsp.getText();
-            String site_webs = tfwebsitesp.getText();
-          
-
-            int id = Integer.parseInt(idstring);
-
-            Sponsor a = new Sponsor(id,nom_sponsor,description_sponsor,site_webs);
-        
-            SponsorService ss = new SponsorService();
-            ss.initConnection();
-            ss.modifiersponsor(a);
-            
-            refreshTableS();
-            /*
-            tfid.clear();
-        tfLibelle.clear()
-            
-        }catch(Exception e){
-        }
-    }
-    @FXML
-    private void suppsponsor() {
-        
-          Alert alert;
-        SponsorService service=new SponsorService();
-        int id=Integer.parseInt(tfidsp.getText());
-        
-         alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Cofirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Etes vous sûr de supprimer le produit ID " + id + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-                
-                 if (option.get().equals(ButtonType.OK)) 
-                 {
-                      service.supprimersponsor(id); //procéder à la suppression
-                     annulersponsor();
-                      loadDataSponsor(); //mise à jour de la table view
-                 }
-                 else
-                 {
-                     annulersponsor(); //vider le contenu des textFields
-                 }
-    }
-    @FXML
-    private void annulersponsor() {
-        
-        
-          tfnamesp.setText("");
-        tfDescripsp.setText("");
-        
-        tfwebsitesp.setText("");
-        tfidsp.setText("");
-        logoimagesp.setImage(null);
-    }
 
     @FXML
-    private void gotoequipes(ActionEvent event) throws IOException {
-         sponsorView = false;
-
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/view/BackEquipe.fxml"));
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-/*
-        loadDataCommentaire();
-        refreshTableC();
+    private void qr(MouseEvent event) {
+         Stage qrStage = new Stage();
+            Equipe p;
         
-        */
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        p=tableEquipe.getSelectionModel().getSelectedItem();
+        EquipeService pd=new EquipeService();
+        pd.Qr(qrStage,p);
         
+    }
     
-    
-    
+    public static final String ACCOUNT_SID = "ACb6fcb2f62a595a70a00cc01d6f2825fa";
+  public static final String AUTH_TOKEN = "0efed6146a89854a1da7fad48ae3142c";
 
+    @FXML
+    private void sms(MouseEvent event) {
+        
+        EquipeService pd = new EquipeService();
+      //  populateTable((ObservableList<Promotion>) pd.SUPPRIME());
+        tableEquipe.refresh();
+        
+        Equipe p;
+        p=tableEquipe.getSelectionModel().getSelectedItem();
+        String promo="une promotion a ne pas manqué de pourcentage % commence le "+p.getDate_creation()+" et se termine le ";
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                    Message message = Message.creator(new PhoneNumber("+21623344165"),
+        new PhoneNumber("+16076382981"),promo).create();
+        
+    }
+     
+    
+     
+     
+        
+    }

@@ -47,7 +47,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -81,7 +81,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Equipess_btn" layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -96,7 +96,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Sponsor_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#gotosp" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="sponsors" textFill="#c32626">
+                              <Button fx:id="Sponsor_btn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#gotosponsors" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="sponsors" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
@@ -271,6 +271,8 @@
                                     <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
                                     <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />
+                                    <Button fx:id="btnqr" layoutX="506.0" layoutY="620.0" mnemonicParsing="false" onMouseClicked="#qr" prefHeight="42.0" prefWidth="90.0" text="QR" />
+                                    <Button fx:id="btnsms" layoutX="322.0" layoutY="629.0" mnemonicParsing="false" onMouseClicked="#sms" prefHeight="37.0" prefWidth="84.0" text="sms" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />
