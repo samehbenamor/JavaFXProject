@@ -25,7 +25,6 @@ import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.sql.SQLException;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Button;
 import java.time.Period;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ComboBox;
@@ -41,7 +40,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javafx.scene.paint.Color;
-
+import javafx.scene.control.Button;
 import java.util.List;
 import java.util.UUID;
 import javafx.scene.SnapshotParameters;
@@ -64,6 +63,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
 import java.io.OutputStream;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
 //For qr code and shit 
@@ -71,7 +71,6 @@ import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
 
 //
-
 /**
  *
  * @author DELL
@@ -111,7 +110,7 @@ public class JoueurController {
     private DatePicker datenaistext;
     @FXML
     private ComboBox<String> rolescombo;
-    /////
+
     /*@FXML
     private TableColumn<Joueur, Integer> idCol;*/
     @FXML
@@ -144,6 +143,46 @@ public class JoueurController {
     private TableColumn<Joueur, String> nomCol;*/
     private final JoueurDAO joueurDAO = new JoueurDAO();
 
+    //For the search
+    @FXML
+    private TextField usersearch;
+    @FXML
+    private Button searchbutt;
+    @FXML
+    private Button cleareverything;
+
+    /////
+    //Functinos concerning the search
+    private void updateTableView(String searchTerm) {
+        List<Joueur> searchResults = joueurDAO.searchJoueur(searchTerm); // Call your search function
+        joueursTable.getItems().clear(); // Clear existing items in the table view
+
+        joueursTable.setItems(FXCollections.observableArrayList(searchResults)); // Add the search results to the table view
+    }
+
+    @FXML
+    private void setupSearchButton(ActionEvent event) {
+        Button searchButton = searchbutt;
+
+        String searchTerm = usersearch.getText();
+        updateTableView(searchTerm);
+
+        // Add an event listener that changes the background color of the search button when the mouse hovers over it
+        searchButton.setOnMouseEntered(e -> {
+
+            searchButton.setStyle("-fx-background-color: yellow;");
+
+        });
+
+        // Add an event listener that resets the background color of the search button when the mouse exits
+        searchButton.setOnMouseExited(e -> {
+
+            searchButton.setStyle("-fx-background-color: transparent;");
+
+        });
+    }
+
+    //
     @FXML
     private void handleAddUserButtonAction(ActionEvent event) {
         String nom = nomtext.getText();
@@ -332,6 +371,7 @@ public class JoueurController {
         emailtext.clear();
         winstext.clear();
         losestext.clear();
+        usersearch.clear();
         updateData();
     }
 
@@ -494,7 +534,7 @@ public class JoueurController {
                     System.out.println("Imgur uploaded image: " + link);
                     BufferedImage QrCode = generateQRCode(link);
                     showExportedQr(QrCode);
-                    
+
                 } catch (IOException e) {
                     // handle the exception here
                     System.out.println("An I/O error occurred: " + e.getMessage());
@@ -582,16 +622,18 @@ public class JoueurController {
         stage.setScene(scene);
         stage.show();
     }
+
     private void showExportedQr(BufferedImage image) {
-    Stage stage = new Stage();
-    stage.setTitle("Exported Qr code!");
-    Image fxImage = SwingFXUtils.toFXImage(image, null);
-    ImageView imageView = new ImageView(fxImage);
-    ScrollPane scrollPane = new ScrollPane(imageView);
-    Scene scene = new Scene(scrollPane);
-    stage.setScene(scene);
-    stage.show();
-}
+        Stage stage = new Stage();
+        stage.setTitle("Exported Qr code!");
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        ImageView imageView = new ImageView(fxImage);
+        ScrollPane scrollPane = new ScrollPane(imageView);
+        Scene scene = new Scene(scrollPane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private Image createExportedImage(Joueur user) {
         // Create an empty image with the desired dimensions and background color
         int imageWidth = 800;
@@ -683,43 +725,13 @@ public class JoueurController {
             return new SimpleStringProperty(bannedStatus);
         }
         );
-        pprofile.setCellValueFactory(new PropertyValueFactory<>("pprofile"));
+        //pprofile.setCellValueFactory(new PropertyValueFactory<>("pprofile"));
         joueursTable.setOnMouseClicked(e -> {
             if (e.getClickCount() == 1) { // checks if the click count is 1
                 handleRowClick(); // calls the handleRowClick function
             }
         });
-        pprofile.setCellFactory(column -> {
-            return new TableCell<Joueur, String>() {
-                private final ImageView imageView = new ImageView();
 
-                {
-                    setGraphic(imageView);
-                    setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-                }
-
-                @Override
-                protected void updateItem(String profilePicName, boolean empty) {
-                    super.updateItem(profilePicName, empty);
-                    if (profilePicName == null || empty) {
-                        System.out.println("Test 1");
-                        setGraphic(null);
-                    } else {
-                        try {
-                            System.out.println("Test 2");
-                            // Load the profile picture from the file system
-                            File imageFile = new File(IMAGE_FOLDER + profilePicName);
-                            Image image = new Image(imageFile.toURI().toString());
-                            imageView.setImage(image);
-                            setGraphic(imageView);
-                        } catch (Exception e) {
-                            // Handle the exception, e.g. show a default image
-                            setGraphic(null);
-                        }
-                    }
-                }
-            };
-        });
         is_verified.setCellValueFactory(
                 new PropertyValueFactory<>("is_verified"));
         is_verified.setCellValueFactory(cellData
@@ -785,12 +797,14 @@ public class JoueurController {
                             banButton.setStyle("-fx-background-color: red;");
                         }
                         setGraphic(banButton);
-                        updateData();
+                        //updateData();
 
                     }
                 }
             };
         });
+        //cleareverything
+        cleareverything.setOnAction(this::clear);
         ajouttext.setOnAction(this::handleAddUserButtonAction);
         joueursTable.getColumns().add(buttonColumn);
 
@@ -802,6 +816,6 @@ public class JoueurController {
         //System.out.println(joueurs);
         joueursTable.getItems()
                 .addAll(joueurs);
-
+        searchbutt.setOnAction(this::setupSearchButton);
     }
 }

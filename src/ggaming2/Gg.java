@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package ggaming2;
-//Knowing that I have worked on the controller and DAO to create a working tableView that shows my Joueurs from the database, do I need to edit anything in the start function ? Knowing that the only
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

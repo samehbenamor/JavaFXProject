@@ -197,9 +197,8 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="joueursTable" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="joueursTable" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0" style="-fx-background-color: transparenttransparent;">
                                             <columns>
-                                              <TableColumn fx:id="pprofile" prefWidth="119.19998455047607" text="Photo de profile" />
                                                 <TableColumn fx:id="nom" prefWidth="119.19998455047607" text="Nom" />
                                               <TableColumn fx:id="prenom" prefWidth="112.0" text="Prenom" />
                                                 <TableColumn fx:id="email" prefWidth="140.79995727539062" text="Email" />
@@ -211,8 +210,14 @@
                                                 <TableColumn fx:id="is_verified" minWidth="0.0" prefWidth="116.80001220703116" text="Verifié?" />
                                             </columns>
                                           </TableView>
-                                          <TextField layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
-                                          <Button fx:id="exporttoimg" layoutX="1006.0" onAction="#exportimg" layoutY="11.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Export" />
+                                          <TextField fx:id="usersearch" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Nom, Prenom, Email..." styleClass="search" stylesheets="@dashboardDesign.css" />
+                                          <Button fx:id="exporttoimg" layoutX="1006.0" layoutY="11.0" mnemonicParsing="false" onAction="#exportimg" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Export" />
+                                          <Button fx:id="searchbutt" layoutX="294.0" layoutY="14.0" mnemonicParsing="false" onAction="#setupSearchButton" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Rechercher">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="cleareverything" layoutX="245.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleAddUserButtonAction" prefHeight="28.0" prefWidth="46.0" style="-fx-background-color: transparent;" text="❌" />
                                          
                                              </children>
                                     </AnchorPane>

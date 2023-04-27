@@ -23,6 +23,7 @@
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
+            
             <Button fx:id="gotoLogin" layoutX="317.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleNav" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Connecter vous" />
             <Label fx:id="wrongLogIn" layoutX="153.0" layoutY="127.0" textFill="RED" />
             <ImageView fx:id="loginLogo" fitHeight="96.0" fitWidth="278.0" layoutX="261.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">

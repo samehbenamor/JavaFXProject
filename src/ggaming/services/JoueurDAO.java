@@ -60,6 +60,45 @@ public class JoueurDAO {
         return joueurs;
     }
 
+    public List<Joueur> searchJoueur(String searchTerm) {
+        try {
+            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM joueur WHERE nom LIKE ? OR prenom LIKE ? OR email LIKE ? OR ign LIKE ? OR wins LIKE ? OR loses LIKE ?");
+
+            String likeSearchTerm = "%" + searchTerm + "%";
+            statement.setString(1, likeSearchTerm);
+            statement.setString(2, likeSearchTerm);
+            statement.setString(3, likeSearchTerm);
+            statement.setString(4, likeSearchTerm);
+            statement.setString(5, likeSearchTerm);
+            statement.setString(6, likeSearchTerm);
+
+            ResultSet rs = statement.executeQuery();
+
+            List<Joueur> joueurs = new ArrayList<>();
+            while (rs.next()) {
+                Joueur joueur = new Joueur();
+                joueur.setId(rs.getInt("id"));
+                joueur.setEmail(rs.getString("email"));
+                joueur.setPassword(rs.getString("password"));
+                joueur.setVerified(rs.getBoolean("is_verified"));
+                joueur.setNom(rs.getString("nom"));
+                joueur.setPrenom(rs.getString("prenom"));
+                joueur.setDatenai(rs.getDate("datenai"));
+                joueur.setProfile(rs.getString("pprofile"));
+
+                joueur.setBanned(rs.getBoolean("is_banned"));
+                joueur.setIgn(rs.getString("ign"));
+                joueur.setWins(rs.getInt("wins"));
+                joueur.setLoses(rs.getInt("loses"));
+                joueurs.add(joueur);
+            }
+            return joueurs;
+        } catch (SQLException e) {
+            System.err.println("Error while searching for joueurs: " + e.getMessage());
+            return null;
+        }
+    }
+
     public void insert(Joueur joueur) throws SQLException {
         PreparedStatement preparedStatement = cnx.prepareStatement("INSERT INTO joueur (email, roles, password, is_verified, nom, prenom, datenai, pprofile, is_banned, ign, wins, loses) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, joueur.getEmail());

@@ -133,6 +133,7 @@ public class LoginController {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String hashedPass = resultSet.getString("password");
+                
                 return BCrypt.checkpw(pass, hashedPass);
             } else {
                 return false; // email not found

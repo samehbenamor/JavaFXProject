@@ -13,8 +13,6 @@ package ggaming2;
 import javafx.fxml.FXML;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -62,6 +60,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 //import sun.plugin2.message.transport.Transport;
 
+//For the facebook register button
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+// For twilio and shit
+import javafx.scene.control.ChoiceBox;
+import com.twilio.Twilio;
+//import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+//
 public class RegisterController {
 
     Parent loginRedirect;
@@ -98,10 +106,31 @@ public class RegisterController {
     @FXML
     private Button registerButton;
 
+    @FXML
+    private Button fbLoginButton;
+
+    @FXML
+    private ChoiceBox<String> verificationMethod;
+
+    private WebView webView;
+    private WebEngine webEngine;
+
     private File profileImageFile;
 
     private static final String IMAGE_FOLDER = "C:\\xampp\\htdocs\\PI\\Ggaming\\public\\userImages\\";
 
+    private final String appId = "1384965872358291";
+    private final String appSecret = "f5ffe8cdc19629d65deaed095c02a6dc";
+    private final String redirectUrl = "https://vocalremover.org/";
+    private final String ACCESS_TOKEN_REGEX = "access_token=(.+)&";
+    private final String AUTH_URL = "https://www.facebook.com/v12.0/dialog/oauth?client_id=" + appId + "&redirect_uri=" + redirectUrl + "&response_type=token&scope=email";
+    ////////////////
+    // TWILIO
+    private final String ACCOUNT_SID = "ACb3f09a2d40b2e60759af29b509ae1441";
+    private final String AUTH_TOKEN = "c2e9ba52ea5a7ee1c0ab309af2812d4a";
+    private final static String TWILIO_PHONE_NUMBER = "+21625019058";
+
+    ////////////////
     public static String saveImage(File imageFile) throws IOException {
         //System.out.println("Test 3");
         String originalFilename = imageFile.getName();
@@ -110,6 +139,12 @@ public class RegisterController {
         Path destination = Paths.get(IMAGE_FOLDER + newFilename);
         Files.copy(imageFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
         return newFilename;
+    }
+
+    @FXML
+    public void initialize() {
+        verificationMethod.getItems().addAll("email", "sms");
+        verificationMethod.setValue("email");
     }
 
     @FXML
@@ -250,7 +285,8 @@ public class RegisterController {
             } catch (IOException e) {
                 System.out.println("Error saving image file");
             }
-            String hashedPassword = BCrypt.hashpw(passwordregister, BCrypt.gensalt());
+            String salt = BCrypt.gensalt(12);
+            String hashedPassword = BCrypt.hashpw(passwordregister, salt);
             Joueur joueur = new Joueur(emailregister, hashedPassword, firstNameregister, lastNameregister, inGameNameregister);
             //joueur.setDob(Date.valueOf(dob));
             System.out.println("\u001B[31mError: Test 7.\u001B[0m");
@@ -260,24 +296,33 @@ public class RegisterController {
             joueur.setDatenai(date3);
             joueur.setRoles(new String[]{"ROLE_USER"});
             joueurDAO.insertTest(joueur);
-            try {
-                sendVerificationEmail(joueur.getEmail());
-            } catch (MessagingException e) {
-                System.out.println("Error sending verification email: " + e.getMessage());
+            if (verificationMethod.equals("email")) {
+                try {
+                    sendVerificationEmail(joueur.getEmail());
+                } catch (MessagingException e) {
+                    System.out.println("Error sending verification email: " + e.getMessage());
+                }
+                try {
+                    Parent page1 = FXMLLoader.load(getClass().getResource("EmailHasBeenSent.fxml"));
+                    Scene scene = new Scene(page1);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            } else if (verificationMethod.equals("sms")) {
+                try {
+                    Parent page1 = FXMLLoader.load(getClass().getResource("SMSMethod.fxml"));
+                    Scene scene = new Scene(page1);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
-            try {
-                Parent page1 = FXMLLoader.load(getClass().getResource("EmailHasBeenSent.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-            // Show success message
-            Alert registerAlert = new Alert(AlertType.CONFIRMATION);
-            registerAlert.setHeaderText("Votre compte a été créé avec succès");
-            registerAlert.showAndWait();
+
         }
 
         // Get the file path of the selected image
@@ -321,7 +366,7 @@ public class RegisterController {
         }
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
         message.setSubject("Confirmation email");
-        
+
         // set content and add link to verify
         try {
             JoueurDAO joueurDAO = new JoueurDAO();
@@ -343,5 +388,66 @@ public class RegisterController {
             e.printStackTrace();
         }
         //System.out.println("Error sending confirmation email: " + e.getMessage());
+    }
+
+    /*@FXML
+    public void ManipulateFacebookRegister(ActionEvent event) {
+        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id=" + appId + "&redirect_uri=" + redirectUrl + "&scope=user_about_me,"
+                + "user_actions.books,user_actions.fitness,user_actions.music,user_actions.news,user_actions.video,user_activities,user_birthday,user_education_history,"
+                + "user_events,user_photos,user_friends,user_games_activity,user_groups,user_hometown,user_interests,user_likes,user_location,user_photos,user_relationship_details,"
+                + "user_relationships,user_religion_politics,user_status,user_tagged_places,user_videos,user_website,user_work_history,ads_management,ads_read,email,"
+                + "manage_notifications,manage_pages,publish_actions,read_friendlists,read_insights,read_mailbox,read_page_mailboxes,read_stream,rsvp_event";
+        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.get(authUrl);
+        String accessToken;
+        while (true) {
+
+            if (!driver.getCurrentUrl().contains("facebook.com")) {
+                String url = driver.getCurrentUrl();
+                accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+
+                driver.quit();
+
+                FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.VERSION_11_0);
+                User user = fbClient.fetchObject("me", User.class);
+                System.out.println(user.getName());
+                //message.setText(user.getName());
+
+            }
+        }
+    }*/
+    @FXML
+    public void ManipulateFacebookRegister(ActionEvent event) {
+        /*
+                 webView = new WebView();
+        webEngine = webView.getEngine();
+        webEngine.load(AUTH_URL);
+
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                String url = webEngine.getLocation();
+                if (url.startsWith(redirectUrl)) {
+                    String accessToken = extractAccessTokenFromUrl(url);
+                    System.out.println("Access token: " + accessToken);
+                }
+            }
+        });
+        
+        Scene scene = new Scene(webView, 800, 600);
+        bruh.setScene(scene);
+        bruh.show();
+         */
+
+    }
+
+    private String extractAccessTokenFromUrl(String url) {
+        String accessToken = null;
+        int startIndex = url.indexOf("access_token=");
+        int endIndex = url.indexOf("&");
+        if (startIndex != -1 && endIndex != -1) {
+            accessToken = url.substring(startIndex + 13, endIndex);
+        }
+        return accessToken;
     }
 }

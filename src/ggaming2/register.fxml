@@ -1,69 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.RegisterController">
    <top>
         <AnchorPane fx:id="register" prefHeight="579.0" prefWidth="777.0" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="229.0" layoutY="89.0" text="Nom" textFill="#ffc900">
+            <ImageView fitHeight="572.0" fitWidth="911.0" layoutX="14.0" layoutY="6.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/DELL/Documents/aarer.png" />
+               </image>
+            </ImageView>
+                <Label layoutX="229.0" layoutY="33.0" text="Nom" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="230.0" layoutY="145.0" text="Prenom" textFill="#ffc900">
+                <Label layoutX="230.0" layoutY="89.0" text="Prenom" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="230.0" layoutY="201.0" text="IGN" textFill="#ffc900">
+                <Label layoutX="230.0" layoutY="145.0" text="IGN" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
                
-                <Label layoutX="227.0" layoutY="258.0" text="Email" textFill="#ffc900">
+                <Label layoutX="227.0" layoutY="202.0" text="Email" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="229.0" layoutY="314.0" text="Mot de passe" textFill="#ffc900">
+                <Label layoutX="229.0" layoutY="258.0" text="Mot de passe" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="229.0" layoutY="426.0" text="Profile Picture" textFill="#ffc900">
+                <Label layoutX="229.0" layoutY="370.0" text="Profile Picture" textFill="#ffc900">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <TextField fx:id="firstName" layoutX="422.0" layoutY="93.0" prefWidth="150.0" promptText="Nom" />
-                <TextField fx:id="lastName" layoutX="422.0" layoutY="149.0" prefWidth="150.0" promptText="Prenom" />
-                <TextField fx:id="inGameName" layoutX="422.0" layoutY="205.0" prefWidth="150.0" promptText="IGN" />
+                <TextField fx:id="firstName" layoutX="422.0" layoutY="37.0" prefWidth="150.0" promptText="Nom" />
+                <TextField fx:id="lastName" layoutX="422.0" layoutY="93.0" prefWidth="150.0" promptText="Prenom" />
+                <TextField fx:id="inGameName" layoutX="422.0" layoutY="149.0" prefWidth="150.0" promptText="IGN" />
                 
-                <TextField fx:id="email" layoutX="422.0" layoutY="261.0" prefWidth="150.0" promptText="Email" />
-                <PasswordField fx:id="password" layoutX="422.0" layoutY="317.0" prefWidth="150.0" promptText="Mot de passe" />
-                <Button fx:id="browseBtn" layoutX="422.0" layoutY="426.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="26.0" prefWidth="150.0" text="Browse" textFill="#ffc900" />
-                <Button fx:id="registerBtn" layoutX="228.0" layoutY="500.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="40.0" prefWidth="344.0" style="-fx-background-color: #ffc900;" text="Register" textFill="#171717">
+                <TextField fx:id="email" layoutX="422.0" layoutY="205.0" prefWidth="150.0" promptText="Email" />
+                <PasswordField fx:id="password" layoutX="422.0" layoutY="261.0" prefWidth="150.0" promptText="Mot de passe" />
+                <Button fx:id="browseBtn" layoutX="422.0" layoutY="370.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="26.0" prefWidth="150.0" text="Browse" textFill="#ffc900" />
+                <Button fx:id="registerBtn" layoutX="230.0" layoutY="463.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="40.0" prefWidth="344.0" style="-fx-background-color: #ffc900;" text="Register" textFill="#171717">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-            <DatePicker fx:id="datenaistext" layoutX="423.0" layoutY="369.0" prefHeight="26.0" prefWidth="148.0" />
-            <Label layoutX="229.0" layoutY="367.0" prefHeight="30.0" prefWidth="169.0" text="Date de naissance" textFill="#ffc900">
+            <DatePicker fx:id="datenaistext" layoutX="423.0" layoutY="313.0" prefHeight="26.0" prefWidth="148.0" />
+            <Label layoutX="229.0" layoutY="311.0" prefHeight="30.0" prefWidth="169.0" text="Date de naissance" textFill="#ffc900">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ImageView fx:id="pprofileRegister" fitHeight="137.0" fitWidth="150.0" layoutX="42.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pprofileRegister" fitHeight="137.0" fitWidth="150.0" layoutX="44.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox layoutX="230.0" layoutY="525.0" prefHeight="38.0" prefWidth="345.0">
+               <children>
+                  <Button fx:id="fbLoginButton" onAction="#ManipulateFacebookRegister" prefHeight="38.0" prefWidth="298.0" style="-fx-background-color: #3b5998; -fx-text-fill: white; -fx-background-radius: 0;" styleClass="-fx-text-fill" stylesheets="@../../../../scenebuilderbutton.css" text="S'inscrire avec Facebook">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Button>
+                  <ImageView fitHeight="40.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="file:/C:/Users/DELL/Documents/facebooklol.png" />
+                     </image></ImageView>
+               </children>
+            </HBox>
+            <ImageView fitHeight="192.0" fitWidth="227.0" layoutX="573.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/C:/Users/DELL/Documents/woohoo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="184.0" fitWidth="486.0" layoutX="-89.0" layoutY="248.0" opacity="0.27" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+               <image>
+                  <Image url="file:/C:/Users/DELL/Documents/w.png" />
+               </image></ImageView>
+            <Label layoutX="229.0" layoutY="420.0" text="Méthode de vérification" textFill="#ff2f00">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="verificationMethod" layoutX="421.0" layoutY="419.0" prefWidth="150.0" />
             </children>
         </AnchorPane>
    </top>
