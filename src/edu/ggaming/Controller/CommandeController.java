@@ -112,7 +112,7 @@ public class CommandeController implements Initializable {
            String email=tfEmail.getText();           
                       
              //from,password,to,subject,message  
-Mailing.send("ballamou39@gmail.com","hsedamrcxodugwbb",email,"Profitez des meilleuirs tournois aujourd'hui","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+Mailing.send("ballamou39@gmail.com","hsedamrcxodugwbb",email,"Confirmation de commande","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
 "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n" +
 "<head>\n" +
 "<!--[if gte mso 9]>\n" +

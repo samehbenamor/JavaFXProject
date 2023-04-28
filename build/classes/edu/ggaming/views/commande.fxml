@@ -177,7 +177,7 @@
                               <Font name="Cambria" size="20.0" />
                            </font>
                         </Label>
-                        <HBox  alignment="CENTER" layoutX="322.0" layoutY="81.0" prefHeight="65.0" prefWidth="355.0" stylesheets="@../values/style.css">
+                        <HBox alignment="CENTER" layoutX="322.0" layoutY="81.0" prefHeight="65.0" prefWidth="355.0" stylesheets="@../values/style.css">
                            <children>
                               <TextField fx:id="tfNomPrenom" prefHeight="40.0" prefWidth="359.0" promptText="Nom" styleClass="transparent" stylesheets="@../values/style.css">
                                  <HBox.margin>

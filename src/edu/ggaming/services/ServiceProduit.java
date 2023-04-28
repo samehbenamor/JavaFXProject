@@ -266,9 +266,44 @@ public boolean isNumeric(String text) {
         ObservableList<Produit> produits = FXCollections.observableArrayList();
         ServiceCategorieProduit scp=new ServiceCategorieProduit();
         try {
-            String req = "SELECT * FROM produit WHERE nom LIKE ? ";  //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
+            String req = "SELECT * FROM produit WHERE lower(nom) LIKE ? or lower(description) LIKE ? ";  //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
             PreparedStatement ps = cnx2.prepareStatement(req);
             ps.setString(1, '%' +mot+ '%');
+            ps.setString(2, '%' +mot+ '%');
+           
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                 Produit p=new Produit();
+                 p.setId(rs.getInt(1));
+                 p.setNom(rs.getString("nom"));
+                 p.setDescription(rs.getString("description"));
+                 p.setImage(rs.getString("image"));
+                 p.setPrix(rs.getString("prix"));
+                 p.setQuantite(rs.getInt("quantite"));
+                 CategorieProduit categorie=scp.rechercherCategorieById(rs.getInt("categorie_produit_id"));
+                          
+                 p.setCategorie(categorie);
+                
+                
+                 produits.add(p);
+            }
+            System.out.print(produits);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produits;
+    }
+    
+    public ObservableList<Produit> rechercherProduitFiltrerCategorie(int  id_categorie) {
+        ObservableList<Produit> produits = FXCollections.observableArrayList();
+        ServiceCategorieProduit scp=new ServiceCategorieProduit();
+        try {
+            String req = "SELECT * FROM produit WHERE categorie_produit_id=? ";  //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
+            PreparedStatement ps = cnx2.prepareStatement(req);
+            ps.setInt(1, id_categorie);
+            
            
             ResultSet rs = ps.executeQuery();
             

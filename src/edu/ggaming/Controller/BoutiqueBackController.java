@@ -114,6 +114,8 @@ public class BoutiqueBackController  implements Initializable{
     @FXML
     private ComboBox<String> categorie_produit;
     @FXML
+    private ComboBox<String> categorie_produit_filtrer;
+    @FXML
     private TableColumn<?, ?> tcid;
     @FXML
     private TableColumn<?, ?> tcnom;
@@ -241,6 +243,8 @@ public class BoutiqueBackController  implements Initializable{
 
         ObservableList listData = FXCollections.observableArrayList(listG);
         categorie_produit.setItems(listData);
+        categorie_produit_filtrer.getItems().clear();
+        categorie_produit_filtrer.setItems(listData);
     }
     public void show_produit2(String mot) //a supprimer après
     {
@@ -261,6 +265,28 @@ public class BoutiqueBackController  implements Initializable{
 
         ObservableList listData = FXCollections.observableArrayList(listG);
         categorie_produit.setItems(listData);
+        categorie_produit_filtrer.setItems(listData);
+    }
+    public void show_produit3(int  id_categorie) //a supprimer après
+    {
+          ServiceProduit service=new ServiceProduit();
+          ObservableList<Produit> list = service.rechercherProduitFiltrerCategorie(id_categorie);
+          System.out.print(list);
+          tcid_categorie.setCellValueFactory(new PropertyValueFactory<>("id"));
+          tcref_categorie.setCellValueFactory(new PropertyValueFactory<>("description"));
+          tcnom_categorie.setCellValueFactory(new PropertyValueFactory<>("nom"));
+          
+          addProduit_tableView.setItems(list);
+          List<String> listG = new ArrayList<>();
+          ServiceCategorieProduit scp= new ServiceCategorieProduit();
+         ObservableList<CategorieProduit> listCategorie = scp.getall();
+        for (CategorieProduit cp : listCategorie) {
+            listG.add(cp.getNom());
+        }
+
+        ObservableList listData = FXCollections.observableArrayList(listG);
+        categorie_produit.setItems(listData);
+        categorie_produit_filtrer.setItems(listData);
     }
      public void show_categorie_produit()
     {
@@ -861,8 +887,25 @@ public class BoutiqueBackController  implements Initializable{
     
     public void rechercherProduit()
     {
+       // System.out.println("le mot taper est"+produit_search.getText());
         String mot=produit_search.getText();
         show_produit2(mot);
+    }
+    
+    @FXML
+    
+    public void filtrer()
+    {
+        String categorie=(String) categorie_produit_filtrer.getSelectionModel().getSelectedItem();
+        ServiceCategorieProduit scp=new ServiceCategorieProduit();
+        
+         try {
+             CategorieProduit categorie_produit=scp.rechercherCategorieByName(categorie);
+             show_produit3(categorie_produit.getId());
+         } catch (SQLException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
     }
     
      

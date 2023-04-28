@@ -6,133 +6,13 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.StatistiquesBoutiqueController">
-    <top>
-                  <AnchorPane prefHeight="45.0" prefWidth="200.0" styleClass="semi-top-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
-                     <children>
-                        <AnchorPane layoutX="145.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Button fx:id="close" layoutX="1010.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="minimize" layoutX="993.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="45.0" styleClass="minimize" stylesheets="@dashboardDesign.css">
-                                 <graphic>
-                                  
-                                 </graphic>
-                              </Button>
-                              <ImageView fitHeight="61.0" fitWidth="215.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </AnchorPane>
-               </top> 
-    
-    <left>
-                  <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
-                           <children>
-                             
-                              <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
-                                 <font>
-                                    <Font name="Tahoma" size="17.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Mousssa" textFill="WHITE">
-                                 <font>
-                                    <Font name="Arial Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                              <Button fx:id="home_btn" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
-                                 <graphic>
-                                  
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="produits_btn" layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="Categorie_produit_btn" layoutX="16.0" layoutY="277.0" mnemonicParsing="false"  prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Categorie Produits" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button fx:id="Tournois_btn" layoutX="16.0" layoutY="312.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="347.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="382.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button fx:id="Blogs_btn" layoutX="16.0" layoutY="417.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="452" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
-                                 <graphic>
-                                
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="logout" layoutX="9.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
-                                 <graphic>
-                                    
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="logout" />
-                                    <String fx:value="shadow" />
-                                 </styleClass>
-                              </Button>
-                              <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/logo.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </AnchorPane>
-               </left>
-    <center>
-      <BarChart fx:id="barChart" title="Nombre de Produit Par Categorie">
-         <xAxis>
-            <CategoryAxis fx:id="categoryAxis" label="Categorie" />
-         </xAxis>
-         <yAxis>
-            <NumberAxis fx:id="numberAxis" label="Nombre de Produits" />
-         </yAxis>
-      </BarChart>
-   </center>
-</BorderPane>
 <!--
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.StatistiquesBoutiqueController">
    <children>
@@ -395,3 +275,119 @@
    </children>
 </StackPane>
 -->
+
+<BorderPane prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.StatistiquesBoutiqueController">
+    <top>
+                  <AnchorPane prefHeight="45.0" prefWidth="200.0" styleClass="semi-top-form" stylesheets="@dashboardDesign.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutX="145.0" layoutY="-77.0" prefHeight="35.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button fx:id="close" layoutX="1010.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="60.0" styleClass="close" stylesheets="@dashboardDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="minimize" layoutX="993.0" layoutY="2.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="45.0" styleClass="minimize" stylesheets="@dashboardDesign.css">
+                                 <graphic>
+                                  
+                                 </graphic>
+                              </Button>
+                              <ImageView fitHeight="61.0" fitWidth="215.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </top> 
+    
+    <left>
+                  <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                           <children>
+                             
+                              <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="username" alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Mousssa" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
+                              <Button fx:id="home_btn" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
+                                 <graphic>
+                                  
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="produits_btn" layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="Categorie_produit_btn" layoutX="16.0" layoutY="277.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Categorie Produits" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                               <Button fx:id="Tournois_btn" layoutX="16.0" layoutY="312.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="347.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="382.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                               <Button fx:id="Blogs_btn" layoutX="16.0" layoutY="417.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="452" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                                 <graphic>
+                                
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="logout" layoutX="9.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
+                                 <graphic>
+                                    
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="logout" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                              </Button>
+                              <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </left>
+    <center>
+      <BarChart fx:id="barChart" title="Nombre de Produit Par Categorie">
+         <xAxis>
+            <CategoryAxis fx:id="categoryAxis" label="Categorie" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="numberAxis" label="Nombre de Produits" />
+         </yAxis>
+      </BarChart>
+   </center>
+</BorderPane>

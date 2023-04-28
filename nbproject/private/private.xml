@@ -5,14 +5,10 @@
         <group>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/PanierController.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/Produit.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/MarketController.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/services/ServiceCategorieProduit.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/views/dashboardDesign.css</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/Panier.java</file>
+            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/services/ServiceCommande.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/services/ServiceProduit.java</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/views/boutiqueBack.fxml</file>
             <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/Controller/BoutiqueBackController.java</file>
-            <file>file:/C:/Users/balla/Desktop/DevMobile/GGaming_Java/src/edu/ggaming/entities/CategorieProduit.java</file>
         </group>
     </open-files>
 </project-private>

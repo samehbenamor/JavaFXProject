@@ -48,7 +48,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                              
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
@@ -226,6 +226,17 @@
                                             </columns>
                                           </TableView>
                                           <TextField fx:id="produit_search" layoutX="14.0" layoutY="14.0" onKeyPressed="#rechercherProduit" prefHeight="30.0" prefWidth="277.0" promptText="Rechercher" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                          <ComboBox fx:id="categorie_produit_filtrer" layoutX="835.0" layoutY="14.0" onAction="#filtrer" prefHeight="40.0" prefWidth="168.0" promptText="catégorie" stylesheets="@dashboardDesign.css">
+                                             <styleClass>
+                                                <String fx:value="textfield" />
+                                                <String fx:value="search" />
+                                             </styleClass>
+                                          </ComboBox>
+                                          <Label layoutX="779.0" layoutY="25.0" text="Filtrer:">
+                                             <font>
+                                                <Font name="Tahoma" size="14.0" />
+                                             </font>
+                                          </Label>
                                          
                                        </children>
                                     </AnchorPane>
@@ -234,7 +245,11 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfNom" layoutX="117.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="tfNom" layoutX="117.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" stylesheets="@dashboardDesign.css">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="search" />
+                                       </styleClass></TextField>
                                     
                             
                                     <Label layoutX="35.0" layoutY="429.0" text="Description:">
@@ -247,19 +262,31 @@
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfQuantite" layoutX="423.0" layoutY="425.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="tfQuantite" layoutX="423.0" layoutY="425.0" prefHeight="25.0" prefWidth="172.0" stylesheets="@dashboardDesign.css">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="search" />
+                                       </styleClass></TextField>
                                     <Label layoutX="40.0" layoutY="504.0" text="Catégorie:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="categorie_produit" layoutX="117.0" layoutY="500.0" prefWidth="150.0" promptText="choisir" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <ComboBox fx:id="categorie_produit" layoutX="117.0" layoutY="500.0" prefWidth="150.0" promptText="choisir" stylesheets="@dashboardDesign.css">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="search" />
+                                       </styleClass></ComboBox>
                                     <Label layoutX="354.0" layoutY="384.0" text="Prix:">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfPrix" layoutX="423.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <TextField fx:id="tfPrix" layoutX="423.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" stylesheets="@dashboardDesign.css">
+                                       <styleClass>
+                                          <String fx:value="textfield" />
+                                          <String fx:value="search" />
+                                       </styleClass></TextField>
                                     
                                     <TextField fx:id="tfid" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
                                     <TextField fx:id="tfImage" layoutX="423.0" layoutY="400.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" visible="false" />
