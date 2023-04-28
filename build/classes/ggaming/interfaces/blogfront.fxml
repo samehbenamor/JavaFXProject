@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -9,12 +10,14 @@
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BlogFrontController">
     <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
       <children>
-         <Button layoutX="68.0" layoutY="137.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
+         <Button layoutX="69.0" layoutY="181.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
             <font>
                <Font size="18.0" />
             </font>
          </Button>
          <VBox fx:id="mycontainerBlog" layoutX="276.0" prefHeight="695.0" prefWidth="933.0" style="-fx-background-color: #FAFDF6;" />
-         <VBox fx:id="topBlogscontainer" layoutX="36.0" layoutY="234.0" prefHeight="370.0" prefWidth="213.0" />
+         <VBox fx:id="topBlogscontainer" layoutX="30.0" layoutY="276.0" prefHeight="250.0" prefWidth="213.0" />
+         <TextField fx:id="searchField" layoutX="14.0" layoutY="93.0" />
+         <Button layoutX="179.0" layoutY="93.0" mnemonicParsing="false" onAction="#SearchButton" text="Rechercher" />
       </children></AnchorPane>
 </StackPane>

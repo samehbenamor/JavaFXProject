@@ -11,6 +11,7 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,8 +51,10 @@ public class BlogFrontController implements Initializable {
     private VBox mycontainerBlog;
     @FXML
     private VBox topBlogscontainer;
+    @FXML
+    private TextField searchField;
 
-
+private List<Blog> allBlogs;
 
     /**
      * Initializes the controller class.
@@ -60,102 +64,8 @@ public class BlogFrontController implements Initializable {
         try {
             ServicesBlog servicesBlog = new ServicesBlog();
             servicesBlog.initConnection();
-            List<Blog> blogs = servicesBlog.getAllBlogs();
-            VBox blogContainer = new VBox();
-
-            List<Blog> topblogs = servicesBlog.getTop3Blogs(blogs);
-
-            VBox topblogsContainer = new VBox();
-
-            for (Blog blog : topblogs) {
-
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                String formattedDateTime = blog.getDate_creation().format(formatter);
-
-                Label dateLabel = new Label(formattedDateTime);
-                Label blogLabel = new Label(blog.getTitre());
-                blogLabel.setWrapText(true);
-                blogLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16)); 
-                blogLabel.setTextAlignment(TextAlignment.LEFT); 
-
-                if(blog.getTitre().length() > 10) {
-                    blogLabel.setText(blog.getTitre().substring(0, 10) + "...");
-                }
-
-                Pane spacer = new Pane();
-                HBox.setHgrow(spacer, Priority.ALWAYS);
-
-                HBox blogEntry = new HBox();
-                blogEntry.setSpacing(10);
-                blogEntry.getChildren().addAll(dateLabel, spacer, blogLabel); // add spacer between dateLabel and blogLabel
-
-                topBlogscontainer.getChildren().add(blogEntry);
-
-                blogLabel.setOnMouseClicked(e -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
-                        Parent root = loader.load();
-                        BlogController blogController = loader.getController();
-                        blogController.setBlog(blog);
-                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                });
-            }
-
-            for (Blog blog : blogs) {
-                Label titleLabel = new Label(blog.getTitre());
-                titleLabel.setFont(new Font(30));
-
-                ImageView imageView = new ImageView(new Image(blog.getImageblog()));
-                imageView.setFitWidth(800);
-                imageView.setFitHeight(500);
-                imageView.setPreserveRatio(true);
-                imageView.setSmooth(true);
-                imageView.setCache(true);
-                Rectangle clip = new Rectangle(
-                    imageView.getFitWidth(), imageView.getFitHeight()
-                );
-                imageView.setClip(clip);
-
-                VBox blogBox = new VBox(imageView, titleLabel);
-                blogBox.setAlignment(Pos.CENTER);
-                blogBox.setSpacing(20);
-                blogContainer.getChildren().add(blogBox);
-                imageView.setOnMouseClicked(e -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
-                        Parent root = loader.load();
-                        BlogController blogController = loader.getController();
-                        blogController.setBlog(blog);
-                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                });
-
-                titleLabel.setOnMouseClicked(e -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
-                        Parent root = loader.load();
-                        BlogController blogController = loader.getController();
-                        blogController.setBlog(blog);
-                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                });
-            }
-            ScrollPane scrollPane = new ScrollPane(blogContainer);
-            scrollPane.setFitToWidth(true);
-            mycontainerBlog.getChildren().add(scrollPane);
+            allBlogs = servicesBlog.getAllBlogs();
+            displayBlogs(allBlogs);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -174,5 +84,67 @@ public class BlogFrontController implements Initializable {
         stage.show();
     }
 
-    
+    @FXML
+    private void SearchButton(ActionEvent event) {
+        String searchText = searchField.getText().trim().toLowerCase();
+        List<Blog> filteredBlogs = allBlogs.stream()
+                .filter(blog -> blog.getTitre().toLowerCase().contains(searchText)
+                        || blog.getContenu().toLowerCase().contains(searchText))
+                .collect(Collectors.toList());
+        displayBlogs(filteredBlogs);
+    }
+
+    private void displayBlogs(List<Blog> blogs) {
+        mycontainerBlog.getChildren().clear();
+        VBox blogContainer = new VBox();
+
+        for (Blog blog : blogs) {
+            Label titleLabel = new Label(blog.getTitre());
+            titleLabel.setFont(new Font(30));
+
+            ImageView imageView = new ImageView(new Image(blog.getImageblog()));
+            imageView.setFitWidth(800);
+            imageView.setFitHeight(500);
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            imageView.setCache(true);
+            Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+            imageView.setClip(clip);
+
+            VBox blogBox = new VBox(imageView, titleLabel);
+            blogBox.setAlignment(Pos.CENTER);
+            blogBox.setSpacing(20);
+            blogContainer.getChildren().add(blogBox);
+            imageView.setOnMouseClicked(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
+                    Parent root = loader.load();
+                    BlogController blogController = loader.getController();
+                    blogController.setBlog(blog);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            titleLabel.setOnMouseClicked(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
+                    Parent root = loader.load();
+                    BlogController blogController = loader.getController();
+                    blogController.setBlog(blog);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+        ScrollPane scrollPane = new ScrollPane(blogContainer);
+        scrollPane.setFitToWidth(true);
+        mycontainerBlog.getChildren().add(scrollPane);
+    }
 }

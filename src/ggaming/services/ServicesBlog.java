@@ -152,4 +152,26 @@ public void updateBlogFF(Blog b) {
 
         return top3Blogs;
     }
+
+
+    public List<Blog> searchBlogs(String keyword) {
+        List<Blog> blogs = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM blog WHERE titre LIKE ? OR contenu LIKE ?";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setId(rs.getInt("id"));
+                blog.setTitre(rs.getString("title"));
+                //blog.setContenu(rs.getString("content"));
+                blogs.add(blog);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return blogs;
+    }
 }
