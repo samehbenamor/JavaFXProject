@@ -52,8 +52,8 @@ public class MatchItemController implements Initializable {
 
     public void setData(Match match)
     {
-        equipeExt.setText(match.getEquipe2().getNom_equipe());
-        equipeDom.setText(match.getEquipe1().getNom_equipe());
+        equipeExt.setText(match.getEquipe1().getNom_equipe());
+        equipeDom.setText(match.getEquipe2().getNom_equipe());
         scoreExt.setText(Integer.toString(match.getScore1()));
         scoreDom.setText(Integer.toString(match.getScore2()));
         tour.setText(match.getTour());

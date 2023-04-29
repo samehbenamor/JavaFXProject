@@ -80,7 +80,6 @@ public class TournoiSelectController implements Initializable {
             setData(t);
             setMatches(ms.getMatchs(t.getId()));
             setTournoiSim(ts.TournoiSimilaire(t));
-            
     }
     public void afficherClassement(int id)
     {

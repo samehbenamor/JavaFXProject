@@ -139,46 +139,69 @@ public class TournoiHomeController implements Initializable {
     
     @FXML
     public void rechercherTournoi(){
-        System.out.println("dd");
         lt = new ArrayList<>();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("");
         alert.setHeaderText("");
         //nothing found message
+
         if(dateFrom.getValue()==null && dateTo.getValue()==null && tfNom.getText().isEmpty()){ //rien saisie
             alert.setContentText("Rien Saisie !");
             alert.showAndWait();
+            lt.addAll(ts.afficherTournoi());     
         }
-        else if(dateFrom.getValue()==null || dateTo.getValue()==null && !tfNom.getText().isEmpty())//nom saisi date pas saisie
+        else if((dateFrom.getValue()==null|| dateTo.getValue()==null ) && tfNom.getText().isEmpty()) //date pas bien saisie
+        {
+                            alert.setContentText("Veuillez saisir toutes les dates!");
+                alert.showAndWait();
+                lt.addAll(ts.afficherTournoi()); 
+        }
+        else if((dateFrom.getValue()==null || dateTo.getValue()==null) && !tfNom.getText().isEmpty())//nom saisi date pas saisie
         {
                   lt.addAll(ts.rechercherTournoiParNom(tfNom.getText()));  
                   if(lt.isEmpty()){
                       alert.setContentText("Rien Trouvé !");
                       alert.showAndWait();
+                      lt.addAll(ts.afficherTournoi());     
                   }
         }
+        
         else if(dateFrom.getValue()!=null && dateTo.getValue()!=null && tfNom.getText().isEmpty()) //nom pas saisi date saisie
         {
             if(dateFrom.getValue().isAfter(dateTo.getValue())){
                 alert.setContentText("La date de commencement doit etre superieur à la date de fin ");
-                alert.showAndWait(); 
+                alert.showAndWait();
+                lt.addAll(ts.afficherTournoi());     
+
             }
             else{
             lt.addAll(ts.rechercherTournoiParDate(Date.valueOf(dateFrom.getValue().toString()), Date.valueOf(dateTo.getValue().toString())));
             if(lt.isEmpty()){
                 alert.setContentText("Rien Trouvé !");
                 alert.showAndWait();
-                  }
+                lt.addAll(ts.afficherTournoi());     
+
+                }
             }
         }
+
         else if(dateFrom.getValue()!=null && dateTo.getValue()!=null && !tfNom.getText().isEmpty())//nom saisi et date saisie
         {
+                        if(dateFrom.getValue().isAfter(dateTo.getValue())){
+                alert.setContentText("La date de commencement doit etre superieur à la date de fin ");
+                alert.showAndWait();
+                lt.addAll(ts.afficherTournoi());     
+
+            }
+            else{
             lt.addAll(ts.rechercherTournoiParNomEtDate(tfNom.getText(), Date.valueOf(dateFrom.getValue().toString()), Date.valueOf(dateTo.getValue().toString())));
             if(lt.isEmpty()){
                 alert.setContentText("Rien Trouvé !");
                 alert.showAndWait();
-            }
+                lt.addAll(ts.afficherTournoi());     
+            }}
         }
+
         afficher(lt);
         dateFrom.setValue(null);
         dateTo.setValue(null);

@@ -254,8 +254,8 @@ public class TournoiService implements interfaceTournoi {
     ArrayList<Tournoi> result = new ArrayList<>();
     try {
        String sql = "SELECT * FROM tournoi JOIN jeux ON tournoi.jeu_id = jeux.id "
-               + "WHERE LOWER(nom_tournoi) LIKE CONCAT('%', LOWER(?), '%') "
-               + "OR LOWER(jeux.libelle) LIKE CONCAT('%', LOWER(?), '%')"
+               + "WHERE (LOWER(nom_tournoi) LIKE CONCAT('%', LOWER(?), '%') "
+               + "OR LOWER(jeux.libelle) LIKE CONCAT('%', LOWER(?), '%'))"
                + "and DATE(date_debut) between ? and ? ;";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setString(1, name);
@@ -314,10 +314,10 @@ public class TournoiService implements interfaceTournoi {
     public List<Tournoi> TournoiSimilaire(Tournoi t) {
         ArrayList<Tournoi> result = new ArrayList<>();
         try {
-           String sql = "SELECT * FROM tournoi WHERE (type_tournoi = ? or jeu_id= ?) and id <> ?;";
+           String sql = "SELECT * FROM tournoi inner join jeux on tournoi.jeu_id = jeux.id WHERE (type_tournoi = ? or libelle= ?) and tournoi.id <> ?;";
             PreparedStatement ste = cnx.prepareStatement(sql);
             ste.setString(1, t.getTypeTournoi()); 
-            ste.setInt(2,t.getJeu().getId());
+            ste.setString(2,t.getJeu().getLibelle());
             ste.setInt(3, t.getId()); 
             ResultSet s = ste.executeQuery();
 
