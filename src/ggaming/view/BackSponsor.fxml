@@ -48,7 +48,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutX="63.0" layoutY="-87.0" prefHeight="696.0" prefWidth="207.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -87,7 +87,7 @@
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" onAction="#gotostats" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="statistique" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -267,8 +267,12 @@
                                     <TextField fx:id="tfnamesp" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
                                     <TextField fx:id="tfidsp" layoutX="134.0" layoutY="512.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Label layoutX="364.0" layoutY="443.0" text="nom equipe sp" />
+                                    <Label layoutX="364.0" layoutY="443.0" text="nom equipe sp">
+                                       <font>
+                                          <Font name="Tahoma" size="14.0" />
+                                       </font></Label>
                                     <ComboBox fx:id="comboboxsp" layoutX="467.0" layoutY="439.0" prefWidth="150.0" />
+                                    <TextField fx:id="urlpathimagee" layoutX="842.0" layoutY="580.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

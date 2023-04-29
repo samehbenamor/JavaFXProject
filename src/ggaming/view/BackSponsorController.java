@@ -185,6 +185,8 @@ private int selectedSponsorId;
     private TableColumn<Sponsor, LocalDateTime> colldatecrsp;
     @FXML
     private TableColumn<Sponsor, String> colleqsp;
+    @FXML
+    private TextField urlpathimagee;
     /**
      * Initializes the controller class.
      */
@@ -223,7 +225,7 @@ private int selectedSponsorId;
             tfDescripsp.setText(newSelection.getDescription_sponsor());
             
             tfwebsitesp.setText(newSelection.getSite_webs());
-            
+            urlpathimagee.setText(newSelection.getLogo_sponsor());
             
            tfidsp.setText(Integer.toString(newSelection.getId()));
         }
@@ -234,17 +236,29 @@ private int selectedSponsorId;
 
     @FXML
     private void addlogosp(ActionEvent event) throws IOException {
-        
-          FileChooser Chooser = new FileChooser();
-        
-        FileChooser.ExtensionFilter exxFilterJPG= new FileChooser.ExtensionFilter("JPG files (*.jpg)","*.JPG");
-        FileChooser.ExtensionFilter exxFilterPNG= new FileChooser.ExtensionFilter("PNG files (*.png)","*.PNG");
-        
-        Chooser.getExtensionFilters().addAll(exxFilterJPG,exxFilterPNG);
-        File file = Chooser.showOpenDialog(null);
-        BufferedImage bufferedimg = ImageIO.read(file);
-        Image image = SwingFXUtils.toFXImage(bufferedimg, null);
-        logoimagesp.setImage(image);
+      
+       
+          FileChooser chooser = new FileChooser();
+
+        FileChooser.ExtensionFilter exxFilterJPG = new FileChooser.ExtensionFilter("JPG files (.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter exxFilterPNG = new FileChooser.ExtensionFilter("PNG files (.png)", "*.png");
+        chooser.getExtensionFilters().addAll(exxFilterJPG, exxFilterPNG);
+        chooser.setInitialDirectory(new File(System.getProperty("user.home")+ "/Pictures"));
+        File file = chooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                BufferedImage bufferedimg = ImageIO.read(file);
+                Image image = SwingFXUtils.toFXImage(bufferedimg, null);
+                 logoimagesp.setImage(image);
+                String imageUrl = file.toURI().toString();
+                urlpathimagee.setText(imageUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if ( logoimagesp.getImage() != null) {
+            String imageUrl =  logoimagesp.getImage().impl_getUrl();
+            urlpathimagee.setText(imageUrl);
+        }
     }
     
 private void loadDataSponsor() {
@@ -299,32 +313,61 @@ private void loadDataSponsor() {
 
     @FXML
     private void savesp(MouseEvent event) throws SQLException { 
-        String nom_sponsor= tfnamesp.getText();
-         String description_sponsor=tfDescripsp.getText();
-         String logo_sponsor=logoimagesp.getImage().toString();
-         String site_webs=tfwebsitesp.getText();
+        String nom_sponsor= tfnamesp.getText().trim();
+         String description_sponsor=tfDescripsp.getText().trim();
+         String logo_sponsor=urlpathimagee.getText().trim();
+         String site_webs=tfwebsitesp.getText().trim();
           String equipeExt = comboboxsp.getValue();
-         /*
-         EquipeService ese = new EquipeService();
-         Equipe equipe = new Equipe();
-          String nom_equipe= (String) comboboxsp.getSelectionModel().getSelectedItem();
-          try {
-          equipe= ese.rechercherEquipeParNom(nom_equipe);
-         } catch (SQLException ex) {
-             Logger.getLogger(BackEquipeController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-*/
-           if (tfnamesp.getText().isEmpty() && tfDescripsp.getText().isEmpty() && tfwebsitesp.getText().isEmpty()&&
-            comboboxsp.getValue().isEmpty()  ){
-           Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("");
-        alert.setHeaderText("");
-      
-		alert.setContentText("Remplir tous les champs");
-                alert.showAndWait();
-                 return;
-      }
-           
+        
+            if (nom_sponsor.isEmpty()) {
+            tfnamesp.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le nom du sponsor");
+            alert.showAndWait();
+            return;
+        }
+             
+             
+             if (description_sponsor.isEmpty()) {
+            tfDescripsp.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir la description de lequipe");
+            alert.showAndWait();
+            return;
+        }
+             
+             if (site_webs.isEmpty()) {
+            tfwebsitesp.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le site web");
+            alert.showAndWait();
+            return;
+        }
+             
+              if (equipeExt.isEmpty()) {
+            comboboxsp.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le nom d equipe sponsorisée");
+            alert.showAndWait();
+            return;
+        }
+             if(logo_sponsor.isEmpty()){
+            urlpathimagee.setStyle("-fx-border-color: red");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir le logo de lequipe ");
+            alert.showAndWait();
+            return;
+        }
            if (!site_webs.matches("^(https?|ftp)://.*$")) {
         tfwebsitesp.setStyle("-fx-border-color: red");
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -334,17 +377,7 @@ private void loadDataSponsor() {
         alert.showAndWait();
         return;
     }
-          /*
-        if(nom_sponsor.isEmpty()){
-            tfnamesp.setStyle("-fx-border-color: red");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir le nom du sponsor");
-            alert.showAndWait();
-            return;
-        }
-           */
+         
   Equipe equipe = sss.findEquipeByNom(comboboxsp.getValue());
         LocalDateTime currentDate = LocalDateTime.now();
         Sponsor a = new Sponsor ( equipe ,nom_sponsor, description_sponsor, logo_sponsor, site_webs, currentDate );
@@ -358,29 +391,37 @@ private void loadDataSponsor() {
 
     @FXML
     private void modifiersponsor(ActionEvent event) {
-          try{
+         
+Alert alert;
+SponsorService servicee=new SponsorService();
 
             String idstring = tfidsp.getText();
             String nom_sponsor = tfnamesp.getText();
             String description_sponsor = tfDescripsp.getText();
             String site_webs = tfwebsitesp.getText();
-          
+            String logo_sponsor=urlpathimagee.getText().trim();
 
             int id = Integer.parseInt(idstring);
 
+               alert = new Alert(Alert.AlertType.CONFIRMATION);
+                  alert.setTitle("Cofirmation Message");
+                  alert.setHeaderText(null);
+                alert.setContentText("Etes vous sûr de modifier l equipe ID " + id + "?");
+                Optional<ButtonType> option = alert.showAndWait();
             Sponsor a = new Sponsor(id,nom_sponsor,description_sponsor,site_webs);
         
-            SponsorService ss = new SponsorService();
-            ss.initConnection();
-            ss.modifiersponsor(a);
-            
-            refreshTableS();
-            /*
-            tfid.clear();
-        tfLibelle.clear()
-            */
-        }catch(Exception e){
-        }
+             if (option.get().equals(ButtonType.OK)) {
+                     
+                       servicee.modifiersponsor(a,id);
+                       annulersponsor();
+                       loadDataSponsor();//mise à jour de la table
+                             
+                 }
+                 else
+                 {
+                     annulersponsor();//vidre les champs des textFields
+                 }
+      
     
     }
 
@@ -394,7 +435,7 @@ private void loadDataSponsor() {
          alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Cofirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Etes vous sûr de supprimer le produit ID " + id + "?");
+                alert.setContentText("Etes vous sûr de supprimer le sponsor ID " + id + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 
                  if (option.get().equals(ButtonType.OK)) 
@@ -419,6 +460,7 @@ private void loadDataSponsor() {
         tfidsp.setText("");
         comboboxsp.setValue("");
         logoimagesp.setImage(null);
+        urlpathimagee.setText("");
     }
 
     @FXML
@@ -432,6 +474,17 @@ private void loadDataSponsor() {
         stage.show();
 
        
+    }
+
+    @FXML
+    private void gotostats(ActionEvent event) throws IOException  {
+         sponsorView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/view/statequipe.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
         
         

@@ -95,7 +95,7 @@ public class SponsorService implements sponsorinterfaces <Sponsor>{
                 
                 while(rs.next()){
                    Sponsor a = new Sponsor
-        (rs.getInt("id"),findByIdE(rs.getInt("equipe_id")),rs.getString("nom_sponsor") , rs.getString("description_sponsor"), rs.getString("logo_sponsor"), rs.getString("site_webs"),rs.getTimestamp("date_creationn").toLocalDateTime());               
+        (rs.getInt("id"),findByIdE(rs.getInt("id_equipe_id")),rs.getString("nom_sponsor") , rs.getString("description_sponsor"), rs.getString("logo_sponsor"), rs.getString("site_webs"),rs.getTimestamp("date_creationn").toLocalDateTime());               
                    System.out.println(a);
                 all.add(a);                  
                 }
@@ -138,17 +138,17 @@ public class SponsorService implements sponsorinterfaces <Sponsor>{
         }
     }
     
-     public void modifiersponsor(Sponsor s) {
+     public void modifiersponsor(Sponsor s, int id) {
   try {
-            String sql = "update Sponsor set ,nom_sponsor=?,description_sponsor=?,logo_sponsor=?,site_webs=? where id=?";
+            String sql = "UPDATE Sponsor SET nom_sponsor=?,description_sponsor=?,logo_sponsor=?,site_webs=? WHERE id=?";
             
             PreparedStatement stmt = cnx2.prepareStatement(sql);
-           // stmt.setInt(1, s.getEquipe().getId());
+           //
              stmt.setString(1, s.getNom_sponsor());
              stmt.setString(2, s.getDescription_sponsor());
              stmt.setString(3, s.getLogo_sponsor());
             stmt.setString(4, s.getSite_webs());
-            
+             stmt.setInt(5,id);
          
             stmt.executeUpdate();
             System.out.println("sponsor modifié avec success");

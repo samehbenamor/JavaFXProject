@@ -5,6 +5,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -86,7 +87,7 @@
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="stat_btn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" onAction="#gotostat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="statistique" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -221,9 +222,11 @@
                                                 <TableColumn fx:id="colldatecreq" minWidth="0.0" prefWidth="137.0" text="Date Création" />
                                             </columns>
                                           </TableView>
-                                          <TextField fx:id="addEmployee_search" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="Seach" styleClass="search" stylesheets="@dashboardDesign.css" text="Rechercher" />
+                                          <TextField fx:id="Recherche" layoutX="23.0" layoutY="14.0" onKeyReleased="#Recherche" prefHeight="32.0" prefWidth="226.0" promptText="Recherche par nom" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                          <TextField fx:id="Recherche1" layoutX="318.0" layoutY="14.0" onKeyReleased="#Recherchenb" prefHeight="32.0" prefWidth="226.0" promptText="Recherche par nombre" styleClass="search" stylesheets="@dashboardDesign.css" />
+                                          <ComboBox fx:id="trie" layoutX="778.0" layoutY="14.0" prefWidth="150.0" promptText="trie" />
                                          
-                                       </children>
+                                                                     </children>
                                     </AnchorPane>
                                     <Label layoutX="51.0" layoutY="384.0" text="Nom equipe">
                                        <font>
@@ -271,8 +274,9 @@
                                     <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="74.0" layoutY="516.0" text="ID" />
                                     <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />
-                                    <Button fx:id="btnqr" layoutX="506.0" layoutY="620.0" mnemonicParsing="false" onMouseClicked="#qr" prefHeight="42.0" prefWidth="90.0" text="QR" />
-                                    <Button fx:id="btnsms" layoutX="322.0" layoutY="629.0" mnemonicParsing="false" onMouseClicked="#sms" prefHeight="37.0" prefWidth="84.0" text="sms" />
+                                    <Button fx:id="btnqr" layoutX="641.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#qr" prefHeight="42.0" prefWidth="90.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="QR" />
+                                    <Button fx:id="btnsms" layoutX="377.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#sms" prefHeight="41.0" prefWidth="92.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="sms" />
+                                    <TextField fx:id="urlpathimage" layoutX="848.0" layoutY="578.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />
