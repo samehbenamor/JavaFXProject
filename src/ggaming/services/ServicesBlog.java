@@ -154,24 +154,27 @@ public void updateBlogFF(Blog b) {
     }
 
 
-    public List<Blog> searchBlogs(String keyword) {
-        List<Blog> blogs = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM blog WHERE titre LIKE ? OR contenu LIKE ?";
-            PreparedStatement ps = cnx.prepareStatement(sql);
-            ps.setString(1, "%" + keyword + "%");
-            ps.setString(2, "%" + keyword + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Blog blog = new Blog();
-                blog.setId(rs.getInt("id"));
-                blog.setTitre(rs.getString("title"));
-                //blog.setContenu(rs.getString("content"));
-                blogs.add(blog);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+    public List<Blog> searchBlogs(String titleKeyword, String contentKeyword, String dateKeyword) {
+    List<Blog> blogs = new ArrayList<>();
+    try {
+        String sql = "SELECT * FROM blog WHERE titre LIKE ? AND contenu LIKE ? AND (date_creation LIKE ? OR date_modification LIKE ?)";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, "%" + titleKeyword + "%");
+        ps.setString(2, "%" + contentKeyword + "%");
+        ps.setString(3, "%" + dateKeyword + "%");
+        ps.setString(4, "%" + dateKeyword + "%");
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Blog blog = new Blog();
+            blog.setId(rs.getInt("id"));
+            blog.setTitre(rs.getString("titre"));
+blog.setImageblog(rs.getString("image_blog"));
+            blogs.add(blog);
         }
-        return blogs;
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
     }
+    return blogs;
+}
 }

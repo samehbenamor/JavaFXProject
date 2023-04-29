@@ -52,7 +52,11 @@ public class BlogFrontController implements Initializable {
     @FXML
     private VBox topBlogscontainer;
     @FXML
-    private TextField searchField;
+    private TextField titreField;
+    @FXML
+    private TextField contenuField;
+    @FXML
+    private TextField dateField;
 
 private List<Blog> allBlogs;
 
@@ -86,17 +90,63 @@ private List<Blog> allBlogs;
 
     @FXML
     private void SearchButton(ActionEvent event) {
-        String searchText = searchField.getText().trim().toLowerCase();
-        List<Blog> filteredBlogs = allBlogs.stream()
-                .filter(blog -> blog.getTitre().toLowerCase().contains(searchText)
-                        || blog.getContenu().toLowerCase().contains(searchText))
-                .collect(Collectors.toList());
+        String titreKeyword = titreField.getText().trim().toLowerCase();
+        String contenuKeyword = contenuField.getText().trim().toLowerCase();
+        String dateKeyword = dateField.getText().trim().toLowerCase();
+        ServicesBlog servicesBlog = new ServicesBlog();
+        servicesBlog.initConnection();
+        List<Blog> filteredBlogs = servicesBlog.searchBlogs(titreKeyword, contenuKeyword, dateKeyword);
         displayBlogs(filteredBlogs);
     }
 
     private void displayBlogs(List<Blog> blogs) {
         mycontainerBlog.getChildren().clear();
         VBox blogContainer = new VBox();
+        ServicesBlog servicesBlog = new ServicesBlog();
+        servicesBlog.initConnection();
+        List<Blog> topblogs = servicesBlog.getTop3Blogs(blogs);
+
+            VBox topblogsContainer = new VBox();
+
+            for (Blog blog : topblogs) {
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String formattedDateTime = blog.getDate_creation().format(formatter);
+
+                Label dateLabel = new Label(formattedDateTime);
+                Label blogLabel = new Label(blog.getTitre());
+                blogLabel.setWrapText(true);
+                blogLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16)); 
+                blogLabel.setTextAlignment(TextAlignment.LEFT); 
+
+                if(blog.getTitre().length() > 10) {
+                    blogLabel.setText(blog.getTitre().substring(0, 10) + "...");
+                }
+
+                Pane spacer = new Pane();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                HBox blogEntry = new HBox();
+                blogEntry.setSpacing(10);
+                blogEntry.getChildren().addAll(dateLabel, spacer, blogLabel); // add spacer between dateLabel and blogLabel
+
+                topBlogscontainer.getChildren().add(blogEntry);
+
+                blogLabel.setOnMouseClicked(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ggaming/interfaces/Blog.fxml"));
+                        Parent root = loader.load();
+                        BlogController blogController = loader.getController();
+                        blogController.setBlog(blog);
+                        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            }
+
 
         for (Blog blog : blogs) {
             Label titleLabel = new Label(blog.getTitre());

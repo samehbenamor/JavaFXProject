@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -65,8 +66,17 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import jxl.Workbook;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 import org.controlsfx.control.Notifications;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * FXML Controller class
@@ -447,6 +457,8 @@ public class BlogBackController implements Initializable {
                                 setTextFill(Color.RED);
                             } catch (MessagingException ex) {
                                 ex.printStackTrace();
+                            } catch (IOException ex) {
+                                Logger.getLogger(BlogBackController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     });
@@ -465,7 +477,7 @@ public class BlogBackController implements Initializable {
                     }
                 }
 
-                private void sendEmailToUser(Commentaire commentaire) throws MessagingException {
+                private void sendEmailToUser(Commentaire commentaire) throws MessagingException, IOException {
                     String host = "smtp.gmail.com";
                     String port = "587";
                     String userName = "ons.khiari@esprit.tn";
@@ -486,19 +498,46 @@ public class BlogBackController implements Initializable {
 
                     try {
                         // Create a Message object
-                        Message message = new MimeMessage(session);
+                        MimeMessage message = new MimeMessage(session);
                         message.setFrom(new InternetAddress(userName));
                         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("onesskh@gmail.com"));
                         message.setSubject("Avertissement concernant les commentaires inappropriés");
-                        message.setText("Je vous écris aujourd'hui au sujet des commentaires que vous avez publiés sur nos blogs. Comme vous le savez, nous apprécions notre communauté et nous nous efforçons de maintenir un environnement positif et respectueux pour tous. Malheureusement, les commentaires que vous avez laissés ont été inappropriés et irrespectueux, ce qui n'est pas conforme aux normes de notre communauté.\n"
-                                + "\n"
-                                + "Je voulais vous contacter personnellement pour vous faire savoir que si ce comportement persiste, nous n'aurons d'autre choix que de désactiver votre compte. Nous prenons l'intégrité de notre communauté très au sérieux et nous ne tolérerons aucun comportement contraire à nos valeurs.\n"
-                                + "\n"
-                                + "Je comprends que vous n'ayez peut-être pas été conscient de l'impact de vos commentaires, mais nous vous serions reconnaissants si vous pouviez prendre un moment pour réfléchir à l'impact que vos paroles ont sur les autres. Nous voulons que notre communauté soit un endroit où chacun se sent en sécurité et valorisé.\n"
-                                + "\n"
-                                + "Si vous avez des questions ou des préoccupations concernant cet avertissement, n'hésitez pas à me contacter. J'espère que nous pourrons travailler ensemble pour créer un environnement positif et respectueux pour tous les membres de notre communauté.\n"
-                                + "\n"
-                                + "Cordialement,");
+                        // Set the message content as HTML
+String messageText = "<html><head><style>"
+    + "body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; color: #333; line-height: 1.5em; }"
+    + "h1, h2, h3, h4, h5, h6 { color: #333; font-weight: bold; }"
+    + "p { margin-bottom: 10px; font-size: 20px; }"
+    + "a { color: #0078e7; text-decoration: none; }"
+    + "a:hover { color: #005fba; }"
+    + "</style></head>"
+    + "<body>"
+    + "<p>Bonjour,</p>"
+    + "<p>Je vous écris aujourd'hui au sujet des commentaires que vous avez publiés sur nos blogs.</p>"
+    + "<p>Comme vous le savez, nous apprécions notre communauté et nous nous efforçons de maintenir un environnement positif et respectueux pour tous.</p>"
+    + "<p><h1>Malheureusement, les commentaires que vous avez laissés ont été inappropriés et irrespectueux,</h1></p>"
+    + "<p>ce qui n'est pas conforme aux normes de notre communauté.</p>"
+    + "<p>Je voulais vous contacter personnellement pour vous faire savoir que si ce comportement persiste,</p>"
+    + "<p>nous n'aurons d'autre choix que de désactiver votre compte.</p>"
+    + "<p>Nous prenons l'intégrité de notre communauté très au sérieux et nous ne tolérerons aucun comportement contraire à nos valeurs.</p>"
+    + "<p>Je comprends que vous n'ayez peut-être pas été conscient de l'impact de vos commentaires,</p>"
+    + "<p>mais nous vous serions reconnaissants si vous pouviez prendre un moment pour réfléchir à l'impact que vos paroles ont sur les autres.</p>"
+    + "<p>Nous voulons que notre communauté soit un endroit où chacun se sent en sécurité et valorisé.</p>"
+    + "<p>Si vous avez des questions ou des préoccupations concernant cet avertissement,n'hésitez pas à me contacter.</p>"
+    + "<p><h2>J'espère que nous pourrons travailler ensemble pour créer un environnement positif et respectueux pour tous les membres de notre communauté.</h2></p>"
+    + "<p>Cordialement,</p>" +
+    "<img src=\"cid:image1\">"
+    + "</body></html>";
+                        //message.setContent(messageText, "text/html");
+                        MimeMultipart multipart = new MimeMultipart("related");
+                        MimeBodyPart htmlPart = new MimeBodyPart();
+                        htmlPart.setContent(messageText, "text/html");
+                        multipart.addBodyPart(htmlPart);
+                        File imageFile = new File("C:\\Users\\oness\\OneDrive\\Desktop\\Some 9raya shit\\pidev\\ggamingblack.png");
+                        MimeBodyPart imagePart = new MimeBodyPart();
+                        imagePart.attachFile(imageFile);
+                        imagePart.setContentID("<image1>");
+                        multipart.addBodyPart(imagePart);
+                        message.setContent(multipart);
 
                         // Send the message
                         Transport.send(message);
@@ -686,6 +725,101 @@ public class BlogBackController implements Initializable {
             refreshTable();
             clearBlog();
         } catch (Exception e) {
+        }
+    }
+
+
+
+
+/***********************************************************************/
+
+    
+
+    @FXML
+    public void exportaction() {
+       
+        
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel files (.xls)", ".xls");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+               
+                WritableWorkbook workbook = Workbook.createWorkbook(file);
+
+                WritableSheet sheet = workbook.createSheet("jeux", 0);
+
+                WritableCell cell = new jxl.write.Label(0, 0, "id");
+                sheet.addCell(cell);
+                WritableCell cell1 = new jxl.write.Label(1, 0, "titre");
+                sheet.addCell(cell1);
+                WritableCell cell2 = new jxl.write.Label(2, 0, "contenu");
+                sheet.addCell(cell2);
+                WritableCell cell3 = new jxl.write.Label(3, 0, "date_creation");
+                sheet.addCell(cell3);
+                WritableCell cell4 = new jxl.write.Label(4, 0, "date_modification");
+                sheet.addCell(cell4);
+                WritableCell cell5 = new jxl.write.Label(5, 0, "image_blog");
+                sheet.addCell(cell5);
+                WritableCell cell6 = new jxl.write.Label(6, 0, "etat");
+                sheet.addCell(cell6);
+                WritableCell cell7 = new jxl.write.Label(7, 0, "likeblog");
+                sheet.addCell(cell7);
+                WritableCell cell8 = new jxl.write.Label(8, 0, "dislikeblog");
+                sheet.addCell(cell8);
+              
+                
+            
+
+               
+                ServicesBlog serviceblog = new ServicesBlog();
+                serviceblog.initConnection();
+                List<Blog> blogs = serviceblog.getAllBlogs();
+
+                int row = 1;
+                for (Blog b : blogs) {
+                  
+                    sheet.addCell(new jxl.write.Label(0, row, Integer.toString(b.getId())));
+                    sheet.addCell(new jxl.write.Label(1, row, b.getTitre()));
+                    sheet.addCell(new jxl.write.Label(2, row, b.getContenu()));
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String creationDate = b.getDate_creation().format(formatter);
+                    String modificationDate = b.getDate_modification().format(formatter);
+                    sheet.addCell(new jxl.write.Label(3, row, creationDate));
+                    sheet.addCell(new jxl.write.Label(4, row, modificationDate));
+
+                    sheet.addCell(new jxl.write.Label(5, row, b.getImageblog()));
+                    sheet.addCell(new jxl.write.Label(6, row, Integer.toString(b.getEtat())));
+                    sheet.addCell(new jxl.write.Label(7, row, Integer.toString(b.getLike())));
+                    sheet.addCell(new jxl.write.Label(8, row, Integer.toString(b.getDislike())));
+                    
+                  
+                    row++;
+                }
+
+                workbook.write();
+                workbook.close();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Data exported to " + file.getAbsolutePath());
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // show error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: " + e.getMessage());
+                alert.showAndWait();
+            }
         }
     }
 }

@@ -259,6 +259,7 @@
                                     </ImageView>
                                     <Button fx:id="importimagebtn" layoutX="570.0" layoutY="519.0" mnemonicParsing="false" onAction="#addimageblog" prefHeight="25.0" prefWidth="199.0" styleClass="import-btn" stylesheets="@dashboardDesign.css" text="Import image" />
                                     <TextField fx:id="urlpathimage" layoutX="588.0" layoutY="548.0" prefHeight="24.0" prefWidth="172.0" />
+                                    <Button fx:id="export" layoutX="907.0" layoutY="396.0" mnemonicParsing="false" onAction="#exportaction" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: FF6969;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Export blogs" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />
