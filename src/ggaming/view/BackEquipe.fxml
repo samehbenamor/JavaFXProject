@@ -211,9 +211,8 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="tableEquipe" layoutX="6.0" layoutY="62.0" prefHeight="301.0" prefWidth="1097.0">
+                                          <TableView fx:id="tableEquipe" layoutX="79.0" layoutY="69.0" prefHeight="302.0" prefWidth="901.0">
                                             <columns>
-                                              <TableColumn fx:id="collid" prefWidth="198.0" text="ID" />
                                               <TableColumn fx:id="collnameeq" prefWidth="184.0" text="Nom equipe" />
                                                 <TableColumn fx:id="colldesceq" prefWidth="168.0" text="Description equipe" />
                                                 <TableColumn fx:id="collnbjeq" minWidth="0.0" prefWidth="158.0" text="nombre de joueurs" />
@@ -272,8 +271,6 @@
                                     <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerequipe" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescripeq" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
                                     <TextField fx:id="tfnameeq" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Label layoutX="74.0" layoutY="516.0" text="ID" />
-                                    <TextField fx:id="tfideq" layoutX="134.0" layoutY="512.0" />
                                     <Button fx:id="btnqr" layoutX="641.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#qr" prefHeight="42.0" prefWidth="90.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="QR" />
                                     <Button fx:id="btnsms" layoutX="377.0" layoutY="627.0" mnemonicParsing="false" onMouseClicked="#sms" prefHeight="41.0" prefWidth="92.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="sms" />
                                     <TextField fx:id="urlpathimage" layoutX="848.0" layoutY="578.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />

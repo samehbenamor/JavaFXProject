@@ -100,7 +100,6 @@ public class BackSponsorController implements Initializable {
     private BarChart<?, ?> home_chart;
     @FXML
     private AnchorPane addEmployee_form;
-    @FXML
     private TableColumn<Sponsor, Integer> collidsp;
     @FXML
     private TableColumn<Sponsor, String> collnamesp;
@@ -133,7 +132,6 @@ public class BackSponsorController implements Initializable {
     private TextArea tfDescripsp;
     @FXML
     private TextField tfnamesp;
-    @FXML
     private TextField tfidsp;
     @FXML
     private AnchorPane salary_form;
@@ -264,7 +262,7 @@ private int selectedSponsorId;
 private void loadDataSponsor() {
         try {
             refreshTableS();
-            collidsp.setCellValueFactory(new PropertyValueFactory<>("id"));
+          //  collidsp.setCellValueFactory(new PropertyValueFactory<>("id"));
             collnamesp.setCellValueFactory(new PropertyValueFactory<>("nom_sponsor"));
             colldescsp.setCellValueFactory(new PropertyValueFactory<>("description_sponsor"));
             collsitewebsp.setCellValueFactory(new PropertyValueFactory<>("site_webs"));

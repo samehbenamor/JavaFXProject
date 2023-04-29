@@ -212,9 +212,8 @@
                                           <String fx:value="shadow" />
                                        </styleClass>
                                        <children>
-                                          <TableView fx:id="tableSponsor" layoutX="68.0" layoutY="61.0" prefHeight="302.0" prefWidth="1133.0">
+                                          <TableView fx:id="tableSponsor" layoutX="68.0" layoutY="61.0" prefHeight="302.0" prefWidth="1031.0">
                                             <columns>
-                                              <TableColumn fx:id="collidsp" prefWidth="92.80001831054688" text="ID" />
                                               <TableColumn fx:id="collnamesp" prefWidth="289.59999084472656" text="Nom Sponsor" />
                                                 <TableColumn fx:id="colldescsp" prefWidth="168.0" text="Description sponsor" />
                                                 <TableColumn fx:id="collsitewebsp" minWidth="0.0" prefWidth="128.0" text="site web" />
@@ -265,8 +264,6 @@
                                     <Button fx:id="addsponsor_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulersponsor" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescripsp" layoutX="134.0" layoutY="410.0" prefHeight="83.0" prefWidth="200.0" />
                                     <TextField fx:id="tfnamesp" layoutX="134.0" layoutY="380.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
-                                    <Label layoutX="74.0" layoutY="516.0" text="ID" />
-                                    <TextField fx:id="tfidsp" layoutX="134.0" layoutY="512.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
                                     <Label layoutX="364.0" layoutY="443.0" text="nom equipe sp">
                                        <font>
                                           <Font name="Tahoma" size="14.0" />

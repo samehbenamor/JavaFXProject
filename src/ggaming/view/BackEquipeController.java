@@ -101,7 +101,6 @@ public class BackEquipeController implements Initializable {
     private AnchorPane addEmployee_form;
     @FXML
     private TableView<Equipe> tableEquipe;
-    @FXML
     private TableColumn<Equipe, Integer> collid;
     @FXML
     private TableColumn<Equipe, String> collnameeq;
@@ -179,7 +178,6 @@ public class BackEquipeController implements Initializable {
 private int selectedEquipeId;
  private boolean issponsorView = false;
     int index=-1;
-    @FXML
     private TextField tfideq;
     @FXML
     private TableColumn<Equipe, LocalDateTime> colldatecreq;
@@ -410,7 +408,7 @@ private int selectedEquipeId;
     private void loadDataEquipe() {
         try {
             refreshTableE();
-            collid.setCellValueFactory(new PropertyValueFactory<>("id"));
+           // collid.setCellValueFactory(new PropertyValueFactory<>("id"));
             collnameeq.setCellValueFactory(new PropertyValueFactory<>("nom_equipe"));
             colldesceq.setCellValueFactory(new PropertyValueFactory<>("description_equipe"));
             collnbjeq.setCellValueFactory(new PropertyValueFactory<>("nb_joueurs"));
