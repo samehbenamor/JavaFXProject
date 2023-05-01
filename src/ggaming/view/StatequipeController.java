@@ -62,7 +62,7 @@ public class StatequipeController implements Initializable {
     @FXML
     private Button logout;
     @FXML
-    private BarChart<?, ?> barChart;
+    private BarChart barChart;
     @FXML
     private NumberAxis numberAxis;
     @FXML
@@ -74,23 +74,52 @@ private boolean sponsorView = false;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         XYChart.Series<Integer,Number> series = new XYChart.Series<>();
+        /*
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
     series.setName("Equipes");
+
     EquipeService equipeService = new EquipeService();
     for (int i = 1; i <= 11; i++) {
         int nbEquipes;
-             try {
-                nbEquipes = equipeService.getNbj(i);
-             series.getData().add(new XYChart.Data<>(i, nbEquipes));
-             } catch (SQLException ex) {
-                 Logger.getLogger(StatequipeController.class.getName()).log(Level.SEVERE, null, ex);
-             }
-      
-    }
-   // barChart.getData().add(series);
-          
-    }    
+        try {
+            nbEquipes = equipeService.getNbj(i);
+            series.getData().add(new XYChart.Data<>(i, nbEquipes));
+        } catch (SQLException ex) {
+            Logger.getLogger(StatequipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        
+        
+
+    }
+
+    // Create a new BarChart object and set its data
+    //barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
+    barChart.getData().add(series);
+*/
+        
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+         series.setName("Prix Moyen Par Categorie");
+          EquipeService equipeService = new EquipeService();
+          
+       for (int i = 1; i <= 11; i++) {
+        int nbEquipes;
+        try {
+            nbEquipes = equipeService.getNbj(i);
+            String strNum = Integer.toString(i);
+            series.getData().add(new XYChart.Data<>(strNum, nbEquipes));
+        } catch (SQLException ex) {
+            Logger.getLogger(StatequipeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        
+
+    }
+
+        barChart.getData().add(series);
+     
+    }    
     
 
     @FXML

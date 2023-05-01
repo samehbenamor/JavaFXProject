@@ -579,7 +579,7 @@ private int selectedEquipeId;
         p=tableEquipe.getSelectionModel().getSelectedItem();
         String promo="l equipe sous le nom de  "+p.getNom_equipe()+" a été ajouté le "+p.getDate_creation()+" ";
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-                    Message message = Message.creator(new PhoneNumber("+21623344165"),
+                    Message message = Message.creator(new PhoneNumber("+21644914395"),
         new PhoneNumber("+16076382981"),promo).create();
         
     }
