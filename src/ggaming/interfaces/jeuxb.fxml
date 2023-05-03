@@ -145,6 +145,9 @@
                                           <TextField fx:id="rech" layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="277.0" promptText="recherche" styleClass="search" stylesheets="@dashboardDesign.css" />
                                           <Button fx:id="btnrech" layoutX="291.0" layoutY="17.0" mnemonicParsing="false" onAction="#rechercherJeux" stylesheets="@dashboardDesign.css" text="Recherche" />
                                           <Button fx:id="newjeux" layoutX="922.0" layoutY="9.0" mnemonicParsing="false" onAction="#checknew" prefHeight="41.0" prefWidth="169.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Check Newest Games" />
+                                          <DatePicker fx:id="dateFrom" layoutX="386.0" layoutY="17.0" />
+                                          <DatePicker fx:id="dateTo" layoutX="618.0" layoutY="17.0" />
+                                          <Label layoutX="584.0" layoutY="21.0" text="to" />
                                          
                                                                </children>
                                     </AnchorPane>
@@ -204,6 +207,8 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfid" layoutX="117.0" layoutY="413.0" prefHeight="25.0" prefWidth="172.0" styleClass="textfield" stylesheets="@dashboardDesign.css" />
+                                    <Button fx:id="exl" layoutX="986.0" layoutY="394.0" mnemonicParsing="false" onAction="#export" prefHeight="41.0" prefWidth="94.0" styleClass="update-btn" stylesheets="@dashboardDesign.css" text="Export" />
+                                    <Button fx:id="imp" layoutX="986.0" layoutY="447.0" mnemonicParsing="false" onAction="#importExcel" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Import" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

@@ -6,7 +6,7 @@ package ggaming.interfaces;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 import ggaming.cnx.MaConnection;
 import ggaming.entity.CategorieJeux;
 import ggaming.entity.Jeux;
@@ -16,12 +16,14 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -59,19 +61,15 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+
 
 /**
  * FXML Controller class
@@ -83,10 +81,15 @@ public class JeuxController implements Initializable {
     private TextField rech;
     @FXML
     private Button btnrech;
-    
+    @FXML
+    private DatePicker dateFrom;
+
+    @FXML
+    private DatePicker dateTo;
   @FXML
     private Button minimize;
-
+@FXML
+    private Button exl;
     @FXML
     private AnchorPane jeuxback;
 
@@ -132,7 +135,8 @@ public class JeuxController implements Initializable {
 
     @FXML
     private Button jeuxdeleteBtn;
-
+  @FXML
+    private Button imp;
     @FXML
     private TableColumn<Jeux, String> tcref;
 
@@ -175,6 +179,7 @@ public class JeuxController implements Initializable {
     String query = null;
     //Connection connection = null ;
     private ServiceJeux servicesJeux;
+      private List<Jeux> lt;
     private ServiceCatJeux servicesCatJeux;
     PreparedStatement preparedStatement = null ;
     ResultSet resultSet = null ;
@@ -235,15 +240,54 @@ private void refreshTable() {
 
 @FXML
 public void rechercherJeux(ActionEvent event) {
+  
   if (event.getSource() == btnrech) {
-        String name = rech.getText();
-        List<Jeux> result = servicesJeux.rechercherJeuxParNom(name);
-
-        // Add the result to the table
+        lt = new ArrayList<>();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("");
+        alert.setHeaderText("");
+        
+        if(dateFrom.getValue()==null && dateTo.getValue()==null && rech.getText().isEmpty()){ //rien saisie
+            alert.setContentText("Rien Saisie !");
+            alert.showAndWait();
+        }
+        else if(dateFrom.getValue()==null || dateTo.getValue()==null && !rech.getText().isEmpty())//nom saisi date pas saisie
+        {
+            List<Jeux> result = servicesJeux.rechercherJeuxParNom(rech.getText());
         ObservableList<Jeux> observableList = FXCollections.observableArrayList(result);
         jeuxtable.setItems(observableList);
+        }
+        else if(dateFrom.getValue()!=null && dateTo.getValue()!=null && rech.getText().isEmpty()) //nom pas saisi date saisie
+        {
+            if(dateFrom.getValue().isAfter(dateTo.getValue())){
+                alert.setContentText("La date doit etre superieur à la date d'aujourd'hui ");
+                alert.showAndWait(); 
+            }
+            else{
+                
+               List<Jeux> result = servicesJeux.rechercherJeuxParDate(Date.valueOf(dateFrom.getValue().toString()), Date.valueOf(dateTo.getValue().toString()));
+        ObservableList<Jeux> observableList = FXCollections.observableArrayList(result);
+        jeuxtable.setItems(observableList);
+            if(result.isEmpty()){
+                alert.setContentText("Rien Trouvé !");
+                alert.showAndWait();
+                  }
+            }
+        }
+        else if(dateFrom.getValue()!=null && dateTo.getValue()!=null && !rech.getText().isEmpty())//nom saisi et date saisie
+        {
+            List<Jeux> result = servicesJeux.rechercherJeuxParNomEtDate(rech.getText(), Date.valueOf(dateFrom.getValue().toString()), Date.valueOf(dateTo.getValue().toString()));
+        ObservableList<Jeux> observableList = FXCollections.observableArrayList(result);
+        jeuxtable.setItems(observableList);
+            if(result.isEmpty()){
+                alert.setContentText("Rien Trouvé !");
+                alert.showAndWait();
+            }
+        }
+ 
     }
 }
+
  @FXML
     private void emptyfields(ActionEvent event){
        tfid.clear();
@@ -288,6 +332,8 @@ private void loadDataJeux() {
         refreshTable();
        tfid.clear();
         tfLibelle.clear();
+        
+        
     }
     @FXML
     private void addlogo(ActionEvent event) throws IOException {
@@ -367,7 +413,7 @@ private void loadDataJeux() {
     void affjeux(ActionEvent event) throws IOException {
         catView = true;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/backjeux.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/jeuxb.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -375,13 +421,13 @@ private void loadDataJeux() {
     }
     @FXML
     void checknew(ActionEvent event) throws IOException {
-         catView = true;
+      /*   catView = true;
 
         Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/GameA.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
 
     }
     
@@ -398,57 +444,185 @@ private void loadDataJeux() {
        
     }
    
-    
+    @FXML
+    void export(ActionEvent event) throws IOException {
+        
+       exportExcel();
+    }
+    @FXML
+    void importExcel(ActionEvent event) throws IOException {
+        
+       exportExcel();
+    }
     @FXML
     void affstat(ActionEvent event) throws IOException {
-           try {
-        // Create a dataset to hold the data for the chart
+        
+         catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/stat.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+        
+          /* try {
+       
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         ServiceJeux sj = new ServiceJeux();
         sj.initConnection();
         List<Jeux> jeuxes = sj.afficherJeux();
-        // Populate the dataset with data from the list of games
         for (Jeux j : jeuxes) {
             dataset.addValue(j.getNoteMyonne(), "Notemyonne", j.getLibelle());
         }
 
-        // Create a chart using the dataset
         JFreeChart chart = ChartFactory.createBarChart("Evaluation des jeux", "Games", "Notemyonne", dataset, PlotOrientation.VERTICAL, false, false, false);
-
-        // Customize the chart appearance
         chart.setBackgroundPaint(Color.WHITE);
 
-        // Customize the x-axis
         org.jfree.chart.axis.CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
         domainAxis.setTickLabelFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         domainAxis.setTickMarksVisible(false);
         domainAxis.setAxisLineVisible(false);
 
-        // Customize the y-axis
+ 
         ValueAxis rangeAxis = chart.getCategoryPlot().getRangeAxis();
-rangeAxis.setTickLabelFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        rangeAxis.setTickLabelFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
         rangeAxis.setTickMarksVisible(false);
         rangeAxis.setAxisLineVisible(false);
 
-        // Customize the chart plot area
-      
+
         chart.getPlot().setBackgroundPaint(Color.WHITE);
         chart.getPlot().setOutlinePaint(Color.WHITE);
         
-
-       // Add the chart to a JPanel
     ChartPanel chartPanel = new ChartPanel(chart);
     chartPanel.setBackground(Color.WHITE);
 
-    // Add the JPanel to a JFrame
-    JFrame frame = new JFrame("Chart Demo");
+    JFrame frame = new JFrame("Statistiques jeux");
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.add(chartPanel);
     frame.pack();
     frame.setVisible(true);
     } catch (Exception e) {
         e.printStackTrace();
+    }*/
     }
+
+ @FXML
+    public void exportExcel() {
+       
+      /*  
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel files (.xls)", ".xls");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+               
+                WritableWorkbook workbook = Workbook.createWorkbook(file);
+
+                WritableSheet sheet = workbook.createSheet("jeux", 0);
+                WritableCell cell = new jxl.write.Label(0, 0, "id");
+                sheet.addCell(cell);
+                WritableCell cell1 = new jxl.write.Label(2, 0, "libelle");
+                sheet.addCell(cell1);
+                WritableCell cell2 = new jxl.write.Label(3, 0, "image_jeux");
+                sheet.addCell(cell2);
+                WritableCell cell3 = new jxl.write.Label(4, 0, "views");
+                sheet.addCell(cell3);
+                   WritableCell cell4 = new jxl.write.Label(5, 0, "note_myonne");
+                sheet.addCell(cell4);
+              
+                
+            
+
+               
+                List<Jeux> jeuxes = servicesJeux.afficherJeux();
+
+                int row = 1;
+                for (Jeux j : jeuxes) {
+                  
+                    sheet.addCell(new jxl.write.Label(0, row, Integer.toString(j.getId())));
+                    sheet.addCell(new jxl.write.Label(1, row, j.getLibelle()));
+                    sheet.addCell(new jxl.write.Label(2, row, j.getImageJeux()));
+
+                    sheet.addCell(new jxl.write.Label(4, row, Integer.toString(j.getViews())));
+                    sheet.addCell(new jxl.write.Label(5, row, Float.toString(j.getNoteMyonne())));
+                    
+                    
+                  
+                    row++;
+                }
+
+                workbook.write();
+                workbook.close();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Data exported to " + file.getAbsolutePath());
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // show error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: " + e.getMessage());
+                alert.showAndWait();
+            }
+        }*/
     }
+    
+    
+   /* public void importEx(File file) {
+    try {
+        FileInputStream inputStream = new FileInputStream(file);
+        Workbook workbook = new XSSFWorkbook(inputStream);
+        Sheet sheet = workbook.getSheetAt(0);
+        
+        Iterator<Row> rowIterator = sheet.iterator();
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            
+            Jeux j = new Jeux();
+            j.setId((int) cellIterator.next().getNumericCellValue());
+            j.setRef(cellIterator.next().getStringCellValue());
+            j.setLibelle(cellIterator.next().getStringCellValue());
+            j.setLogoJeux(cellIterator.next().getStringCellValue());
+            j.setImageJeux(cellIterator.next().getStringCellValue());
+            j.setDateCreation(cellIterator.next().getLocalDateTimeCellValue());
+            j.setNote((float) cellIterator.next().getNumericCellValue());
+            j.setNoteCount((int) cellIterator.next().getNumericCellValue());
+            j.setNoteMyonne((float) cellIterator.next().getNumericCellValue());
+            j.setTotalNote((float) cellIterator.next().getNumericCellValue());
+            j.setViews((int) cellIterator.next().getNumericCellValue());
+            
+            ajouter(j);
+        }
+        
+        workbook.close();
+        inputStream.close();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Import from Excel");
+        alert.setHeaderText(null);
+        alert.setContentText("Data imported from " + file.getAbsolutePath());
+        alert.showAndWait();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        // show error message
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Import from Excel");
+        alert.setHeaderText(null);
+        alert.setContentText("Error: " + e.getMessage());
+        alert.showAndWait();
+    }
+}*/
+
 }

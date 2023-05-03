@@ -166,14 +166,19 @@
                         </HBox>
                            <VBox fx:id="containerPane" prefHeight="474.0" prefWidth="880.0">
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="275.0" prefWidth="880.0" spacing="20.0">
+                                    <HBox prefHeight="349.0" prefWidth="880.0" spacing="20.0">
                                        <children>
-                                          <ImageView fx:id="imageView" fitHeight="274.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="imageView" fitHeight="337.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/valorant-1640045685890.jpg" />
+                                             </image></ImageView>
                                           <Label fx:id="titleLabel" prefHeight="48.0" prefWidth="195.0" text="Valorant">
                                              <font>
                                                 <Font name="Cambria" size="36.0" />
                                              </font>
                                           </Label>
+                                          <Label fx:id="rate" alignment="TOP_CENTER" text="Label" />
+                                          <ImageView fitHeight="34.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

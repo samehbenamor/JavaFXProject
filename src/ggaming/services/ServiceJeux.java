@@ -16,7 +16,10 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -202,6 +205,23 @@ public List<Jeux> afficherJeux()
          
          return myList;
     }
+public Map<Date, Integer> getGamesAddedPerDay() {
+    Map<Date, Integer> gamesAddedPerDay = new HashMap<>();
+    try {
+        String query = "SELECT DATE(date_creation), COUNT(*) FROM jeux GROUP BY DATE(date_creation)";
+        Statement statement = cnx.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            Date date = resultSet.getDate(1);
+            int count = resultSet.getInt(2);
+            gamesAddedPerDay.put(date, count);
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return gamesAddedPerDay;
+}
+
 public Jeux bestJeux() {
     Jeux bestGame = null;
     
@@ -221,14 +241,62 @@ public Jeux bestJeux() {
 
     return bestGame;
 }
+public List<Jeux> TribestJeux() {
+            List<Jeux> myList=new ArrayList<>();
 
+    try {
+        String requete = "SELECT * FROM jeux ORDER BY note_myonne DESC limit 3;";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(requete);
+
+        if (rs.next()) {
+           
+                 Jeux p=new Jeux();
+                 p.setId(rs.getInt(1));
+                 p.setLibelle(rs.getString("libelle"));
+                 p.setImageJeux(rs.getString("image_jeux"));
+                 //p.setLogoJeux(rs.getString("logo_jeux"));
+                 p.setViews(rs.getInt("views"));
+                  p.setNoteMyonne(rs.getFloat("note_myonne"));
+                 myList.add(p);
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+
+    return myList;
+}
+public List<Jeux> TridateJeux() {
+         List<Jeux> myList=new ArrayList<>();
+  
+    try {
+        String requete = "SELECT * FROM jeux ORDER BY date_creation DESC limit 3;";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(requete);
+
+        if (rs.next()) {
+                 Jeux p=new Jeux();
+                 p.setId(rs.getInt(1));
+                 p.setLibelle(rs.getString("libelle"));
+                 p.setImageJeux(rs.getString("image_jeux"));
+                 //p.setLogoJeux(rs.getString("logo_jeux"));
+                 p.setViews(rs.getInt("views"));
+                  p.setNoteMyonne(rs.getFloat("note_myonne"));
+                 myList.add(p);
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+
+    return myList;
+}
     
    public List<Jeux> rechercherJeuxParNom(String name) {
         ArrayList<Jeux> result = new ArrayList<>();
         try {
-           String sql = "SELECT * FROM jeux WHERE LOWER(libelle) LIKE CONCAT('%', LOWER(?), '%') limit 1;";
+           String sql = "SELECT * FROM jeux WHERE LOWER(libelle) LIKE CONCAT('%', LOWER(?), '%') limit 3;";
             PreparedStatement ste = cnx.prepareStatement(sql);
-            ste.setString(1, name); // set the value of the first parameter to the name you want to match
+            ste.setString(1, name); 
             ResultSet s = ste.executeQuery();
 
            while (s.next()) {
@@ -249,4 +317,101 @@ public Jeux bestJeux() {
         }
         return result;
     }
+   public List<Jeux> rechercherJeuxParNomEtDate(String name,Date dateFrom,Date dateTo) {
+         ArrayList<Jeux> result = new ArrayList<>();
+    try {
+       String sql = "SELECT * FROM jeux WHERE LOWER(libelle) LIKE CONCAT('%', LOWER(?), '%') and DATE(date_creation) between ? and ? limit 4 ;";
+        PreparedStatement ste = cnx.prepareStatement(sql);
+        ste.setString(1, name);
+        ste.setDate(2, dateFrom);
+        ste.setDate(3, dateTo);
+        ResultSet s = ste.executeQuery();
+
+       while (s.next()) {
+ LocalDateTime dateCreation = s.getTimestamp("date_creation").toLocalDateTime();
+           Jeux r = new Jeux(
+                        
+                        s.getInt("id"),
+                        s.getString("ref"),
+                        s.getString("libelle"),
+                        dateCreation,
+                        s.getInt("views"),
+                        s.getFloat("note_myonne"));
+            result.add(r);
+
+        }
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return result;
+}
+   
+    public List<Jeux> rechercherJeuxParDate(Date dateFrom,Date dateTo) {
+        ArrayList<Jeux> result = new ArrayList<>();
+        try {
+           String sql = "SELECT * FROM jeux WHERE DATE(date_creation) between ? and ? limit 3 ;";
+            PreparedStatement ste = cnx.prepareStatement(sql);
+            ste.setDate(1, dateFrom); 
+            ste.setDate(2, dateTo); 
+            ResultSet s = ste.executeQuery();
+
+           while (s.next()) {
+
+             LocalDateTime dateCreation = s.getTimestamp("date_creation").toLocalDateTime();
+           Jeux r = new Jeux(
+                        
+                        s.getInt("id"),
+                        s.getString("ref"),
+                        s.getString("libelle"),
+                        dateCreation,
+                        s.getInt("views"),
+                        s.getFloat("note_myonne"));
+                result.add(r);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return result;
+    }
+   public void updateNoteMyonne(Jeux t) {
+    try {
+        String sql = "UPDATE jeux SET note_myonne = ? WHERE id = ?";
+        PreparedStatement stmt = cnx.prepareStatement(sql);
+        stmt.setDouble(1, t.getNoteMyonne());
+        stmt.setInt(2, t.getId());
+        stmt.executeUpdate();
+        System.out.println("Jeux note updated successfully");
+    } catch (SQLException ex) {
+        System.out.println(ex.getMessage());
+    }
+}
+   public void updateViews(Jeux t) {
+  try {
+    
+    String selectSql = "select views from jeux where id = ?";
+    PreparedStatement selectStmt = cnx.prepareStatement(selectSql);
+    selectStmt.setInt(1, t.getId());
+    ResultSet rs = selectStmt.executeQuery();
+    int currentViews = 0;
+    if (rs.next()) {
+      currentViews = rs.getInt("views");
+    }
+    int newViews = currentViews + 1;
+
+
+    String updateSql = "update jeux set views=? where id = ?";
+    PreparedStatement updateStmt = cnx.prepareStatement(updateSql);
+    updateStmt.setInt(1, newViews); 
+    updateStmt.setInt(2, t.getId());
+    updateStmt.executeUpdate();
+    System.out.println("Views updated successfully for Jeux with id " + t.getId());
+
+   
+  } catch (SQLException ex) {
+    System.out.println(ex.getMessage());
+  }
+}
+
+
 }

@@ -11,9 +11,7 @@ import ggaming.services.ServiceJeux;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
 
 /**
  *
@@ -86,7 +84,7 @@ aff all method
     Jeux jeuxTodelete = bs.findById(2);
     bs.delete(jeuxTodelete);
 */
-        OkHttpClient client = new OkHttpClient();
+      /*  OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                .url("https://api.pandascore.co/videogames")
@@ -94,7 +92,7 @@ aff all method
                 .build();
         try (Response response = client.newCall(request).execute()) {
             System.out.println(response.body().string());
-        }
+        }*/
     }
     
 }

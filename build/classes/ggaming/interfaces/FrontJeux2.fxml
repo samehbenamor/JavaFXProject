@@ -48,7 +48,7 @@
                               <Insets left="30.0" right="30.0" />
                            </VBox.margin>
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="">
+                              <TextField fx:id="rech" prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -56,7 +56,7 @@
                                     <Font name="Cambria" size="18.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="" text="Search" textFill="WHITE" />
+                              <Button fx:id="rechbtn" mnemonicParsing="false" onAction="#recherche" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="" text="Search" textFill="WHITE" />
                            </children>
                            <styleClass>
                               <String fx:value="search-box" />
@@ -137,7 +137,7 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
                                        <children>
-                                          <Label prefHeight="29.0" prefWidth="190.0" text="NEWEST GAMES" textFill="#7c7c7c">
+                                          <Label fx:id="newestbtn" onMouseClicked="#Newest" prefHeight="29.0" prefWidth="190.0" text="NEWEST GAMES" textFill="#7c7c7c">
                                              <font>
                                                 <Font name="Cambria Bold" size="18.0" />
                                              </font>
@@ -156,7 +156,7 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="100.0" prefWidth="203.0">
                                        <children>
-                                          <Label prefHeight="29.0" prefWidth="190.0" text="TOP RATED GAMES" textFill="#838383">
+                                          <Label fx:id="topbtn" onMouseClicked="#Top" prefHeight="29.0" prefWidth="190.0" text="TOP RATED GAMES" textFill="#838383">
                                              <font>
                                                 <Font name="Cambria Bold" size="18.0" />
                                              </font>
@@ -176,7 +176,7 @@
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
-                           <VBox fx:id="Vjeux" prefHeight="474.0" prefWidth="880.0" />
+                           <VBox fx:id="Vjeux" onMouseClicked="#Newest" prefHeight="474.0" prefWidth="880.0" />
                      </children>
                   </VBox>
                </center>
@@ -212,7 +212,7 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                                          <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

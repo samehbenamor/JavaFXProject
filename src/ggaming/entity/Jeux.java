@@ -232,7 +232,7 @@ public Jeux(int id, String libelle, String imageJeux, String logoJeux, LocalDate
 
 public String generateRef() {
     // generate a unique reference here and return it
-return "0cjkfifj";
+return "0cjvvj";
 }
 
 }

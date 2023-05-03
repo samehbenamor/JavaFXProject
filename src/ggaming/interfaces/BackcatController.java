@@ -4,7 +4,7 @@
  */
 package ggaming.interfaces;
 
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 import ggaming.cnx.MaConnection;
 import ggaming.entity.CategorieJeux;
 
@@ -132,7 +132,7 @@ private ObservableList<CategorieJeux> catdata;
 throws IOException {
         catView = true;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/backjeux.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/jeuxb.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
