@@ -84,7 +84,7 @@ public class LoginController {
                 
                 Parent page1 = FXMLLoader.load(getClass().getResource("Banned.fxml"));
                 Scene scene = new Scene(page1);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));;
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 //loader.setController(controller);
                 //controller.setSessionId(sessionId);

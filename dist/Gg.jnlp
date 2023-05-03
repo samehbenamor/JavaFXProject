@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Gg.jar" size="3167246" download="eager" />
+    <jar href="Gg.jar" size="3166965" download="eager" />
     <jar href="lib\async-http-client-2.12.3.jar" size="451683" download="eager" />
     <jar href="lib\async-http-client-netty-utils-2.12.3.jar" size="9971" download="eager" />
     <jar href="lib\auto-common-1.2.1.jar" size="112572" download="eager" />
@@ -50,6 +50,7 @@
     <jar href="lib\json-20230227.jar" size="72591" download="eager" />
     <jar href="lib\jsr305-3.0.2.jar" size="20587" download="eager" />
     <jar href="lib\jtoml-2.0.0.jar" size="25059" download="eager" />
+    <jar href="lib\jxl-2.6.jar" size="660390" download="eager" />
     <jar href="lib\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" size="2249" download="eager" />
     <jar href="lib\mailapi-1.6.7.jar" size="369322" download="eager" />
     <jar href="lib\mysql-connector-j-8.0.32.jar" size="2480823" download="eager" />

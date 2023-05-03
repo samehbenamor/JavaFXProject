@@ -48,7 +48,7 @@
                <left>
                   <AnchorPane prefHeight="555.0" prefWidth="211.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="59.0" layoutY="-87.0" prefHeight="696.0" prefWidth="203.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="59.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
+                        <AnchorPane layoutX="48.0" layoutY="-87.0" prefHeight="696.0" prefWidth="191.0" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                              
                               <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
@@ -57,41 +57,6 @@
                                  </font>
                               </Label>
                               <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                              <Button layoutX="16.0" layoutY="207.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
-                                 <graphic>
-                                  
-                                 </graphic>
-                              </Button>
-                              <Button layoutX="16.0" layoutY="242.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button layoutX="16.0" layoutY="278.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button layoutX="16.0" layoutY="350.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                               <Button layoutX="16.0" layoutY="386.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button layoutX="16.0" layoutY="422.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
-                                 <graphic>
-                                
-                                 </graphic>
-                              </Button>
                               <Button fx:id="logout" layoutX="9.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
                                  <graphic>
                                     
@@ -101,11 +66,12 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                               </Button>
-                              <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">
+                              <TextField fx:id="sessionname" layoutX="31.0" layoutY="145.0" style="-fx-background-color: transparent;" />
+                              <Button fx:id="sessionlogout" layoutX="45.0" layoutY="201.0" mnemonicParsing="false" onAction="#logoutback" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Logout" textFill="RED">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
-                              </Label>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
@@ -285,6 +251,8 @@
                                     <PasswordField fx:id="mdptext" layoutX="383.0" layoutY="507.0" prefHeight="26.0" prefWidth="180.0" />
                                     <Button fx:id="browseimg" layoutX="969.0" layoutY="580.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Browse" />
                                     <ImageView fx:id="viewimg" fitHeight="182.0" fitWidth="270.0" layoutX="881.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Button fx:id="excelexport" layoutX="938.0" layoutY="632.0" mnemonicParsing="false" onAction="#exportExcel" prefHeight="42.0" prefWidth="156.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Export Excel" />
+                                    <Button fx:id="importexcel" layoutX="782.0" layoutY="632.0" mnemonicParsing="false" onAction="#importExcel" prefHeight="42.0" prefWidth="156.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Import Excel" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

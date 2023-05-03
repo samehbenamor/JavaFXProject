@@ -15,9 +15,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import ggaming.entity.Joueur;
+import ggaming2.Global;
+import ggaming2.SessionManager;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,7 +29,6 @@ import javafx.beans.property.SimpleStringProperty;
 import java.time.Period;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
 import org.mindrot.jbcrypt.BCrypt;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -41,7 +41,6 @@ import java.time.format.DateTimeParseException;
 
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
-import java.util.List;
 import java.util.UUID;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
@@ -61,7 +60,6 @@ import javafx.scene.image.Image;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.io.IOException;
 import java.io.OutputStream;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
@@ -69,6 +67,18 @@ import javax.imageio.ImageIO;
 //For qr code and shit 
 import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.javase.QRCode;
+//For Excel stuff
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 //
 /**
@@ -86,6 +96,10 @@ public class JoueurController {
     private TableView<Joueur> joueursTable;
 
     /////The fields below this comment will be used for adding the user in the backend
+    @FXML
+    private TextField sessionname;
+    @FXML
+    private Button sessionlogout;
     @FXML
     private Button ajouttext;
     @FXML
@@ -181,8 +195,24 @@ public class JoueurController {
 
         });
     }
+    //
+    //sessionlogout
+    
+    public void logoutback() throws IOException {
+        // remove the session ID
+        Global.sessionId = null;
+
+        // redirect the user to the register page
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming2/HomePage.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) sessionlogout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     //
+    
     @FXML
     private void handleAddUserButtonAction(ActionEvent event) {
         String nom = nomtext.getText();
@@ -700,7 +730,153 @@ public class JoueurController {
     }
 
     @FXML
+    public void importExcel() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Excel File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files", "*.xls", "*.xlsx"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            try {
+                Workbook workbook = Workbook.getWorkbook(selectedFile);
+                Sheet sheet = workbook.getSheet(0);
+
+                JoueurDAO joueurDAO = new JoueurDAO();
+
+                // Start reading from row 1, since row 0 contains the column headers
+                for (int i = 1; i < sheet.getRows(); i++) {
+                    String email = sheet.getCell(0, i).getContents();
+                    String password = sheet.getCell(1, i).getContents();
+                    String isVerifiedString = sheet.getCell(2, i).getContents();
+                    boolean isVerified = isVerifiedString.equalsIgnoreCase("true");
+                    String nom = sheet.getCell(3, i).getContents();
+                    String prenom = sheet.getCell(4, i).getContents();
+                    String isBannedString = sheet.getCell(5, i).getContents();
+                    boolean isBanned = isBannedString.equalsIgnoreCase("true");
+                    String ign = sheet.getCell(6, i).getContents();
+                    int wins = Integer.parseInt(sheet.getCell(7, i).getContents());
+                    int loses = Integer.parseInt(sheet.getCell(8, i).getContents());
+                    Date dateNaissance = Date.valueOf("1999-12-12");
+
+                    String salt = BCrypt.gensalt(12);
+                    String hashedPassword = BCrypt.hashpw(password, salt);
+                    // Add user to database with ROLE_USER
+                    Joueur joueur = new Joueur(email, hashedPassword, nom, prenom, ign);
+                    //Joueur joueur = new Joueur(email, hashedPassword, isVerified, nom, prenom, isBanned, ign, wins, loses, dateNaissance, roles);
+                    joueur.setVerified(isVerified);
+                    joueur.setDatenai(dateNaissance);
+                    joueur.setWins(wins);
+                    joueur.setLoses(loses);
+                    joueur.setBanned(isBanned);
+
+                    String role = "ROLE_USER";
+                    String[] roles = new String[]{"\"" + role + "\""};
+                    joueur.setRoles(roles);
+                    joueurDAO.insert(joueur);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Import successfull!");
+                    alert.setHeaderText("Joueur imported.");
+
+                    alert.showAndWait();
+
+                }
+
+                workbook.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void exportExcel() {
+        // create a file chooser
+        FileChooser fileChooser = new FileChooser();
+
+        // set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Excel files (*.xls)", "*.xls");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // show save dialog
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+                // create a writable workbook
+                WritableWorkbook workbook = Workbook.createWorkbook(file);
+
+                // create a writable sheet
+                WritableSheet sheet = workbook.createSheet("Joueurs", 0);
+
+                // add column headers
+                sheet.addCell(new Label(0, 0, "id"));
+                sheet.addCell(new Label(1, 0, "email"));
+                sheet.addCell(new Label(2, 0, "password"));
+                sheet.addCell(new Label(3, 0, "is_verified"));
+                sheet.addCell(new Label(4, 0, "nom"));
+                sheet.addCell(new Label(5, 0, "prenom"));
+
+                sheet.addCell(new Label(6, 0, "is_banned"));
+                sheet.addCell(new Label(7, 0, "ign"));
+                sheet.addCell(new Label(8, 0, "wins"));
+                sheet.addCell(new Label(9, 0, "loses"));
+
+                // get all the joueurs from the database
+                List<Joueur> joueurs = joueurDAO.getAllJoueurs();
+
+                // add joueurs data to the sheet
+                int row = 1;
+                for (Joueur joueur : joueurs) {
+                    sheet.addCell(new Label(0, row, Integer.toString(joueur.getId())));
+                    sheet.addCell(new Label(1, row, joueur.getEmail()));
+                    sheet.addCell(new Label(2, row, joueur.getPassword()));
+                    sheet.addCell(new Label(3, row, joueur.isVerified() == false ? "❌" : "✅"));
+
+                    sheet.addCell(new Label(4, row, joueur.getNom()));
+                    sheet.addCell(new Label(5, row, joueur.getPrenom()));
+
+                    sheet.addCell(new Label(6, row, joueur.isBanned() == false ? "Not banned" : "Banned"));
+                    sheet.addCell(new Label(7, row, joueur.getIgn()));
+                    sheet.addCell(new Label(8, row, Integer.toString(joueur.getWins())));
+                    sheet.addCell(new Label(9, row, Integer.toString(joueur.getLoses())));
+
+                    row++;
+                }
+
+                // write and close the workbook
+                workbook.write();
+                workbook.close();
+
+                // show success message
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Data exported to " + file.getAbsolutePath());
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // show error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Export to Excel");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: " + e.getMessage());
+                alert.showAndWait();
+            }
+        }
+    }
+
+    @FXML
     public void initialize() {
+        String sessionId = Global.sessionId;
+
+        
+
+        Joueur joueur = SessionManager.getSession(sessionId);
+        sessionname.setText(joueur.getNom() + " " + joueur.getPrenom());
+
         rolescombo.getItems().addAll("ROLE_USER", "ROLE_ADMIN");
         rolescombo.setValue("ROLE_USER"); // Set default value
         // Initialize table columns

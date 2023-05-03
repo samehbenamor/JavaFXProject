@@ -106,14 +106,10 @@ public class RegisterController {
     @FXML
     private Button registerButton;
 
-    @FXML
-    private Button fbLoginButton;
+    
 
-    @FXML
-    private ChoiceBox<String> verificationMethod;
+    
 
-    private WebView webView;
-    private WebEngine webEngine;
 
     private File profileImageFile;
 
@@ -141,11 +137,7 @@ public class RegisterController {
         return newFilename;
     }
 
-    @FXML
-    public void initialize() {
-        verificationMethod.getItems().addAll("email", "sms");
-        verificationMethod.setValue("email");
-    }
+   
 
     @FXML
     public void browseImage(ActionEvent event) {
@@ -289,14 +281,30 @@ public class RegisterController {
             String hashedPassword = BCrypt.hashpw(passwordregister, salt);
             Joueur joueur = new Joueur(emailregister, hashedPassword, firstNameregister, lastNameregister, inGameNameregister);
             //joueur.setDob(Date.valueOf(dob));
-            System.out.println("\u001B[31mError: Test 7.\u001B[0m");
+            //System.out.println("\u001B[31mError: Test 7.\u001B[0m");
             joueur.setVerified(false);
             joueur.setBanned(false);
             joueur.setProfile(profilepic);
             joueur.setDatenai(date3);
-            joueur.setRoles(new String[]{"ROLE_USER"});
+            String role = "ROLE_USER";
+            String[] roles = new String[]{"\"" + role + "\""};
+            joueur.setRoles(roles);
             joueurDAO.insertTest(joueur);
-            if (verificationMethod.equals("email")) {
+            try {
+                sendVerificationEmail(joueur.getEmail());
+            } catch (MessagingException e) {
+                System.out.println("Error sending verification email: " + e.getMessage());
+            }
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("EmailHasBeenSent.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            /*if (verificationMethod.equals("email")) {
                 try {
                     sendVerificationEmail(joueur.getEmail());
                 } catch (MessagingException e) {
@@ -321,7 +329,7 @@ public class RegisterController {
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 }
-            }
+            }*/
 
         }
 
@@ -417,29 +425,7 @@ public class RegisterController {
             }
         }
     }*/
-    @FXML
-    public void ManipulateFacebookRegister(ActionEvent event) {
-        /*
-                 webView = new WebView();
-        webEngine = webView.getEngine();
-        webEngine.load(AUTH_URL);
-
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                String url = webEngine.getLocation();
-                if (url.startsWith(redirectUrl)) {
-                    String accessToken = extractAccessTokenFromUrl(url);
-                    System.out.println("Access token: " + accessToken);
-                }
-            }
-        });
-        
-        Scene scene = new Scene(webView, 800, 600);
-        bruh.setScene(scene);
-        bruh.show();
-         */
-
-    }
+    
 
     private String extractAccessTokenFromUrl(String url) {
         String accessToken = null;
