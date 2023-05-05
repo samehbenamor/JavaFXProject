@@ -23,7 +23,7 @@
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-background-color: #212530;" styleClass="right-bar" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
@@ -44,7 +44,7 @@
                         <Insets left="30.0" right="30.0" />
                      </VBox.margin>
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@../values/style.css">
+                        <TextField fx:id="produit_search" prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@../values/style.css">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -52,7 +52,7 @@
                               <Font name="Cambria" size="18.0" />
                            </font>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@../values/style.css" text="Search" textFill="WHITE" />
+                        <Button mnemonicParsing="false" onAction="#rechercherProduit" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@../values/style.css" text="Search" textFill="WHITE" />
                      </children>
                      <styleClass>
                         <String fx:value="search-box" />
@@ -147,7 +147,34 @@
                               <Font name="Cambria" size="18.0" />
                            </font>
                         </Label>
-                        <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
+                        <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button layoutX="275.0" layoutY="18.0" mnemonicParsing="false" onAction="#afficherBlogsFront" style="-fx-background-color: #212530;" text="Blogs" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="mainpage" layoutX="559.0" layoutY="18.0" mnemonicParsing="false" onAction="#afficherJeuxFront" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="481.0" layoutY="18.0" mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="338.0" layoutY="18.0" mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button contentDisplay="RIGHT" layoutX="411.0" layoutY="18.0" mnemonicParsing="false" onAction="#afficherEquipesFront" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children></Pane>
                         <Label onMouseClicked="#afficherPanier" prefHeight="62.0" prefWidth="100.0" text="Mon panier" textFill="#878787">
                            <font>
                               <Font name="Cambria" size="18.0" />

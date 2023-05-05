@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BlogFrontController">
+    <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
+      <children>
+         <Button layoutX="69.0" layoutY="281.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Button>
+         <VBox fx:id="mycontainerBlog" layoutX="276.0" prefHeight="695.0" prefWidth="933.0" style="-fx-background-color: #FAFDF6;" />
+         <VBox fx:id="topBlogscontainer" layoutX="30.0" layoutY="376.0" prefHeight="250.0" prefWidth="213.0" />
+         <TextField fx:id="titreField" layoutX="63.0" layoutY="83.0" />
+         <Button layoutX="99.0" layoutY="226.0" mnemonicParsing="false" onAction="#SearchButton" text="Rechercher" />
+         <TextField fx:id="contenuField" layoutX="63.0" layoutY="125.0" />
+         <TextField fx:id="dateField" layoutX="62.0" layoutY="167.0" />
+         <Label layoutX="27.0" layoutY="87.0" text="Titre:" />
+         <Label layoutX="7.0" layoutY="129.0" text="Contenu:" />
+         <Label layoutX="26.0" layoutY="171.0" text="Date:" />
+      </children></AnchorPane>
+</StackPane>

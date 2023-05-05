@@ -43,6 +43,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -68,6 +69,9 @@ public class MarketController implements Initializable {
     
    @FXML
     private Label description;
+   
+     @FXML
+    private TextField produit_search;
     
       @FXML
     private ComboBox<Integer> combobox_quantite;
@@ -102,10 +106,19 @@ public class MarketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+         String mot=produit_search.getText();
+       
         
+        showProduit2(mot);
+    }
+    
+     public void showProduit2(String mot)
+    {
         ServiceProduit sp=new ServiceProduit();
+
+        produits=sp.rechercherProduitMultiCriteres(mot);
         
-        produits=sp.afficherProduit();
+        
         System.out.println(produits);
                 
         if (produits.size() > 0) {
@@ -222,6 +235,99 @@ public class MarketController implements Initializable {
          Parent root;
          try {
              root = FXMLLoader.load(getClass().getResource("../views/panier.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    @FXML
+     public void rechercherProduit()
+    {
+       // System.out.println("le mot taper est"+produit_search.getText());
+        String mot=produit_search.getText();
+        System.out.println("le mot est "+mot);
+        System.out.println("voici le contenu de products"+produits);
+        showProduit2(mot);
+       
+    }
+     
+      @FXML
+    public void afficherBoutique(ActionEvent event)
+     {
+              
+              Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+               
+    }
+    
+     @FXML
+    void afficherTournoiFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("TournoiHome.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     @FXML
+    void afficherJeuxFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("FrontJeux2.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherBlogsFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogFront.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipesFront(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/FrontEquipe.fxml"));
               Scene scene = new Scene(root);
                 
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();

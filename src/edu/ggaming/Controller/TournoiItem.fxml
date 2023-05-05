@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="215.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.TournoiItemController">
+   <children>
+      <VBox fx:id="bxTournoi" alignment="CENTER" layoutX="63.0" layoutY="8.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblTournoiNom" alignment="CENTER" prefHeight="35.0" prefWidth="226.0" text="Tournament">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="TOP_CENTER" layoutX="15.0" layoutY="71.0" prefHeight="26.0" prefWidth="225.0">
+               <children>
+                  <Label fx:id="lblJeu" prefHeight="27.0" prefWidth="135.0" text="Minecraft">
+                     <font>
+                        <Font name="Courier New" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblType" prefHeight="27.0" prefWidth="67.0" text="1v1">
+                     <font>
+                        <Font name="Courier New" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="215.0">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="lblDate" prefHeight="27.0" prefWidth="135.0" text="11/11/2002">
+                     <font>
+                        <Font name="Courier New" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPrix" prefHeight="27.0" prefWidth="67.0" text="300 dt">
+                     <font>
+                        <Font name="Courier New" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="imgTournoi" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#selectionnerTournoi" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/ggaminglogo.png" />
+               </image>
+            </ImageView>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</AnchorPane>

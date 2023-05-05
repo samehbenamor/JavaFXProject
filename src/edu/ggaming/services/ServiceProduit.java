@@ -190,6 +190,7 @@ public boolean isNumeric(String text) {
          
          return myList;
     }
+    
     public Produit rechercherProduitByName(String nom_produit) throws SQLException
     {
          String req = "SELECT * FROM produit WHERE nom=?";
@@ -270,6 +271,41 @@ public boolean isNumeric(String text) {
             PreparedStatement ps = cnx2.prepareStatement(req);
             ps.setString(1, '%' +mot+ '%');
             ps.setString(2, '%' +mot+ '%');
+           
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                 Produit p=new Produit();
+                 p.setId(rs.getInt(1));
+                 p.setNom(rs.getString("nom"));
+                 p.setDescription(rs.getString("description"));
+                 p.setImage(rs.getString("image"));
+                 p.setPrix(rs.getString("prix"));
+                 p.setQuantite(rs.getInt("quantite"));
+                 CategorieProduit categorie=scp.rechercherCategorieById(rs.getInt("categorie_produit_id"));
+                          
+                 p.setCategorie(categorie);
+                
+                
+                 produits.add(p);
+            }
+            System.out.print(produits);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return produits;
+    }
+    
+     public ObservableList<Produit> rechercherProduitMultiCriteres2(String mot,int id_categorie) {
+        ObservableList<Produit> produits = FXCollections.observableArrayList();
+        ServiceCategorieProduit scp=new ServiceCategorieProduit();
+        try {
+            String req = "SELECT * FROM produit WHERE lower(nom) LIKE ? or lower(description) LIKE ? and categorie_produit_id=? ";  //ORDER BY date_produit ASC à mettre lorsqu'on va ajouter la date
+            PreparedStatement ps = cnx2.prepareStatement(req);
+            ps.setString(1, '%' +mot+ '%');
+            ps.setString(2, '%' +mot+ '%');
+            ps.setInt(3, id_categorie);
            
             ResultSet rs = ps.executeQuery();
             

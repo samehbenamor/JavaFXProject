@@ -67,37 +67,32 @@
                                   
                                  </graphic>
                               </Button>
-                              <Button fx:id="produits_btn" layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
+                              <Button fx:id="produits_btn" layoutX="16.0" layoutY="243.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Categorie_produit_btn" layoutX="16.0" layoutY="277.0" mnemonicParsing="false" onAction="#afficher_categorie_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Categorie Produits" textFill="#1e1c1c">
+                               <Button fx:id="Tournois_btn" layoutX="16.0" layoutY="279.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Tournois_btn" layoutX="16.0" layoutY="312.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
+                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="315.0" mnemonicParsing="false" onAction="#afficherEquipesBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="347.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="351.0" mnemonicParsing="false" onAction="#afficherJeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="382.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="Blogs_btn" layoutX="16.0" layoutY="387.0" mnemonicParsing="false" onAction="#afficherBlogsBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Blogs_btn" layoutX="16.0" layoutY="417.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
-                                 <graphic>
-                                   
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="452" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="423" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
@@ -306,6 +301,8 @@
                                     <Button fx:id="addEmployee_deleteBtn" layoutX="438.0" layoutY="559.0" mnemonicParsing="false" onAction="#supprimerProduit" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
                                     <Button fx:id="addEmployee_clearBtn" layoutX="321.0" layoutY="559.0" mnemonicParsing="false" onAction="#annulerProduit" prefHeight="41.0" prefWidth="94.0" styleClass="clear-btn" stylesheets="@dashboardDesign.css" text="Annuler" />
                                     <TextArea fx:id="tfDescription" layoutX="117.0" layoutY="413.0" prefHeight="83.0" prefWidth="200.0" />
+                                    <Button fx:id="excel" layoutX="383.0" layoutY="619.0" mnemonicParsing="false" onAction="#exporterProduit" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Exporter" />
+                                    <Button fx:id="excel1" layoutX="633.0" layoutY="619.0" mnemonicParsing="false" onAction="#afficher_categorie_produit" prefHeight="41.0" prefWidth="94.0" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Categories" />
                                  </children>
                                  <styleClass>
                                     <String fx:value="white-bg" />

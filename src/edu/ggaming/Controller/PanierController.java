@@ -114,7 +114,7 @@ public class PanierController implements Initializable {
         
         
         produits=panier.getProduits();
-        System.out.println("voiciiii les produits"+produits);
+      
        
         
         if (produits.size() > 0) {
@@ -242,16 +242,14 @@ public class PanierController implements Initializable {
             // Récupération de l'objet Panier stocké dans la variable de session
             panier = session.getAttribute("panier");
                                    
-            System.out.println("voici le panier avant suppresion");
+        ;
            /*  panier.afficherPanier();
              
             System.out.println("voici le panier après suppression");
             panier.afficherPanier();*/
            
             
-                    
-             System.out.println("voici le panier avant suppresion");
-             System.out.println(session.getAttribute("panier").getProduits());
+             
              
              panier.retirerArticle(produit);
              session.setAttribute("panier", panier);

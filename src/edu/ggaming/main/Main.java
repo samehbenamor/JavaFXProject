@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         
-        Parent root = FXMLLoader.load(getClass().getResource("../views/boutiqueBack.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../../ggaming2/HomePage.fxml"));
         
        
         Scene scene=new Scene(root);

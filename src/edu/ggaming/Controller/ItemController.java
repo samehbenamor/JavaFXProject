@@ -29,7 +29,6 @@ public class ItemController {
         myListener.onClickListener(produit);
     }
 
-    private Fruit fruit;
     private Produit produit;
     private MyListener myListener;
 

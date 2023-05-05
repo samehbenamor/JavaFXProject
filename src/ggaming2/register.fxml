@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.RegisterController">
+   <top>
+        <AnchorPane fx:id="register" prefHeight="579.0" prefWidth="777.0" BorderPane.alignment="CENTER">
+            <children>
+            <ImageView fitHeight="572.0" fitWidth="911.0" layoutX="14.0" layoutY="6.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../edu/ggaming/img/aarer.png" />
+               </image>
+            </ImageView>
+                <Label layoutX="229.0" layoutY="73.0" text="Nom" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="230.0" layoutY="129.0" text="Prenom" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="230.0" layoutY="185.0" text="IGN" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+               
+                <Label layoutX="227.0" layoutY="242.0" text="Email" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="229.0" layoutY="298.0" text="Mot de passe" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="229.0" layoutY="410.0" text="Profile Picture" textFill="#ffc900">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="firstName" layoutX="422.0" layoutY="77.0" prefWidth="150.0" promptText="Nom" />
+                <TextField fx:id="lastName" layoutX="422.0" layoutY="133.0" prefWidth="150.0" promptText="Prenom" />
+                <TextField fx:id="inGameName" layoutX="422.0" layoutY="189.0" prefWidth="150.0" promptText="IGN" />
+                
+                <TextField fx:id="email" layoutX="422.0" layoutY="245.0" prefWidth="150.0" promptText="Email" />
+                <PasswordField fx:id="password" layoutX="422.0" layoutY="301.0" prefWidth="150.0" promptText="Mot de passe" />
+                <Button fx:id="browseBtn" layoutX="422.0" layoutY="410.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="26.0" prefWidth="150.0" text="Browse" textFill="#ffc900" />
+                <Button fx:id="registerBtn" layoutX="230.0" layoutY="463.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="40.0" prefWidth="344.0" style="-fx-background-color: #ffc900;" text="Register" textFill="#171717">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Button>
+            <DatePicker fx:id="datenaistext" layoutX="423.0" layoutY="353.0" prefHeight="26.0" prefWidth="148.0" />
+            <Label layoutX="229.0" layoutY="351.0" prefHeight="30.0" prefWidth="169.0" text="Date de naissance" textFill="#ffc900">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="184.0" fitWidth="486.0" layoutX="-89.0" layoutY="248.0" opacity="0.27" pickOnBounds="true" preserveRatio="true" rotate="-90.0">
+               <image>
+                  <Image url="@../edu/ggaming/img/w.png" />
+               </image></ImageView>
+            <ImageView fx:id="pprofileRegister" fitHeight="137.0" fitWidth="150.0" layoutX="44.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </AnchorPane>
+   </top>
+</BorderPane>

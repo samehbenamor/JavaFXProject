@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 package edu.ggaming.Controller;
 
 import edu.ggaming.entities.CategorieProduit;
@@ -17,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -250,7 +250,7 @@ public class BoutiqueBackController  implements Initializable{
     {
           ServiceProduit service=new ServiceProduit();
           ObservableList<Produit> list = service.rechercherProduitMultiCriteres(mot);
-          System.out.print(list);
+          
           tcid_categorie.setCellValueFactory(new PropertyValueFactory<>("id"));
           tcref_categorie.setCellValueFactory(new PropertyValueFactory<>("description"));
           tcnom_categorie.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -267,6 +267,28 @@ public class BoutiqueBackController  implements Initializable{
         categorie_produit.setItems(listData);
         categorie_produit_filtrer.setItems(listData);
     }
+     public void show_produit4(String mot,int categorie) //a supprimer après
+    {
+          ServiceProduit service=new ServiceProduit();
+          ObservableList<Produit> list = service.rechercherProduitMultiCriteres2(mot,categorie);
+          
+          tcid_categorie.setCellValueFactory(new PropertyValueFactory<>("id"));
+          tcref_categorie.setCellValueFactory(new PropertyValueFactory<>("description"));
+          tcnom_categorie.setCellValueFactory(new PropertyValueFactory<>("nom"));
+          
+          addProduit_tableView.setItems(list);
+          List<String> listG = new ArrayList<>();
+          ServiceCategorieProduit scp= new ServiceCategorieProduit();
+         ObservableList<CategorieProduit> listCategorie = scp.getall();
+        for (CategorieProduit cp : listCategorie) {
+            listG.add(cp.getNom());
+        }
+
+        ObservableList listData = FXCollections.observableArrayList(listG);
+        categorie_produit.setItems(listData);
+        categorie_produit_filtrer.setItems(listData);
+    }
+    
     public void show_produit3(int  id_categorie) //a supprimer après
     {
           ServiceProduit service=new ServiceProduit();
@@ -887,10 +909,31 @@ public class BoutiqueBackController  implements Initializable{
     
     public void rechercherProduit()
     {
+     
        // System.out.println("le mot taper est"+produit_search.getText());
+        String categorie=(String) categorie_produit_filtrer.getSelectionModel().getSelectedItem();
+        System.out.println("la categorie est "+categorie);
+        if(categorie==null)
+        {
+            
         String mot=produit_search.getText();
         show_produit2(mot);
+        }
+        else
+        {
+             ServiceCategorieProduit scp=new ServiceCategorieProduit();
+            CategorieProduit categorie_produit;
+            try {
+                categorie_produit = scp.rechercherCategorieByName(categorie);
+                 String mot=produit_search.getText();
+            show_produit4(mot,categorie_produit.getId());
+            } catch (SQLException ex) {
+                Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
+        }
     }
+    
     
     @FXML
     
@@ -907,7 +950,99 @@ public class BoutiqueBackController  implements Initializable{
          }
         
     }
+    @FXML
+    public void exporterProduit()
+    {
+        Alert alert;
+        StringBuilder content = new StringBuilder();
+        content.append("Nom du produit,Prix,description,Quantite\n");
+        ServiceProduit sp=new ServiceProduit();
+        List<Produit> listeDesProduits=new ArrayList<>();
+        listeDesProduits=sp.afficherProduit();
+        
+        for (Produit produit : listeDesProduits) {
+            content.append(produit.getNom()).append(",").append(produit.getPrix()).append(",").append(produit.getDescription()).append(",").append(produit.getQuantite()).append("\n");
+        }
+        
+        try (FileWriter writer = new FileWriter("liste-des-produits.csv")) {
+            writer.write(content.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Liste des Produits Exportée avec succès");
+                    alert.showAndWait();
+       
+        
+    }
+    ////INTEGRATION 
+    @FXML
     
+    public void afficherTournois(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("tournoiBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     
+    @FXML
+    void afficherJeux(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("jeuxb.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherBlogsBack(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipesBack(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/BackEquipe.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
      
           
 }
