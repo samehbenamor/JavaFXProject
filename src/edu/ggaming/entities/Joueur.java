@@ -19,10 +19,28 @@ public class Joueur {
     private int wins;
     private int loses;
     private int roleJava_joueur_id;
-    //private List<Blog> blog;
+    private List<Blog> blog;
     
 
     public Joueur() {}
+
+    public Joueur(int id, String email, String[] roles, String password, boolean is_verified, String nom, String prenom, Date datenai, String pprofile, boolean is_banned, String ign, int wins, int loses, int roleJava_joueur_id, List<Blog> blog) {
+        this.id = id;
+        this.email = email;
+        this.roles = roles;
+        this.password = password;
+        this.is_verified = is_verified;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.datenai = datenai;
+        this.pprofile = pprofile;
+        this.is_banned = is_banned;
+        this.ign = ign;
+        this.wins = wins;
+        this.loses = loses;
+        this.roleJava_joueur_id = roleJava_joueur_id;
+        this.blog = blog;
+    }
 
     public Joueur(String email, String[] roles, String password, boolean is_verified, String nom, String prenom, Date datenai, String pprofile, boolean is_banned, String ign, int wins, int loses) {
         this.email = email;

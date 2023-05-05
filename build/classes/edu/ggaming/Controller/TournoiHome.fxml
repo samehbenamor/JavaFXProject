@@ -30,6 +30,11 @@
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="70.0" fitWidth="237.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../Downloads/w.png" />
+                     </image>
+                  </ImageView>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="435.0">
                      <children>
                         <Label text="Tournois" textFill="#fcf5f5">
@@ -100,18 +105,37 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                      <children>
-                        <HBox alignment="CENTER" prefHeight="87.0" prefWidth="785.0" style="-fx-background-color: #212530;" styleClass="free-delivery-card" stylesheets="@style.css">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="1317.0" spacing="10.0" style="-fx-background-color: #212530;" stylesheets="@../views/style.css">
                            <children>
-                              <VBox alignment="CENTER" prefHeight="100.0" prefWidth="214.0">
-                                 <children>
-                                    <Label text="Les Tournois" textFill="WHITE">
-                                       <font>
-                                          <Font name="Franklin Gothic Medium" size="35.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
+                              <Button mnemonicParsing="false" onAction="#AfBlog" style="-fx-background-color: #212530;" text="Blogs" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@dashboardDesign.css" text="Equipes" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </HBox>

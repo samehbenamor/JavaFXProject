@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.String?>
-<?import javafx.scene.chart.BarChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -26,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BackcatController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BackcatController">
    <children>
       <AnchorPane fx:id="jeuxback" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -69,22 +57,22 @@
                                  </font>
                               </Label>
                               <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                              <Button layoutX="16.0" layoutY="207.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
+                              <Button layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBlogs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs">
                                  <graphic>
                                   
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="242.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
+                              <Button layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button layoutX="16.0" layoutY="278.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
+                               <Button layoutX="16.0" layoutY="278.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" onAction="#afficherEquipes" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -97,11 +85,6 @@
                                <Button fx:id="catjeuxbtn" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#affcat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Categorie Jeux" textFill="#1e1c1c">
                                  <graphic>
                                    
-                                 </graphic>
-                              </Button>
-                              <Button layoutX="16.0" layoutY="422.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
-                                 <graphic>
-                                
                                  </graphic>
                               </Button>
                               <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">

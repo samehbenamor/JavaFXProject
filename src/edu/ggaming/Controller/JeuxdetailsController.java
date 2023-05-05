@@ -9,6 +9,8 @@ import edu.ggaming.services.ServiceJeux;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -50,6 +53,7 @@ public class JeuxdetailsController implements Initializable {
     private Jeux jeux;
     @FXML
     private ImageView imageView;
+    private boolean catView = false;
     
 public void setJeux(Jeux jeux) {
     this.jeux = jeux;
@@ -152,5 +156,63 @@ jeux.setNote(rating);
         currentStage.close();
 
         stage.show();
+    }
+
+    
+    @FXML
+    void AfBlog(ActionEvent event) throws IOException {
+        catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/views/blogfront.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void AfEquipe(ActionEvent event) throws IOException {
+        catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/views/FrontEquipe.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     @FXML
+    public void afficherBoutique(ActionEvent event)
+     {
+              
+              Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+               
+    }
+    
+     @FXML
+    void afficherTournoiFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("TournoiHome.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
 }

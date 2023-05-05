@@ -3,8 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,13 +36,50 @@
                </Label>
             </children>
          </VBox>
-         <Button fx:id="retourbtn" layoutX="21.0" layoutY="15.0" mnemonicParsing="false" onAction="#retourbtn" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
-         <Button fx:id="editbtnBlog" layoutX="1207.0" layoutY="13.0" mnemonicParsing="false" onAction="#EditerBlogfront" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
-         <Button fx:id="deleteBtnBlog" layoutX="1102.0" layoutY="13.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
-         <Button fx:id="addBtn" layoutX="970.0" layoutY="620.0" mnemonicParsing="false" onAction="#Accedercommentaires" prefHeight="41.0" prefWidth="226.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Acceder aux commentaires" />
+         <Button fx:id="retourbtn" layoutX="23.0" layoutY="612.0" mnemonicParsing="false" onAction="#retourbtn" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #76B041;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Retour" />
+         <Button fx:id="editbtnBlog" layoutX="1166.0" layoutY="620.0" mnemonicParsing="false" onAction="#EditerBlogfront" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #f77f00;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Editer" />
+         <Button fx:id="deleteBtnBlog" layoutX="1059.0" layoutY="620.0" mnemonicParsing="false" onAction="#SupprimerBlog" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #d62828;" styleClass="delete-btn" stylesheets="@dashboardDesign.css" text="Supprimer" />
+         <Button fx:id="addBtn" layoutX="777.0" layoutY="620.0" mnemonicParsing="false" onAction="#Accedercommentaires" prefHeight="41.0" prefWidth="226.0" style="-fx-background-color: #023047;" styleClass="add-btn" stylesheets="@dashboardDesign.css" text="Acceder aux commentaires" />
          <Button fx:id="jaimebtn" layoutX="198.0" layoutY="628.0" mnemonicParsing="false" onAction="#likeblog" text="J'aime" />
          <Button fx:id="jaimepasbtn" layoutX="356.0" layoutY="628.0" mnemonicParsing="false" onAction="#dislikeblog" text="J'aime pas" />
          <Label fx:id="likenum" layoutX="170.0" layoutY="632.0" prefHeight="17.0" prefWidth="11.0" />
          <Label fx:id="dislikenum" layoutX="318.0" layoutY="632.0" prefHeight="17.0" prefWidth="21.0" />
+         <HBox alignment="CENTER_RIGHT" layoutX="2.0" prefHeight="70.0" prefWidth="1317.0" spacing="10.0" style="-fx-background-color: #212530;" stylesheets="@style.css">
+            <children>
+               <Button mnemonicParsing="false" onAction="#AfBlog" style="-fx-background-color: #212530;" text="Blogs" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+            </children>
+            <padding>
+               <Insets right="10.0" />
+            </padding>
+         </HBox>
+         <ImageView fitHeight="70.0" fitWidth="237.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../../../../../Downloads/w.png" />
+            </image>
+         </ImageView>
       </children></AnchorPane>
 </StackPane>

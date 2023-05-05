@@ -11,6 +11,8 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,6 +39,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -58,6 +61,7 @@ public class BlogFrontController implements Initializable {
     @FXML
     private TextField dateField;
 
+    private boolean catView = false;
 private List<Blog> allBlogs;
 
     /**
@@ -75,6 +79,74 @@ private List<Blog> allBlogs;
         }
     }
 
+    
+    @FXML
+    void again(ActionEvent event) throws IOException {
+        catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("FrontJeux2.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    void AfBlog(ActionEvent event) throws IOException {
+        catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("../views/blogfront.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void AfEquipe(ActionEvent event) throws IOException {
+        catView = true;
+
+        Parent root = FXMLLoader.load(getClass().getResource("../views/FrontEquipe.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     @FXML
+    public void afficherBoutique(ActionEvent event)
+     {
+              
+              Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+               
+    }
+    
+     @FXML
+    void afficherTournoiFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("TournoiHome.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
 
     @FXML
     public void creeBlogFront(ActionEvent event) throws IOException {

@@ -74,6 +74,7 @@ public class LoginController {
             JoueurDAO joueurDAO = new JoueurDAO();
             
             Joueur joueur = joueurDAO.getJoueurByEmail(emailLogin);
+            
             if (joueur.isBanned()) {
                 try {
                 //UserProfile controller = new UserProfile();
@@ -102,7 +103,8 @@ public class LoginController {
             try {
                 //UserProfile controller = new UserProfile();
                 //controller.setSessionId(sessionId);
-                
+                if(joueur.getRoleJava_joueur_id()==2)
+                {
                 Parent page1 = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
                 Scene scene = new Scene(page1);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("UserProfile.fxml"));;
@@ -112,6 +114,19 @@ public class LoginController {
                 
                 stage.setScene(scene);
                 stage.show();
+                }
+                else
+                {
+                     Parent page1 = FXMLLoader.load(getClass().getResource("../edu/ggaming/views/boutique.fxml"));
+                Scene scene = new Scene(page1);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../edu/ggaming/views/boutique.fxml"));;
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                //loader.setController(controller);
+                //controller.setSessionId(sessionId);
+                
+                stage.setScene(scene);
+                stage.show();
+                }
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }

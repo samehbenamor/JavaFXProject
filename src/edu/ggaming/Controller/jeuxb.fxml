@@ -74,7 +74,7 @@
                                    
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" onAction="#afficherEquipes" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
@@ -84,7 +84,7 @@
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="blogsbtn" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#affjeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
+                               <Button fx:id="blogsbtn" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#afficherBlogs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>

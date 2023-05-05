@@ -5,6 +5,7 @@
  */
 package edu.ggaming.services;
 
+import edu.ggaming.Controller.BoutiqueBackController;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 
@@ -72,8 +73,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.stage.StageStyle;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.write.Label;
@@ -944,4 +949,120 @@ public class JoueurController {
                 .addAll(joueurs);
         searchbutt.setOnAction(this::setupSearchButton);
     }
+    @FXML
+    
+    public void afficherTournois(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("tournoiBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     
+    @FXML
+    void afficherJeux(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("jeuxb.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherBlogsBack(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipesBack(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/BackEquipe.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    @FXML
+    public void StatistiqueProduit(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/statistiquesBoutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    @FXML
+    void afficher_produit(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+ @FXML
+    public void afficherBoutique(ActionEvent event)
+     {
+              
+              Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/boutique.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+               
+    }
+     
 }

@@ -443,5 +443,37 @@ try {
          }
     }
 
+    
+     @FXML
+    void afficherBlogs(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipe(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/BackEquipe.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
 
 }

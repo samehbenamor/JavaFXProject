@@ -58,6 +58,7 @@ import javax.imageio.ImageIO;
 import java.util.Properties;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -824,4 +825,103 @@ String messageText = "<html><head><style>"
             }
         }
     }
+    
+    @FXML
+    
+    public void afficherTournois(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("tournoiBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     
+    @FXML
+    void afficherJeux(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("jeuxb.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherBlogs(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipes(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/BackEquipe.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherBoutique(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     @FXML
+    void afficherBlogsFront(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogFront.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     
 }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Blog {
     private int id,etat;
-    //private Joueur joueur;
+    private Joueur joueur;
     private String titre,contenu,imageblog;
     private LocalDateTime date_creation,date_modification;
     private List<Commentaire> commentaires;

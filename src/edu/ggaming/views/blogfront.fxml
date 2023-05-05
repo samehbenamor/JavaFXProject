@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -11,19 +15,56 @@
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ggaming.Controller.BlogFrontController">
     <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
       <children>
-         <Button layoutX="69.0" layoutY="281.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
+         <Button layoutX="69.0" layoutY="317.0" mnemonicParsing="false" onAction="#creeBlogFront" prefHeight="51.0" prefWidth="136.0" style="-fx-background-color: #16425B;" text="Creer un Blog" textFill="WHITE">
             <font>
                <Font size="18.0" />
             </font>
          </Button>
-         <VBox fx:id="mycontainerBlog" layoutX="276.0" prefHeight="695.0" prefWidth="933.0" style="-fx-background-color: #FAFDF6;" />
-         <VBox fx:id="topBlogscontainer" layoutX="30.0" layoutY="376.0" prefHeight="250.0" prefWidth="213.0" />
-         <TextField fx:id="titreField" layoutX="63.0" layoutY="83.0" />
-         <Button layoutX="99.0" layoutY="226.0" mnemonicParsing="false" onAction="#SearchButton" text="Rechercher" />
-         <TextField fx:id="contenuField" layoutX="63.0" layoutY="125.0" />
-         <TextField fx:id="dateField" layoutX="62.0" layoutY="167.0" />
-         <Label layoutX="27.0" layoutY="87.0" text="Titre:" />
-         <Label layoutX="7.0" layoutY="129.0" text="Contenu:" />
-         <Label layoutX="26.0" layoutY="171.0" text="Date:" />
+         <VBox fx:id="mycontainerBlog" layoutX="276.0" layoutY="83.0" prefHeight="612.0" prefWidth="933.0" style="-fx-background-color: #FAFDF6;" />
+         <VBox fx:id="topBlogscontainer" layoutX="30.0" layoutY="410.0" prefHeight="250.0" prefWidth="213.0" />
+         <TextField fx:id="titreField" layoutX="63.0" layoutY="119.0" />
+         <Button layoutX="99.0" layoutY="262.0" mnemonicParsing="false" onAction="#SearchButton" text="Rechercher" />
+         <TextField fx:id="contenuField" layoutX="63.0" layoutY="161.0" />
+         <TextField fx:id="dateField" layoutX="62.0" layoutY="203.0" />
+         <Label layoutX="27.0" layoutY="123.0" text="Titre:" />
+         <Label layoutX="7.0" layoutY="165.0" text="Contenu:" />
+         <Label layoutX="26.0" layoutY="207.0" text="Date:" />
+         <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="1317.0" spacing="10.0" style="-fx-background-color: #212530;" stylesheets="@style.css">
+            <children>
+               <Button mnemonicParsing="false" onAction="#AfBlog" style="-fx-background-color: #212530;" text="Blogs" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+               <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Button>
+            </children>
+            <padding>
+               <Insets right="10.0" />
+            </padding>
+         </HBox>
+         <ImageView fitHeight="70.0" fitWidth="237.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../../../../../Downloads/w.png" />
+            </image>
+         </ImageView>
       </children></AnchorPane>
 </StackPane>
