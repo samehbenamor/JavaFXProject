@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="800" style="-fx-background-color: #171717;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ggaming2.SMSMethod">
+   
+   <center>
+      <AnchorPane fx:id="login" prefHeight="400.0" prefWidth="335.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="92.0" layoutX="121.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/lock.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="91.0" layoutY="161.0" prefHeight="138.0" prefWidth="661.0" text="Entrez votre numéro de téléphone pour recevoir un SMS de vérification !" textFill="#ffc800">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <TextField fx:id="phonenum" layoutX="304.0" layoutY="265.0" prefHeight="42.0" prefWidth="221.0" promptText="Numéro de téléphone" style="-fx-background-color: #171717; -fx-text-fill: #ffc800;">
+               <font>
+                  <Font size="19.0" />
+               </font></TextField>
+            <Button fx:id="gotoLogin" layoutX="317.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleNav" prefHeight="34.0" prefWidth="166.0" style="-fx-background-color: #ffc900;" text="Envoyer le sms" />
+            <Label fx:id="wrongLogIn" layoutX="153.0" layoutY="127.0" textFill="RED" />
+            <ImageView fx:id="loginLogo" fitHeight="96.0" fitWidth="278.0" layoutX="261.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="file:/D:/Photoshop/Web%20project/Charte%20graphique/w.png" />
+               </image></ImageView>
+            <Label layoutX="250.0" layoutY="269.0" prefHeight="34.0" prefWidth="53.0" text="+216" textFill="#ffc800">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

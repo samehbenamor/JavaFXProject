@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Gg.jnlp">
+  <information>
+    <title>Gg</title>
+    <vendor>DELL</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Gg.jar" size="3167021" download="eager" />
+    <jar href="lib\async-http-client-2.12.3.jar" size="451683" download="eager" />
+    <jar href="lib\async-http-client-netty-utils-2.12.3.jar" size="9971" download="eager" />
+    <jar href="lib\auto-common-1.2.1.jar" size="112572" download="eager" />
+    <jar href="lib\auto-service-1.0.1.jar" size="12794" download="eager" />
+    <jar href="lib\auto-service-annotations-1.0.1.jar" size="3281" download="eager" />
+    <jar href="lib\bluecove-2.1.1.jar" size="663800" download="eager" />
+    <jar href="lib\byte-buddy-1.14.2.jar" size="4190747" download="eager" />
+    <jar href="lib\checker-qual-3.12.0.jar" size="208855" download="eager" />
+    <jar href="lib\commons-codec-1.15.jar" size="353793" download="eager" />
+    <jar href="lib\commons-exec-1.3.jar" size="54458" download="eager" />
+    <jar href="lib\commons-io-2.7.jar" size="276413" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\core-2.0.jar" size="7081" download="eager" />
+    <jar href="lib\core-3.1.0.jar" size="538421" download="eager" />
+    <jar href="lib\error_prone_annotations-2.11.0.jar" size="16480" download="eager" />
+    <jar href="lib\failsafe-3.3.1.jar" size="146983" download="eager" />
+    <jar href="lib\failureaccess-1.0.1.jar" size="4644" download="eager" />
+    <jar href="lib\guava-31.1-jre.jar" size="2959505" download="eager" />
+    <jar href="lib\httpclient-4.5.13.jar" size="780321" download="eager" />
+    <jar href="lib\httpcore-4.4.13.jar" size="328593" download="eager" />
+    <jar href="lib\j2objc-annotations-1.3.jar" size="9071" download="eager" />
+    <jar href="lib\jBCrypt-0.4.1.jar" size="17570" download="eager" />
+    <jar href="lib\jackson-annotations-2.14.0.jar" size="76091" download="eager" />
+    <jar href="lib\jackson-core-2.14.0.jar" size="458975" download="eager" />
+    <jar href="lib\jackson-databind-2.14.0.jar" size="1618273" download="eager" />
+    <jar href="lib\jackson-dataformat-xml-2.14.0.jar" size="130374" download="eager" />
+    <jar href="lib\jackson-datatype-jsr310-2.14.0.jar" size="122014" download="eager" />
+    <jar href="lib\jakarta.activation-1.2.1.jar" size="65690" download="eager" />
+    <jar href="lib\jakarta.activation-1.2.2.jar" size="69286" download="eager" />
+    <jar href="lib\javase-2.0.jar" size="5145" download="eager" />
+    <jar href="lib\javase-3.1.0.jar" size="39074" download="eager" />
+    <jar href="lib\javax.servlet-api-4.0.0.jar" size="102537" download="eager" />
+    <jar href="lib\jcommander-1.82.jar" size="89830" download="eager" />
+    <jar href="lib\jfreesvg-2.1.jar" size="50780" download="eager" />
+    <jar href="lib\jjwt-api-0.11.2.jar" size="78784" download="eager" />
+    <jar href="lib\jjwt-impl-0.11.2.jar" size="78853" download="eager" />
+    <jar href="lib\jjwt-jackson-0.11.2.jar" size="8400" download="eager" />
+    <jar href="lib\json-20220320.jar" size="70939" download="eager" />
+    <jar href="lib\json-20230227.jar" size="72591" download="eager" />
+    <jar href="lib\jsr305-3.0.2.jar" size="20587" download="eager" />
+    <jar href="lib\jtoml-2.0.0.jar" size="25059" download="eager" />
+    <jar href="lib\jxl-2.6.jar" size="660390" download="eager" />
+    <jar href="lib\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" size="2249" download="eager" />
+    <jar href="lib\mailapi-1.6.7.jar" size="369322" download="eager" />
+    <jar href="lib\mysql-connector-j-8.0.32.jar" size="2480823" download="eager" />
+    <jar href="lib\netty-buffer-4.1.90.Final.jar" size="305462" download="eager" />
+    <jar href="lib\netty-codec-4.1.90.Final.jar" size="345191" download="eager" />
+    <jar href="lib\netty-codec-http-4.1.90.Final.jar" size="655816" download="eager" />
+    <jar href="lib\netty-codec-socks-4.1.90.Final.jar" size="120732" download="eager" />
+    <jar href="lib\netty-common-4.1.90.Final.jar" size="658962" download="eager" />
+    <jar href="lib\netty-handler-4.1.90.Final.jar" size="546399" download="eager" />
+    <jar href="lib\netty-handler-proxy-4.1.90.Final.jar" size="25438" download="eager" />
+    <jar href="lib\netty-reactive-streams-2.0.4.jar" size="21878" download="eager" />
+    <jar href="lib\netty-resolver-4.1.90.Final.jar" size="37812" download="eager" />
+    <jar href="lib\netty-transport-4.1.90.Final.jar" size="488664" download="eager" />
+    <jar href="lib\netty-transport-classes-epoll-4.1.90.Final.jar" size="145072" download="eager" />
+    <jar href="lib\netty-transport-classes-kqueue-4.1.90.Final.jar" size="108309" download="eager" />
+    <jar href="lib\netty-transport-native-epoll-4.1.90.Final.jar" size="5635" download="eager" />
+    <jar href="lib\netty-transport-native-kqueue-4.1.90.Final.jar" size="5662" download="eager" />
+    <jar href="lib\netty-transport-native-unix-common-4.1.90.Final.jar" size="43771" download="eager" />
+    <jar href="lib\opentelemetry-api-1.24.0.jar" size="131985" download="eager" />
+    <jar href="lib\opentelemetry-api-events-1.24.0-alpha.jar" size="6323" download="eager" />
+    <jar href="lib\opentelemetry-api-logs-1.24.0-alpha.jar" size="10102" download="eager" />
+    <jar href="lib\opentelemetry-context-1.24.0.jar" size="48022" download="eager" />
+    <jar href="lib\opentelemetry-exporter-logging-1.24.0.jar" size="11477" download="eager" />
+    <jar href="lib\opentelemetry-sdk-1.24.0.jar" size="6144" download="eager" />
+    <jar href="lib\opentelemetry-sdk-common-1.24.0.jar" size="37710" download="eager" />
+    <jar href="lib\opentelemetry-sdk-extension-autoconfigure-1.24.0-alpha.jar" size="38071" download="eager" />
+    <jar href="lib\opentelemetry-sdk-extension-autoconfigure-spi-1.24.0.jar" size="16868" download="eager" />
+    <jar href="lib\opentelemetry-sdk-logs-1.24.0-alpha.jar" size="48241" download="eager" />
+    <jar href="lib\opentelemetry-sdk-metrics-1.24.0.jar" size="258230" download="eager" />
+    <jar href="lib\opentelemetry-sdk-trace-1.24.0.jar" size="118856" download="eager" />
+    <jar href="lib\opentelemetry-semconv-1.24.0-alpha.jar" size="36365" download="eager" />
+    <jar href="lib\reactive-streams-1.0.4.jar" size="11669" download="eager" />
+    <jar href="lib\restfb-2023.4.0.jar" size="798689" download="eager" />
+    <jar href="lib\selenium-api-4.8.3-sources.jar" size="172240" download="eager" />
+    <jar href="lib\selenium-api-4.8.3.jar" size="219969" download="eager" />
+    <jar href="lib\selenium-chrome-driver-4.8.3-sources.jar" size="12071" download="eager" />
+    <jar href="lib\selenium-chrome-driver-4.8.3.jar" size="17008" download="eager" />
+    <jar href="lib\selenium-chromium-driver-4.8.3-sources.jar" size="23188" download="eager" />
+    <jar href="lib\selenium-chromium-driver-4.8.3.jar" size="32484" download="eager" />
+    <jar href="lib\selenium-devtools-v109-4.8.3-sources.jar" size="623530" download="eager" />
+    <jar href="lib\selenium-devtools-v109-4.8.3.jar" size="1467478" download="eager" />
+    <jar href="lib\selenium-devtools-v110-4.8.3-sources.jar" size="625978" download="eager" />
+    <jar href="lib\selenium-devtools-v110-4.8.3.jar" size="1472649" download="eager" />
+    <jar href="lib\selenium-devtools-v111-4.8.3-sources.jar" size="627397" download="eager" />
+    <jar href="lib\selenium-devtools-v111-4.8.3.jar" size="1475460" download="eager" />
+    <jar href="lib\selenium-devtools-v85-4.8.3-sources.jar" size="478197" download="eager" />
+    <jar href="lib\selenium-devtools-v85-4.8.3.jar" size="1136887" download="eager" />
+    <jar href="lib\selenium-edge-driver-4.8.3-sources.jar" size="10104" download="eager" />
+    <jar href="lib\selenium-edge-driver-4.8.3.jar" size="14730" download="eager" />
+    <jar href="lib\selenium-firefox-driver-4.8.3-sources.jar" size="69960" download="eager" />
+    <jar href="lib\selenium-firefox-driver-4.8.3.jar" size="81468" download="eager" />
+    <jar href="lib\selenium-http-4.8.3-sources.jar" size="32078" download="eager" />
+    <jar href="lib\selenium-http-4.8.3.jar" size="59732" download="eager" />
+    <jar href="lib\selenium-ie-driver-4.8.3-sources.jar" size="11935" download="eager" />
+    <jar href="lib\selenium-ie-driver-4.8.3.jar" size="17335" download="eager" />
+    <jar href="lib\selenium-java-4.8.3-sources.jar" size="288" download="eager" />
+    <jar href="lib\selenium-java-4.8.3.jar" size="870" download="eager" />
+    <jar href="lib\selenium-json-4.8.3-sources.jar" size="36236" download="eager" />
+    <jar href="lib\selenium-json-4.8.3.jar" size="69469" download="eager" />
+    <jar href="lib\selenium-manager-4.8.3-sources.jar" size="4370" download="eager" />
+    <jar href="lib\selenium-manager-4.8.3.jar" size="5511671" download="eager" />
+    <jar href="lib\selenium-remote-driver-4.8.3-sources.jar" size="283945" download="eager" />
+    <jar href="lib\selenium-remote-driver-4.8.3.jar" size="489561" download="eager" />
+    <jar href="lib\selenium-safari-driver-4.8.3-sources.jar" size="15840" download="eager" />
+    <jar href="lib\selenium-safari-driver-4.8.3.jar" size="25455" download="eager" />
+    <jar href="lib\selenium-support-4.8.3-sources.jar" size="85545" download="eager" />
+    <jar href="lib\selenium-support-4.8.3.jar" size="199053" download="eager" />
+    <jar href="lib\slf4j-api-1.7.30.jar" size="41472" download="eager" />
+    <jar href="lib\slf4j-api-2.0.7.jar" size="63667" download="eager" />
+    <jar href="lib\smtp-1.6.7.jar" size="64293" download="eager" />
+    <jar href="lib\stax2-api-4.2.1.jar" size="195909" download="eager" />
+    <jar href="lib\twilio-9.4.0.jar" size="4925044" download="eager" />
+    <jar href="lib\woodstox-core-6.4.0.jar" size="1586060" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Gg" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="ggaming2.Gg"  name="Gg" />
+  <update check="always"/>
+</jnlp>
