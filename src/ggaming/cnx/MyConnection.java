@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class MyConnection {
     
-    private Connection cnx;
+    private Connection cnx ;
 static MyConnection instance;
 String url = "jdbc:mysql://localhost:3306/ggaming";
 String user="root";
