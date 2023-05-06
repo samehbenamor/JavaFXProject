@@ -20,7 +20,7 @@
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="435.0" style="-fx-background-color: #212530;" styleClass="right-bar" stylesheets="@../values/style.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
                      <children>
@@ -118,7 +118,7 @@
                         </Text>
                         <HBox alignment="CENTER" prefHeight="73.0" prefWidth="335.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="200.0" styleClass="button-panier" stylesheets="@../Values/style.css" text="Retour au Panier" textFill="#252423" />
+                              <Button mnemonicParsing="false" onAction="#afficherPanier" prefHeight="47.0" prefWidth="200.0" styleClass="button-panier" stylesheets="@../Values/style.css" text="Retour au Panier" textFill="#252423" />
                            </children>
                         </HBox>
                      </children>
@@ -139,7 +139,7 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                      <children>
-                        <Label fx:id="retour" prefHeight="29.0" prefWidth="77.0" text="Retour" textFill="#878787" underline="true">
+                        <Label fx:id="retour" onMouseClicked="#afficherPanier" prefHeight="29.0" prefWidth="77.0" text="Retour" textFill="#878787" underline="true">
                            <font>
                               <Font name="Cambria" size="18.0" />
                            </font>

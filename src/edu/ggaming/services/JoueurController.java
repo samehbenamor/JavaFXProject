@@ -208,7 +208,7 @@ public class JoueurController {
         Global.sessionId = null;
 
         // redirect the user to the register page
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming2/HomePage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../../ggaming2/HomePage.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) sessionlogout.getScene().getWindow();
         stage.setScene(scene);
@@ -971,7 +971,7 @@ public class JoueurController {
     void afficherJeux(ActionEvent event) {
         Parent root;
          try {
-             root = FXMLLoader.load(getClass().getResource("jeuxb.fxml"));
+             root = FXMLLoader.load(getClass().getResource("../Controller/jeuxb.fxml"));
               Scene scene = new Scene(root);
                 
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
@@ -1063,6 +1063,21 @@ public class JoueurController {
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
                
+    }
+     @FXML
+    void afficherJoueurs(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../../../ggaming2/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }
      
 }

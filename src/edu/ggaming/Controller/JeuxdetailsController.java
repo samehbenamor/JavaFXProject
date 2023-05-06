@@ -8,6 +8,7 @@ import edu.ggaming.entities.Jeux;
 import edu.ggaming.services.ServiceJeux;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -41,6 +43,9 @@ import javafx.stage.StageStyle;
  */
 public class JeuxdetailsController implements Initializable {
     
+    
+      @FXML
+    private VBox Vjeux;
     @FXML
     private Button back;
     @FXML
@@ -147,7 +152,7 @@ jeux.setNote(rating);
     }    
       @FXML
     public void backbtn(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/interfaces/FrontJeux2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FrontJeux2.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -163,7 +168,7 @@ jeux.setNote(rating);
     void AfBlog(ActionEvent event) throws IOException {
         catView = true;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/views/blogfront.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../views/blogfront.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -174,7 +179,7 @@ jeux.setNote(rating);
     void AfEquipe(ActionEvent event) throws IOException {
         catView = true;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/ggaming/views/FrontEquipe.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../views/FrontEquipe.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -215,4 +220,89 @@ jeux.setNote(rating);
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
+    
+      @FXML
+void Newest(MouseEvent event) {
+    try {
+        ServiceJeux sj = new ServiceJeux();
+        sj.initConnection();
+        VBox jeuxContainer = new VBox();
+        List<Jeux> jeuxes = sj.TridateJeux();
+        for (Jeux j : jeuxes) {
+            Label titleLabel = new Label(j.getLibelle());
+            titleLabel.setFont(new Font(30));
+            System.out.println(titleLabel);
+            
+            VBox jBox = new VBox(titleLabel);
+            jBox.setAlignment(Pos.CENTER);
+            jBox.setSpacing(20);
+            jeuxContainer.getChildren().add(jBox);
+            
+            titleLabel.setOnMouseClicked(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Jeuxdetails.fxml"));
+                    Parent root = loader.load();
+                    JeuxdetailsController jeuxController = loader.getController();
+                    jeuxController.setJeux(j);
+                    sj.updateViews(j);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+        ScrollPane scrollPane = new ScrollPane(jeuxContainer);
+        scrollPane.setFitToWidth(true);
+        
+        //Vjeux.getChildren().clear();
+
+        Vjeux.getChildren().add(scrollPane);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    @FXML
+    void Top(MouseEvent event) {
+try {
+        ServiceJeux sj = new ServiceJeux();
+        sj.initConnection();
+        VBox jeuxContainer = new VBox();
+        List<Jeux> jeuxes = sj.TribestJeux();
+        for (Jeux j : jeuxes) {
+            Label titleLabel = new Label(j.getLibelle());
+            titleLabel.setFont(new Font(30));
+            System.out.println(titleLabel);
+            
+            VBox jBox = new VBox(titleLabel);
+            jBox.setAlignment(Pos.CENTER);
+            jBox.setSpacing(20);
+            jeuxContainer.getChildren().add(jBox);
+            
+            titleLabel.setOnMouseClicked(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Jeuxdetails.fxml"));
+                    Parent root = loader.load();
+                    JeuxdetailsController jeuxController = loader.getController();
+                    jeuxController.setJeux(j);
+                    sj.updateViews(j);
+                    Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+        ScrollPane scrollPane = new ScrollPane(jeuxContainer);
+        scrollPane.setFitToWidth(true);
+        
+        Vjeux.getChildren().clear();
+
+        Vjeux.getChildren().add(scrollPane);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 }

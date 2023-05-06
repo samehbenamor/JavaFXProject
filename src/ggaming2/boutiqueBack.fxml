@@ -57,62 +57,56 @@
                                     <Font name="Tahoma" size="17.0" />
                                  </font>
                               </Label>
-                              <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                               <Button fx:id="home_btn" layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
+                              <Line endX="69.0" layoutX="151.0" layoutY="179.0" startX="-100.0" stroke="WHITE" />
+                               <Button fx:id="home_btn" layoutX="50.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherBoutique" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
                                  <graphic>
                                   
                                  </graphic>
                               </Button>
-                              <Button fx:id="produits_btn" layoutX="16.0" layoutY="243.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
+                              <Button fx:id="produits_btn" layoutX="50.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficher_produit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Tournois_btn" layoutX="16.0" layoutY="279.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
+                               <Button fx:id="Tournois_btn" layoutX="50.0" layoutY="278.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Equipes_btn" layoutX="16.0" layoutY="315.0" mnemonicParsing="false" onAction="#afficherEquipesBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button fx:id="Equipes_btn" layoutX="50.0" layoutY="314.0" mnemonicParsing="false" onAction="#afficherEquipesBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Jeux_btn" layoutX="16.0" layoutY="351.0" mnemonicParsing="false" onAction="#afficherJeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="Jeux_btn" layoutX="50.0" layoutY="350.0" mnemonicParsing="false" onAction="#afficherJeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="Blogs_btn" layoutX="16.0" layoutY="387.0" mnemonicParsing="false" onAction="#afficherBlogsBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
+                               <Button fx:id="Blogs_btn" layoutX="50.0" layoutY="386.0" mnemonicParsing="false" onAction="#afficherBlogsBack" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="Statistiques_btn" layoutX="16.0" layoutY="423" mnemonicParsing="false" onAction="#StatistiqueProduit" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="Joueurs_btn" layoutX="50.0" layoutY="423" mnemonicParsing="false" onAction="#afficherJoueurs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Joueurs" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
                               </Button>
-                              <Button fx:id="logout" layoutX="9.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
-                                 <graphic>
-                                    
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="logout" />
-                                    <String fx:value="shadow" />
-                                 </styleClass>
-                              </Button>
-                              <TextField fx:id="sessionname" layoutX="31.0" layoutY="145.0" style="-fx-background-color: transparent;" />
-                              <Button fx:id="sessionlogout" layoutX="59.0" layoutY="543.0" mnemonicParsing="false" onAction="#logoutback" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Logout" textFill="RED">
+                              <Button fx:id="sessionlogout" layoutX="150.0" layoutY="650.0" mnemonicParsing="false" onAction="#logoutback" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="-1.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../edu/ggaming/img/w.png" />
                                  </image>
                               </ImageView>
+                              <TextField fx:id="sessionname" layoutX="42.0" layoutY="148.0" style="-fx-background-color: transparent;">
+                                 <font>
+                                    <Font name="Arial Bold" size="15.0" />
+                                 </font></TextField>
                            </children>
                         </AnchorPane>
                      </children>
@@ -368,6 +362,7 @@
             </BorderPane>
          </children>
       </AnchorPane>
+    
      
       
    </children>

@@ -7,10 +7,13 @@
 package edu.ggaming.Controller;
 
 import edu.ggaming.entities.CategorieProduit;
+import edu.ggaming.entities.Joueur;
 import edu.ggaming.entities.Produit;
 import edu.ggaming.entities.getData;
 import edu.ggaming.services.ServiceCategorieProduit;
 import edu.ggaming.services.ServiceProduit;
+import ggaming2.Global;
+import ggaming2.SessionManager;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,6 +50,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -87,7 +91,8 @@ public class BoutiqueBackController  implements Initializable{
     private AnchorPane page_categorie_produit;
     @FXML
     private TextField tfNom;
-    
+    @FXML
+    private Button sessionlogout;
     @FXML
     private TextField tfNom_categorie;
      @FXML
@@ -140,6 +145,9 @@ public class BoutiqueBackController  implements Initializable{
      
       @FXML
     private BarChart<String, Number> barChart;
+      
+      @FXML
+      private Label sessionname;
 
     @FXML
     private  CategoryAxis categoryAxis;
@@ -218,6 +226,10 @@ public class BoutiqueBackController  implements Initializable{
      @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+         String sessionId = Global.sessionId;
+         Joueur joueur = SessionManager.getSession(sessionId);
+         sessionname.setText(joueur.getNom() + " " + joueur.getPrenom());
           show_produit();
           show_categorie_produit();
           
@@ -1043,7 +1055,33 @@ public class BoutiqueBackController  implements Initializable{
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
-     
+     @FXML
+    void afficherJoueurs(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../../../ggaming2/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    @FXML
+      public void logoutback() throws IOException {
+        // remove the session ID
+        Global.sessionId = null;
+
+        // redirect the user to the register page
+        Parent root = FXMLLoader.load(getClass().getResource("../../../ggaming2/HomePage.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) sessionlogout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
           
 }
 

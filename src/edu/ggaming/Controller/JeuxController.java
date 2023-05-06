@@ -10,8 +10,11 @@ import java.sql.Connection;
 import edu.ggaming.utils.MyConnection;
 import edu.ggaming.entities.CategorieJeux;
 import edu.ggaming.entities.Jeux;
+import edu.ggaming.entities.Joueur;
 import edu.ggaming.services.ServiceCatJeux;
 import edu.ggaming.services.ServiceJeux;
+import ggaming2.Global;
+import ggaming2.SessionManager;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -102,7 +105,8 @@ public class JeuxController implements Initializable {
 
     @FXML
     private TextField tfLibelle;
-
+     @FXML
+    private Button sessionlogout;
     @FXML
     private TableColumn<Jeux, Float> tcnoteM;
 
@@ -163,7 +167,8 @@ public class JeuxController implements Initializable {
     private Button newjeux;
     @FXML
     private Label errormsg;
-   
+    @FXML
+    private Label sessionname;
     @FXML
     private Button imageimportBtn;
 
@@ -191,6 +196,10 @@ public class JeuxController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+         String sessionId = Global.sessionId;
+         Joueur joueur = SessionManager.getSession(sessionId);
+         sessionname.setText(joueur.getNom() + " " + joueur.getPrenom());
         servicesJeux = new ServiceJeux();
         servicesJeux.initConnection();
         loadDataJeux();
@@ -711,5 +720,33 @@ private void loadDataJeux() {
          }
     }
     
+     @FXML
+    void afficherJoueurs(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../../../ggaming2/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     @FXML
+    public void logoutback() throws IOException {
+        // remove the session ID
+        Global.sessionId = null;
+
+        // redirect the user to the register page
+        Parent root = FXMLLoader.load(getClass().getResource("../../../ggaming2/HomePage.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) sessionlogout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+     
 
 }

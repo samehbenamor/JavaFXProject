@@ -7,8 +7,11 @@ package edu.ggaming.Controller;
 import java.sql.Connection;
 import edu.ggaming.utils.MyConnection;
 import edu.ggaming.entities.CategorieJeux;
+import edu.ggaming.entities.Joueur;
 
 import edu.ggaming.services.ServiceCatJeux;
+import ggaming2.Global;
+import ggaming2.SessionManager;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
@@ -73,6 +76,8 @@ public class BackcatController implements Initializable {
 
     @FXML
     private Label errormsg;
+     @FXML
+    private Label sessionname;
 
     @FXML
     private TextField tfnomcat;
@@ -109,6 +114,11 @@ private ObservableList<CategorieJeux> catdata;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+          
+        String sessionId = Global.sessionId;
+         Joueur joueur = SessionManager.getSession(sessionId);
+         sessionname.setText(joueur.getNom() + " " + joueur.getPrenom());
         servicescat = new ServiceCatJeux();
         servicescat.initConnection();
         loadDatacat();
@@ -318,6 +328,21 @@ private void loadDatacat() {
         Parent root;
          try {
               root = FXMLLoader.load(getClass().getResource("../views/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     @FXML
+    void afficherJoueurs(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../../../ggaming2/boutiqueBack.fxml"));
               Scene scene = new Scene(root);
                 
                 Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();

@@ -31,6 +31,7 @@ import edu.ggaming.entities.Match;
 import edu.ggaming.entities.Tournoi;
 import edu.ggaming.services.MatchService;
 import edu.ggaming.services.TournoiService;
+import ggaming2.Global;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -74,6 +75,8 @@ public class MatchBController implements Initializable {
     private ComboBox <String> cmbTournoi;
     @FXML
     private TextField tfScoreDom; 
+     @FXML
+    private Button sessionlogout;
     @FXML
     private TextField tfScoreExt; 
     @FXML
@@ -438,5 +441,82 @@ try {
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
+    
+    public void afficherTournois(ActionEvent event)
+    {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("tournoiBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     
+  
+    
+     @FXML
+    void afficherBlogs(ActionEvent event) {
+        Parent root;
+         try {
+             root = FXMLLoader.load(getClass().getResource("../views/blogBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+     @FXML
+    void afficherEquipes(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../views/BackEquipe.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+     @FXML
+    void afficherJoueurs(ActionEvent event) {
+        Parent root;
+         try {
+              root = FXMLLoader.load(getClass().getResource("../../../ggaming2/boutiqueBack.fxml"));
+              Scene scene = new Scene(root);
+                
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.UTILITY);
+                stage.show();
+         } catch (IOException ex) {
+             Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    @FXML
+    public void logoutback() throws IOException {
+        // remove the session ID
+        Global.sessionId = null;
 
+        // redirect the user to the register page
+        Parent root = FXMLLoader.load(getClass().getResource("../../../ggaming2/HomePage.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) sessionlogout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+     
 }

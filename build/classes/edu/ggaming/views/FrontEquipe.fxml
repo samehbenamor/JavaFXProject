@@ -67,19 +67,9 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                      <children>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="880.0" spacing="10.0" style="-fx-background-color: #212530;" stylesheets="@style.css">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="885.0" spacing="10.0" style="-fx-background-color: #212530;" stylesheets="@style.css">
                            <children>
                               <Button mnemonicParsing="false" onAction="#AfBlog" style="-fx-background-color: #212530;" text="Blogs" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -90,6 +80,16 @@
                                  </font>
                               </Button>
                               <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#afficherTournoiFront" style="-fx-background-color: #212530;" text="Tournois" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

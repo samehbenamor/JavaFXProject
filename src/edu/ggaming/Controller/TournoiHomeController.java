@@ -35,11 +35,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import edu.ggaming.entities.Jeux;
+import edu.ggaming.entities.Joueur;
 import edu.ggaming.entities.Tournoi;
 import edu.ggaming.entities.Mailer;
 import edu.ggaming.entities.TypeTournoi;
 import edu.ggaming.services.TournoiService;
 import edu.ggaming.utils.MyConnection;
+import ggaming2.Global;
+import ggaming2.SessionManager;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -353,6 +356,8 @@ public class TournoiHomeController implements Initializable {
     @FXML
     public void SendMailSSL()
     {
+         String sessionId = Global.sessionId;
+         Joueur joueur = SessionManager.getSession(sessionId);
     String tournoi="";
         List<Tournoi> tournois = ts.getTournoiAujourdhui();
              for (Tournoi t: tournois)
@@ -360,7 +365,7 @@ public class TournoiHomeController implements Initializable {
 tournoi=tournoi+"Le Tournoi : " + t.getNomTournoi()+" de type "+ t.getTypeTournoi()+" pour le jeu "+t.getJeu().getLibelle()+" avec une cagnotte de "+t.getPrix()+"<br>";
     }
              //from,password,to,subject,message  
-Mailer.send("haythem.benkhaled@esprit.tn","yomwnyelvnrddkvy","haythembkhal@gmail.com","Profitez des meilleuirs tournois aujourd'hui","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+Mailer.send("haythem.benkhaled@esprit.tn","yomwnyelvnrddkvy",joueur.getEmail(),"Profitez des meilleuirs tournois aujourd'hui","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
 "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n" +
 "<head>\n" +
 "<!--[if gte mso 9]>\n" +

@@ -269,7 +269,6 @@ void Newest(MouseEvent event) {
              Logger.getLogger(BoutiqueBackController.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
-    
     @FXML
     void Top(MouseEvent event) {
 try {

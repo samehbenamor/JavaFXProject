@@ -48,62 +48,68 @@
                         <AnchorPane layoutY="-87.0" prefHeight="695.0" prefWidth="211.0" style="-fx-background-color: #212530;" styleClass="nav-form" stylesheets="@dashboardDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-87.0">
                            <children>
                              
-                              <Label layoutX="69.0" layoutY="117.0" text="Welcome," textFill="WHITE">
+                              <Label layoutX="95.0" layoutY="117.0" text="Welcome," textFill="WHITE">
                                  <font>
                                     <Font name="Tahoma" size="17.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Admin" textFill="WHITE">
+                              <Label fx:id="sessionname" alignment="CENTER" layoutX="35.0" layoutY="138.0" prefHeight="23.0" prefWidth="194.0" text="Admin" textFill="WHITE">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Line endX="69.0" layoutX="121.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
-                              <Button layoutX="16.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherJeuxFront" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
+                              <Line endX="69.0" layoutX="147.0" layoutY="178.0" startX="-100.0" stroke="WHITE" />
+                              <Button layoutX="42.0" layoutY="207.0" mnemonicParsing="false" onAction="#afficherJeuxFront" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Front">
                                  <graphic>
                                   
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficherProduits" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
+                              <Button layoutX="42.0" layoutY="242.0" mnemonicParsing="false" onAction="#afficherProduits" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Produits" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button layoutX="16.0" layoutY="278.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
+                               <Button layoutX="42.0" layoutY="278.0" mnemonicParsing="false" onAction="#afficherTournois" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Tournois" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button layoutX="16.0" layoutY="314.0" mnemonicParsing="false" onAction="#afficherEquipes" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
+                              <Button layoutX="42.0" layoutY="314.0" mnemonicParsing="false" onAction="#afficherEquipes" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Equipes" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="jeuxbtn" layoutX="16.0" layoutY="350.0" mnemonicParsing="false" onAction="#affjeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
+                               <Button fx:id="jeuxbtn" layoutX="42.0" layoutY="350.0" mnemonicParsing="false" onAction="#affjeux" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Jeux" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="blogsbtn" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#afficherBlogs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
+                               <Button fx:id="blogsbtn" layoutX="42.0" layoutY="386.0" mnemonicParsing="false" onAction="#afficherBlogs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Blogs" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Button fx:id="statbtn" layoutX="16.0" layoutY="422.0" mnemonicParsing="false" onAction="#affstat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
+                              <Button fx:id="Joueurs_btn" layoutX="42.0" layoutY="423.0" mnemonicParsing="false" onAction="#afficherJoueurs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Joueurs" textFill="#1e1c1c">
+                                 <graphic>
+                                   
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="statbtn" layoutX="42.0" layoutY="459.0" mnemonicParsing="false" onAction="#affstat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Statistiques" textFill="#c32626">
                                  <graphic>
                                 
                                  </graphic>
                               </Button>
-                              <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="6.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                              
+                              <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="32.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@325109159_497396472330837_8780942553837714490_n.png" />
                                  </image>
                               </ImageView>
+                              <Button fx:id="sessionlogout" layoutX="150.0" layoutY="650.0" mnemonicParsing="false" onAction="#logoutback" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>

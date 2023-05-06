@@ -79,7 +79,12 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -89,12 +94,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#afficherBoutique" style="-fx-background-color: #212530;" text="Produits" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button contentDisplay="RIGHT" mnemonicParsing="false" onAction="#AfEquipe" style="-fx-background-color: #212530;" stylesheets="@../Controller/dashboardDesign.css" text="Equipes" textFill="WHITE">
+                              <Button fx:id="mainpage" mnemonicParsing="false" onAction="#again" style="-fx-background-color: #212530;" text="Jeux" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

@@ -82,12 +82,12 @@
                                    
                                  </graphic>
                               </Button>
-                               <Button fx:id="catjeuxbtn" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#affcat" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Categorie Jeux" textFill="#1e1c1c">
+                               <Button fx:id="Joueurs" layoutX="16.0" layoutY="386.0" mnemonicParsing="false" onAction="#afficherJoueurs" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Joueurs" textFill="#1e1c1c">
                                  <graphic>
                                    
                                  </graphic>
                               </Button>
-                              <Label layoutX="143.0" layoutY="651.0" text="Logout" textFill="WHITE">
+                              <Label layoutX="16.0" layoutY="509.0" text="Logout" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
